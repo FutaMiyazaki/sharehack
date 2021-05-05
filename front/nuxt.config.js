@@ -44,7 +44,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth'],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -62,6 +62,30 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
+        }
+      }
+    }
+  },
+  axios: {
+    baseURL: 'http://localhost:3000'
+  },
+  auth: {
+    redirect: {
+      login: '/users/login',
+      logout: '/',
+      callback: false,
+      home: '/'
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/api/v1/auth/login',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: { url: '/api/v1/auth/logout', method: 'post' },
+          user: false
         }
       }
     }
