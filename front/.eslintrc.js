@@ -26,6 +26,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    'vue/comment-directive': 0
+    'no-console': 'off', // 追記
+    'vue/comment-directive': 0 // 追記
   }
 }
