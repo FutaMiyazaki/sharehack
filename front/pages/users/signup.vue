@@ -48,7 +48,7 @@
         </v-form>
         <v-divider class="my-3"></v-divider>
         <v-card-actions class="py-0 justify-center">
-          アカウントをお持ちでない方はこちらから
+          アカウントをお持ちの方はこちらから
         </v-card-actions>
         <v-card-actions class="pt-0 justify-center">
           <nuxt-link to="/users/login">ログイン</nuxt-link>

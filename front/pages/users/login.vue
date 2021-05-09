@@ -33,7 +33,17 @@
           </v-card-actions>
         </v-form>
         <v-divider class="my-3"></v-divider>
-        <v-card-actions class="py-0 justify-center">
+        <v-card-actions>
+          <v-btn
+            block
+            color="primary darken-1"
+            class="white--text"
+            @click="guestLogin"
+          >
+            ゲストユーザーでログイン
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions class="justify-center">
           アカウントをお持ちでない方はこちらから
         </v-card-actions>
         <v-card-actions class="pt-0 justify-center">
@@ -54,6 +64,10 @@ export default {
         email: '',
         password: ''
       },
+      guest: {
+        email: 'guest@sharehack.com',
+        password: 'pwkkf3ST9uWW5XFe'
+      },
       showPassword: false
     }
   },
@@ -63,6 +77,9 @@ export default {
     }),
     loginUser() {
       this.login(this.user)
+    },
+    guestLogin() {
+      this.login(this.guest)
     }
   }
 }

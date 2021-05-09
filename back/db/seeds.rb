@@ -1,5 +1,5 @@
 User.create!(
-  email: 'test@sharehack.com',
-  password: 'password',
-  name: 'テストユーザー'
+  name: 'ゲストユーザー'
+  email: 'guest@sharehack.com',
+  password: 'pwkkf3ST9uWW5XFe',
 )
