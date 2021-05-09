@@ -15,20 +15,6 @@
               </p>
             </v-col>
           </v-row>
-          <v-row class="my-5">
-            <v-col cols="12" lg="7" class="pa-2">
-              <a
-                href="/"
-                class="grey--text text--darken-3 mb-1"
-                @click="$auth.logout()"
-              >
-                ログアウト
-              </a>
-            </v-col>
-            <v-col cols="12" lg="5" class="pa-2 text-right">
-              <font-awesome-icon icon="angle-right" />
-            </v-col>
-          </v-row>
           <v-divider></v-divider>
           <v-row class="my-5">
             <v-col cols="12" lg="7" class="pa-2">
@@ -41,7 +27,7 @@
               </a>
             </v-col>
             <v-col cols="12" lg="5" class="pa-2 text-right">
-              <font-awesome-icon icon="angle-right" />
+              <v-icon>mdi-chevron-right</v-icon>
             </v-col>
           </v-row>
         </v-col>

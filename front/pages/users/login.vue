@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card width="400px" class="mx-auto mt-5">
-      <v-card-title>
+      <v-card-title class="justify-center">
         <h1 class="display-1">
           ログイン
         </h1>
@@ -9,67 +9,60 @@
       <v-card-text>
         <v-form ref="form" lazy-validation>
           <v-text-field
-            v-model="email"
+            v-model="user.email"
             prepend-icon="mdi-email"
             label="メールアドレス"
           />
           <v-text-field
-            v-model="password"
+            v-model="user.password"
+            :type="showPassword ? 'text' : 'password'"
             prepend-icon="mdi-lock"
-            append-icon="mdi-eye-off"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             label="パスワード"
+            @click:append="showPassword = !showPassword"
           />
           <v-card-actions>
             <v-btn
+              block
               color="light-green darken-1"
               class="white--text"
-              @click="loginWithAuthModule"
+              @click="loginUser"
             >
               ログイン
             </v-btn>
           </v-card-actions>
         </v-form>
+        <v-divider class="my-3"></v-divider>
+        <v-card-actions class="py-0 justify-center">
+          アカウントをお持ちでない方はこちらから
+        </v-card-actions>
+        <v-card-actions class="pt-0 justify-center">
+          <nuxt-link to="/users/signup">新規登録</nuxt-link>
+        </v-card-actions>
       </v-card-text>
     </v-card>
   </v-container>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  auth: false,
   data() {
     return {
-      password: '',
-      email: ''
+      user: {
+        email: '',
+        password: ''
+      },
+      showPassword: false
     }
   },
   methods: {
-    // loginメソッドの呼び出し
-    async loginWithAuthModule() {
-      await this.$auth
-        .loginWith('local', {
-          // emailとpasswordの情報を送信
-          data: {
-            email: this.email,
-            password: this.password
-          }
-        })
-        .then(
-          (response) => {
-            // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
-            localStorage.setItem(
-              'access-token',
-              response.headers['access-token']
-            )
-            localStorage.setItem('client', response.headers.client)
-            localStorage.setItem('uid', response.headers.uid)
-            localStorage.setItem('token-type', response.headers['token-type'])
-            return response
-          },
-          (error) => {
-            return error
-          }
-        )
+    ...mapActions({
+      login: 'authentication/login'
+    }),
+    loginUser() {
+      this.login(this.user)
     }
   }
 }

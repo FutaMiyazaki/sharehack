@@ -30,7 +30,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    { src: '~/plugins/axios.js', ssr: false },
+    { src: '~/plugins/localStorage.js', ssr: false }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -44,7 +47,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/axios', '@nuxtjs/auth'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth', 'nuxt-client-init-module'],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -80,11 +83,11 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: '/api/v1/auth/login',
+            url: '/api/v1/auth/sign_in',
             method: 'post',
             propertyName: 'token'
           },
-          logout: { url: '/api/v1/auth/logout', method: 'post' },
+          logout: { url: '/api/v1/auth/sign_out', method: 'delete' },
           user: false
         }
       }
