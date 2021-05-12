@@ -1,10 +1,8 @@
 <template>
   <v-container>
-    <v-card width="400px" class="mx-auto mt-5">
+    <v-card width="400px" class="mx-auto">
       <v-card-title class="justify-center">
-        <h1 class="display-1">
-          新規登録
-        </h1>
+        <h4>新規登録</h4>
       </v-card-title>
       <v-card-text>
         <v-form ref="form" lazy-validation>
@@ -38,6 +36,7 @@
           <v-card-actions>
             <v-btn
               block
+              rounded
               color="light-green darken-1"
               class="white--text"
               @click="signUpUser"
