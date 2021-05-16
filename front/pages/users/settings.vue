@@ -20,16 +20,16 @@
             その他
           </v-tab>
           <v-tab-item>
-            <edit-profile />
+            <EditProfile />
           </v-tab-item>
           <v-tab-item>
-            <edit-email />
+            <EditEmail />
           </v-tab-item>
           <v-tab-item>
-            <edit-password />
+            <EditPassword />
           </v-tab-item>
           <v-tab-item>
-            <edit-other />
+            <EditOther />
           </v-tab-item>
         </v-tabs>
       </v-card>
@@ -38,17 +38,17 @@
 </template>
 
 <script>
-import editProfile from '~/components/editUser/editProfile.vue'
-import editEmail from '~/components/editUser/editEmail.vue'
-import editPassword from '~/components/editUser/editPassword.vue'
-import editOther from '~/components/editUser/editOther.vue'
+import EditProfile from '~/components/editUser/EditProfile.vue'
+import EditEmail from '~/components/editUser/EditEmail.vue'
+import EditPassword from '~/components/editUser/EditPassword.vue'
+import EditOther from '~/components/editUser/EditOther.vue'
 
 export default {
   components: {
-    editProfile,
-    editEmail,
-    editPassword,
-    editOther
+    EditProfile,
+    EditEmail,
+    EditPassword,
+    EditOther
   },
   data() {
     return {

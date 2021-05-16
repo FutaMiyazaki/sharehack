@@ -1,9 +1,10 @@
 <template>
   <v-app>
-    <the-header />
+    <TheHeader />
     <v-main style="background-color: #fbfbfb">
+      <FlashMessage />
       <nuxt />
-      <the-footer />
+      <TheFooter />
     </v-main>
   </v-app>
 </template>
@@ -11,11 +12,13 @@
 <script>
 import TheHeader from '~/components/layout/TheHeader.vue'
 import TheFooter from '~/components/layout/TheFooter.vue'
+import FlashMessage from '~/components/layout/FlashMessage.vue'
 
 export default {
   components: {
     TheHeader,
-    TheFooter
+    TheFooter,
+    FlashMessage
   }
 }
 </script>
