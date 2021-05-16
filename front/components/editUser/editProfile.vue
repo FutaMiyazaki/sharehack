@@ -27,7 +27,7 @@
             class="white--text"
             @click="editProfile"
           >
-            変更する
+            プロフィールを変更する
           </v-btn>
           <v-btn
             v-else
@@ -69,8 +69,17 @@ export default {
           }
         })
         .then((response) => {
+          this.$store.commit('authentication/setCurrentUser', response.data)
+          this.$store.dispatch(
+            'flashMessage/showMessage',
+            {
+              text: 'プロフィールを変更しました。',
+              type: 'success',
+              status: true
+            },
+            { root: true }
+          )
           console.log(response)
-          this.$router.push('/')
           console.log('プロフィールの更新に成功')
         })
         .catch((error) => {

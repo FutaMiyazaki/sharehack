@@ -27,7 +27,7 @@
             class="white--text"
             @click="editEmail"
           >
-            変更する
+            メールアドレスを変更する
           </v-btn>
           <v-btn
             v-else
@@ -70,7 +70,16 @@ export default {
         })
         .then((response) => {
           console.log(response)
-          this.$router.push('/')
+          this.$store.commit('authentication/setCurrentUser', response.data)
+          this.$store.dispatch(
+            'flashMessage/showMessage',
+            {
+              text: 'メールアドレスを変更しました。',
+              type: 'success',
+              status: true
+            },
+            { root: true }
+          )
           console.log('メールアドレスの更新に成功')
         })
         .catch((error) => {

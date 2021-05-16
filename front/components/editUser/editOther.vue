@@ -34,8 +34,8 @@
                 rounded
                 outlined
                 class="text--white"
-                @click="dialog = false"
                 width="100px"
+                @click="dialog = false"
               >
                 キャンセル
               </v-btn>
@@ -43,8 +43,8 @@
                 rounded
                 color="red"
                 class="text--white"
-                @click="deleteUser"
                 width="100px"
+                @click="deleteUser"
               >
                 OK
               </v-btn>

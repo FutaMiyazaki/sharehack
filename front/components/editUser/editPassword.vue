@@ -30,7 +30,7 @@
             class="white--text"
             @click="editPassword"
           >
-            変更する
+            パスワードを変更する
           </v-btn>
           <v-btn
             v-else
@@ -73,8 +73,17 @@ export default {
           }
         })
         .then((response) => {
+          this.$store.commit('authentication/setCurrentUser', response.data)
+          this.$store.dispatch(
+            'flashMessage/showMessage',
+            {
+              text: 'パスワードを変更しました。',
+              type: 'success',
+              status: true
+            },
+            { root: true }
+          )
           console.log(response)
-          this.$router.push('/')
           console.log('パスワードの更新に成功')
         })
         .catch((error) => {
