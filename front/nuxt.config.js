@@ -32,7 +32,8 @@ export default {
    */
   plugins: [
     { src: '~/plugins/axios.js', ssr: false },
-    { src: '~/plugins/localStorage.js', ssr: false }
+    { src: '~/plugins/localStorage.js', ssr: false },
+    { src: '~/plugins/vee-validate', ssr: false }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -100,6 +101,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {},
+    transpile: ['vee-validate/dist/rules']
   }
 }
