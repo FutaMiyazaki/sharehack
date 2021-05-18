@@ -5,32 +5,53 @@
         <h4>ログイン</h4>
       </v-card-title>
       <v-card-text>
-        <v-form ref="form" lazy-validation>
-          <v-text-field
-            v-model="user.email"
-            prepend-icon="mdi-email"
-            label="メールアドレス"
-          />
-          <v-text-field
-            v-model="user.password"
-            :type="showPassword ? 'text' : 'password'"
-            prepend-icon="mdi-lock"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            label="パスワード"
-            @click:append="showPassword = !showPassword"
-          />
-          <v-card-actions>
-            <v-btn
-              block
-              rounded
-              color="light-green darken-1"
-              class="white--text"
-              @click="loginUser"
+        <validation-observer v-slot="{ invalid }">
+          <v-form ref="form" lazy-validation>
+            <validation-provider
+              v-slot="{ errors }"
+              rules="required|email|max:256"
+              mode="lazy"
             >
-              ログイン
-            </v-btn>
-          </v-card-actions>
-        </v-form>
+              <v-text-field
+                v-model="user.email"
+                prepend-icon="mdi-email"
+                label="メールアドレス"
+              />
+              <p v-show="errors.length" class="red--text ml-8">
+                {{ errors[0] }}
+              </p>
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              rules="required|max:50"
+              mode="lazy"
+            >
+              <v-text-field
+                v-model="user.password"
+                :type="showPassword ? 'text' : 'password'"
+                prepend-icon="mdi-lock"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                label="パスワード"
+                @click:append="showPassword = !showPassword"
+              />
+              <p v-show="errors.length" class="red--text ml-8">
+                {{ errors[0] }}
+              </p>
+            </validation-provider>
+            <v-card-actions>
+              <v-btn
+                block
+                rounded
+                color="light-green darken-1"
+                class="white--text"
+                :disabled="invalid"
+                @click="loginUser"
+              >
+                ログイン
+              </v-btn>
+            </v-card-actions>
+          </v-form>
+        </validation-observer>
         <v-divider class="my-3"></v-divider>
         <v-card-actions>
           <v-btn

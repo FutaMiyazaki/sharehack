@@ -4,43 +4,64 @@
       プロフィール
     </v-card-title>
     <v-card-text>
-      <v-form ref="form" lazy-validation>
-        <v-text-field
-          v-model="user.name"
-          prepend-icon="mdi-account-edit"
-          label="ユーザー名"
-        />
-        <v-text-field
-          v-model="user.password"
-          :type="showPassword ? 'text' : 'password'"
-          prepend-icon="mdi-lock"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          label="パスワード"
-          @click:append="showPassword = !showPassword"
-        />
-        <v-card-actions>
-          <v-btn
-            v-if="userEmail != guest"
-            block
-            rounded
-            color="light-green darken-1"
-            class="white--text"
-            @click="editProfile"
+      <validation-observer v-slot="{ invalid }">
+        <v-form ref="form" lazy-validation>
+          <validation-provider
+            v-slot="{ errors }"
+            rules="required|max:30"
+            mode="lazy"
           >
-            プロフィールを変更する
-          </v-btn>
-          <v-btn
-            v-else
-            block
-            rounded
-            disabled
-            color="light-green darken-1"
-            class="white--text"
+            <v-text-field
+              v-model="user.name"
+              prepend-icon="mdi-account-edit"
+              label="ユーザー名"
+            />
+            <p v-show="errors.length" class="red--text ml-8">
+              {{ errors[0] }}
+            </p>
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            rules="required|max:50"
+            mode="lazy"
           >
-            ゲストユーザーのため変更できません
-          </v-btn>
-        </v-card-actions>
-      </v-form>
+            <v-text-field
+              v-model="user.password"
+              :type="showPassword ? 'text' : 'password'"
+              prepend-icon="mdi-lock"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              label="パスワード"
+              @click:append="showPassword = !showPassword"
+            />
+            <p v-show="errors.length" class="red--text ml-8">
+              {{ errors[0] }}
+            </p>
+          </validation-provider>
+          <v-card-actions>
+            <v-btn
+              v-if="userEmail != guest"
+              block
+              rounded
+              color="light-green darken-1"
+              class="white--text"
+              :disabled="invalid"
+              @click="editProfile"
+            >
+              プロフィールを変更する
+            </v-btn>
+            <v-btn
+              v-else
+              block
+              rounded
+              disabled
+              color="light-green darken-1"
+              class="white--text"
+            >
+              ゲストユーザーのため変更できません
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </validation-observer>
     </v-card-text>
   </v-card>
 </template>
