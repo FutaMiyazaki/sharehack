@@ -16,10 +16,8 @@
                 v-model="user.name"
                 prepend-icon="mdi-account"
                 label="ユーザー名"
+                :error-messages="errors"
               />
-              <p v-show="errors.length" class="red--text ml-8">
-                {{ errors[0] }}
-              </p>
             </validation-provider>
             <validation-provider
               v-slot="{ errors }"
@@ -31,10 +29,8 @@
                 prepend-icon="mdi-email"
                 type="email"
                 label="メールアドレス"
+                :error-messages="errors"
               />
-              <p v-show="errors.length" class="red--text ml-8">
-                {{ errors[0] }}
-              </p>
             </validation-provider>
             <validation-provider
               v-slot="{ errors }"
@@ -47,11 +43,9 @@
                 prepend-icon="mdi-lock"
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 label="パスワード"
+                :error-messages="errors"
                 @click:append="showPassword = !showPassword"
               />
-              <p v-show="errors.length" class="red--text ml-8">
-                {{ errors[0] }}
-              </p>
             </validation-provider>
             <validation-provider
               v-slot="{ errors }"
@@ -64,11 +58,9 @@
                 prepend-icon="mdi-lock"
                 :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 label="パスワード確認"
+                :error-messages="errors"
                 @click:append="showConfirmPassword = !showConfirmPassword"
               />
-              <p v-show="errors.length" class="red--text ml-8">
-                {{ errors[0] }}
-              </p>
             </validation-provider>
             <v-card-actions>
               <v-btn

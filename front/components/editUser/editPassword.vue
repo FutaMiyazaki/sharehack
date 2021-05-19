@@ -17,11 +17,9 @@
               prepend-icon="mdi-lock"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               label="新しいパスワード"
+              :error-messages="errors"
               @click:append="showPassword = !showPassword"
             />
-            <p v-show="errors.length" class="red--text ml-8">
-              {{ errors[0] }}
-            </p>
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
@@ -34,11 +32,9 @@
               prepend-icon="mdi-lock"
               :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
               label="新しいパスワード(確認用)"
+              :error-messages="errors"
               @click:append="showConfirmPassword = !showConfirmPassword"
             />
-            <p v-show="errors.length" class="red--text ml-8">
-              {{ errors[0] }}
-            </p>
           </validation-provider>
           <v-card-actions>
             <v-btn
