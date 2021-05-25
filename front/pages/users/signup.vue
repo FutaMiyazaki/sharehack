@@ -66,8 +66,8 @@
               <v-btn
                 block
                 rounded
-                color="light-green darken-1"
-                class="white--text"
+                color="primary"
+                class="white--text font-weight-bold"
                 :disabled="invalid"
                 @click="signUpUser"
               >
