@@ -15,10 +15,8 @@
               v-model="user.name"
               prepend-icon="mdi-account-edit"
               label="ユーザー名"
+              :error-messages="errors"
             />
-            <p v-show="errors.length" class="red--text ml-8">
-              {{ errors[0] }}
-            </p>
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
@@ -31,19 +29,17 @@
               prepend-icon="mdi-lock"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               label="パスワード"
+              :error-messages="errors"
               @click:append="showPassword = !showPassword"
             />
-            <p v-show="errors.length" class="red--text ml-8">
-              {{ errors[0] }}
-            </p>
           </validation-provider>
           <v-card-actions>
             <v-btn
               v-if="userEmail != guest"
-              block
               rounded
+              width="30vw"
               color="light-green darken-1"
-              class="white--text"
+              class="white--text d-block mx-auto"
               :disabled="invalid"
               @click="editProfile"
             >
@@ -51,11 +47,10 @@
             </v-btn>
             <v-btn
               v-else
-              block
               rounded
+              width="30vw"
               disabled
-              color="light-green darken-1"
-              class="white--text"
+              class="white--text d-block mx-auto"
             >
               ゲストユーザーのため変更できません
             </v-btn>

@@ -60,12 +60,12 @@ export default {
       themes: {
         light: {
           primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          accent: colors.blue.lighten2,
+          secondary: colors.grey.lighten3,
           info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          warning: colors.red.darken1,
+          error: colors.red.darken1,
+          success: colors.green.darken1
         }
       }
     }
@@ -103,5 +103,8 @@ export default {
      */
     extend(config, ctx) {},
     transpile: ['vee-validate/dist/rules']
+  },
+  router: {
+    middleware: 'authenticated'
   }
 }

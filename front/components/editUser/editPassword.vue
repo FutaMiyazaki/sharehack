@@ -17,11 +17,9 @@
               prepend-icon="mdi-lock"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               label="新しいパスワード"
+              :error-messages="errors"
               @click:append="showPassword = !showPassword"
             />
-            <p v-show="errors.length" class="red--text ml-8">
-              {{ errors[0] }}
-            </p>
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
@@ -34,32 +32,23 @@
               prepend-icon="mdi-lock"
               :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
               label="新しいパスワード(確認用)"
+              :error-messages="errors"
               @click:append="showConfirmPassword = !showConfirmPassword"
             />
-            <p v-show="errors.length" class="red--text ml-8">
-              {{ errors[0] }}
-            </p>
           </validation-provider>
           <v-card-actions>
             <v-btn
               v-if="userEmail != guest"
-              block
               rounded
-              color="light-green darken-1"
-              class="white--text"
+              width="30vw"
+              color="primary"
+              class="white--text d-block mx-auto"
               :disabled="invalid"
               @click="editPassword"
             >
               パスワードを変更する
             </v-btn>
-            <v-btn
-              v-else
-              block
-              rounded
-              disabled
-              color="light-green darken-1"
-              class="white--text"
-            >
+            <v-btn v-else rounded width="30vw" disabled class="d-block mx-auto">
               ゲストユーザーのため変更できません
             </v-btn>
           </v-card-actions>
@@ -104,12 +93,8 @@ export default {
             },
             { root: true }
           )
-          console.log(response)
-          console.log('パスワードの更新に成功')
         })
         .catch((error) => {
-          console.log('パスワードの更新に失敗')
-          console.log(error)
           return error
         })
     }

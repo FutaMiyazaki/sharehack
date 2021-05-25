@@ -1,5 +1,5 @@
 <template>
-  <v-card flat>
+  <v-card>
     <v-card-title class="justify-center font-weight-bold">
       その他の設定
     </v-card-title>
@@ -21,11 +21,12 @@
             </v-btn>
           </template>
 
-          <v-card class="pa-5">
-            <v-card-title class="justify-center">
+          <v-card>
+            <v-card-title class="justify-center font-weight-bold ">
               本当にアカウントを削除しますか？
             </v-card-title>
-            <v-card-text class="justify-center">
+            <v-divider class="mb-5" />
+            <v-card-text class="justify-center text-center">
               アカウントを削除するとこれまでの投稿や登録情報が削除され、元に戻すことはできません。よろしいでしょうか？
             </v-card-text>
             <v-card-actions class="justify-center">
@@ -33,7 +34,7 @@
                 color="red"
                 rounded
                 outlined
-                class="text--white"
+                class="white--text"
                 width="100px"
                 @click="dialog = false"
               >
@@ -42,7 +43,7 @@
               <v-btn
                 rounded
                 color="red"
-                class="text--white"
+                class="white--text"
                 width="100px"
                 @click="deleteUser"
               >

@@ -2,7 +2,9 @@
   <header>
     <v-app-bar app>
       <v-toolbar-title class="mr-2">
-        <nuxt-link to="/" class="black--text">Sharehack</nuxt-link>
+        <nuxt-link to="/" class="black--text font-weight-bold"
+          >Sharehack</nuxt-link
+        >
       </v-toolbar-title>
       <!-- <v-tabs class="hidden-md-and-down">
         <v-tab>
@@ -10,7 +12,14 @@
         </v-tab>
       </v-tabs> -->
       <v-spacer />
-      <header-menu />
+      <template v-if="isLoggedIn">
+        <v-btn rounded class="mr-3 hidden-sm-and-down">
+          <nuxt-link to="/item/create" class="black--text">
+            アイテムを投稿
+          </nuxt-link>
+        </v-btn>
+        <HeaderMenu />
+      </template>
       <template v-if="!isLoggedIn">
         <v-btn rounded class="mr-3 hidden-sm-and-down">
           <nuxt-link to="/users/login" class="black--text">ログイン</nuxt-link>
@@ -50,15 +59,14 @@
             </v-list-item>
           </template>
           <v-list-item>
-            <v-list-item-title
-              ><v-icon>mdi-jabber</v-icon>ライフハックを探す</v-list-item-title
-            >
+            <v-list-item-title>
+              <v-icon>mdi-jabber</v-icon>ライフハックを探す
+            </v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <v-list-item-title
-              ><v-icon>mdi-tools</v-icon
-              >ライフハックアイテムを探す</v-list-item-title
-            >
+            <v-list-item-title>
+              <v-icon>mdi-tools</v-icon>ライフハックアイテムを探す
+            </v-list-item-title>
           </v-list-item>
           <template v-if="isLoggedIn">
             <v-list-item>

@@ -1,5 +1,5 @@
 <template>
-  <v-menu v-if="isLoggedIn" offset-y>
+  <v-menu offset-y>
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         rounded
