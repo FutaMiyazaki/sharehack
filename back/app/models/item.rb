@@ -3,7 +3,7 @@ class Item < ApplicationRecord
   belongs_to :user
 
   default_scope -> { order(created_at: :desc) }
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 30 }
   validates :description, presence: true, length: { maximum: 255 }
   validates :link, format: { with: START_HTTPS_LINK, allow_blank: true }
   validates :price, presence: true
