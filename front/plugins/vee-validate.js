@@ -6,7 +6,7 @@ import {
   localize
 } from 'vee-validate'
 import ja from 'vee-validate/dist/locale/ja.json'
-import { required, max, email } from 'vee-validate/dist/rules'
+import { required, max, email, integer, regex } from 'vee-validate/dist/rules'
 
 extend('required', {
   ...required,
@@ -21,6 +21,16 @@ extend('max', {
 extend('email', {
   ...email,
   message: 'メールアドレスの形式に誤りがあります'
+})
+
+extend('integer', {
+  ...integer,
+  message: '半角数字で入力してください'
+})
+
+extend('regex', {
+  ...regex,
+  message: 'httpsから始まるURLを入力してください'
 })
 
 localize('ja', ja)

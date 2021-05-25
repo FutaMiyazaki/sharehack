@@ -36,23 +36,16 @@
           <v-card-actions>
             <v-btn
               v-if="userEmail != guest"
-              block
+              width="30vw"
               rounded
-              color="light-green darken-1"
-              class="white--text"
+              color="primary"
+              class="white--text d-block mx-auto"
               :disabled="invalid"
               @click="editEmail"
             >
               メールアドレスを変更する
             </v-btn>
-            <v-btn
-              v-else
-              block
-              rounded
-              disabled
-              color="light-green darken-1"
-              class="white--text"
-            >
+            <v-btn v-else width="30vw" rounded disabled class="d-block mx-auto">
               ゲストユーザーのため変更できません
             </v-btn>
           </v-card-actions>
@@ -86,7 +79,6 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response)
           this.$store.commit('authentication/setCurrentUser', response.data)
           this.$store.dispatch(
             'flashMessage/showMessage',
@@ -97,11 +89,8 @@ export default {
             },
             { root: true }
           )
-          console.log('メールアドレスの更新に成功')
         })
         .catch((error) => {
-          console.log('メールアドレスの更新に失敗')
-          console.log(error)
           return error
         })
     }

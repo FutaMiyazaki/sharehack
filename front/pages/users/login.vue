@@ -38,8 +38,8 @@
               <v-btn
                 block
                 rounded
-                color="light-green darken-1"
-                class="white--text"
+                color="primary"
+                class="white--text font-weight-bold"
                 :disabled="invalid"
                 @click="loginUser"
               >
@@ -53,8 +53,8 @@
           <v-btn
             block
             rounded
-            color="primary darken-1"
-            class="white--text"
+            color="accent"
+            class="white--text font-weight-bold"
             @click="guestLogin"
           >
             ゲストユーザーでログイン

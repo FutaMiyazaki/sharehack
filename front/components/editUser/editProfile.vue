@@ -36,10 +36,10 @@
           <v-card-actions>
             <v-btn
               v-if="userEmail != guest"
-              block
               rounded
+              width="30vw"
               color="light-green darken-1"
-              class="white--text"
+              class="white--text d-block mx-auto"
               :disabled="invalid"
               @click="editProfile"
             >
@@ -47,11 +47,10 @@
             </v-btn>
             <v-btn
               v-else
-              block
               rounded
+              width="30vw"
               disabled
-              color="light-green darken-1"
-              class="white--text"
+              class="white--text d-block mx-auto"
             >
               ゲストユーザーのため変更できません
             </v-btn>

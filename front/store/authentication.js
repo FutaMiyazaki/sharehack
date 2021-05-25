@@ -32,21 +32,18 @@ export const actions = {
         password_confirmation: authData.password_confirmation
       })
       .then((response) => {
-        console.log(response)
         commit('setCurrentUser', response.data)
         commit('setIsLoggedIn', true)
         this.$router.push('/')
-        commit('flashMessage/setText', '新規登録しました。', { root: true })
+        commit('flashMessage/setText', '新規登録が完了しました', { root: true })
         commit('flashMessage/setType', 'success', { root: true })
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 2000)
-        console.log('新規登録成功')
+        }, 3000)
         return response
       })
       .catch((error) => {
-        console.log(error)
         return error
       })
   },
@@ -57,23 +54,21 @@ export const actions = {
         password: authData.password
       })
       .then((response) => {
-        console.log(response)
         commit('setCurrentUser', response.data)
         commit('setIsLoggedIn', true)
         this.$router.push('/')
-        commit('flashMessage/setText', 'ログインしました。', { root: true })
+        commit('flashMessage/setText', 'ログインしました', { root: true })
         commit('flashMessage/setType', 'success', { root: true })
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 2000)
-        console.log('ログイン成功')
+        }, 3000)
         return response
       })
       .catch((error) => {
         commit(
           'flashMessage/setText',
-          'ログインできませんでした。入力内容に誤りがあります',
+          'ログインできませんでした。入力内容に誤りがあります。',
           {
             root: true
           }
@@ -82,9 +77,7 @@ export const actions = {
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 2000)
-        console.log('ログイン失敗')
-        console.log(error)
+        }, 3000)
         return error
       })
   },
@@ -95,19 +88,17 @@ export const actions = {
         commit('setCurrentUser', null)
         commit('setIsLoggedIn', false)
         this.$router.push('/')
-        commit('flashMessage/setText', 'ログアウトしました。', {
+        commit('flashMessage/setText', 'ログアウトしました', {
           root: true
         })
         commit('flashMessage/setType', 'success', { root: true })
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 2000)
+        }, 3000)
         return response
       })
       .catch((error) => {
-        console.log('ログアウト失敗')
-        console.log(error)
         return error
       })
   }
