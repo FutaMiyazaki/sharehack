@@ -53,10 +53,10 @@
           />
         </validation-provider>
         <v-btn
-          block
           rounded
+          width="40vw"
           color="primary"
-          class="white--text font-weight-bold"
+          class="white--text font-weight-bold d-block mx-auto"
           :disabled="invalid"
           @click="updateItem"
         >

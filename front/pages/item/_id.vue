@@ -1,5 +1,6 @@
 <template>
-  <v-container>
+  <v-container class="pt-0">
+    <PageHeader :text="text" />
     <v-row>
       <v-col cols="12" sm="8">
         <h1>商品画像</h1>
@@ -61,9 +62,15 @@
 </template>
 
 <script>
+import PageHeader from '~/components/layout/PageHeader.vue'
+
 export default {
+  components: {
+    PageHeader
+  },
   data() {
     return {
+      text: '',
       item: {
         user: {}
       },
@@ -78,6 +85,7 @@ export default {
       .get(`api/v1/items/${this.$route.params.id}`)
       .then((response) => {
         this.item = response.data
+        this.text = this.item.name
         console.log(response)
         console.log(this.item)
         console.log('アイテム情報の取得に成功')

@@ -70,6 +70,13 @@
           </v-list-item>
           <template v-if="isLoggedIn">
             <v-list-item>
+              <nuxt-link to="/item/create" class="black--text">
+                <v-list-item-title
+                  ><v-icon>mdi-pencil</v-icon>投稿</v-list-item-title
+                >
+              </nuxt-link>
+            </v-list-item>
+            <v-list-item>
               <nuxt-link to="/users/settings" class="black--text">
                 <v-list-item-title
                   ><v-icon>mdi-cog</v-icon>設定</v-list-item-title
