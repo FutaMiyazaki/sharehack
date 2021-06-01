@@ -39,10 +39,10 @@
 
 <script>
 import PageHeader from '~/components/layout/PageHeader.vue'
-import EditProfile from '~/components/EditUser/EditProfile.vue'
-import EditEmail from '~/components/EditUser/EditEmail.vue'
-import EditPassword from '~/components/EditUser/EditPassword.vue'
-import EditOther from '~/components/EditUser/EditOther.vue'
+import EditProfile from '~/components/editUser/EditProfile.vue'
+import EditEmail from '~/components/editUser/EditEmail.vue'
+import EditPassword from '~/components/editUser/EditPassword.vue'
+import EditOther from '~/components/editUser/EditOther.vue'
 
 export default {
   components: {

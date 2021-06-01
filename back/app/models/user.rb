@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :items, dependent: :destroy
+  has_many :item_likes, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 30 }
 end

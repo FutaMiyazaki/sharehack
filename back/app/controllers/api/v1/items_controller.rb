@@ -1,12 +1,12 @@
 class Api::V1::ItemsController < ApplicationController
   def index
-    items = Item.includes(:user)
-    render json: items.as_json(include: :user)
+    items = Item.includes(:user, :item_likes)
+    render json: items.as_json(include: [:user, :item_likes])
   end
 
   def show
     item = Item.find(params[:id])
-    render json: item.as_json(include: :user)
+    render json: item.as_json(include: [:user, :item_likes])
   end
 
   def create

@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   START_HTTPS_LINK = /\Ahttps:\/\/[^\n]+\Z/
   belongs_to :user
+  has_many :item_likes, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
   validates :name, presence: true, length: { maximum: 30 }

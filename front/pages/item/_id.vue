@@ -1,5 +1,6 @@
 <template>
-  <v-container>
+  <v-container class="pt-0">
+    <PageHeader :text="text" />
     <v-row>
       <v-col cols="12" sm="8">
         <h1>商品画像</h1>
@@ -34,9 +35,13 @@
         </v-row>
         <v-row>
           <v-col cols="6">
-            <v-btn rounded block>
-              <v-icon class="mr-3">mdi-heart-outline</v-icon>
-              <p class="my-auto">いいね</p>
+            <v-btn v-show="!isLiked" rounded block @click="likeItem">
+              <v-icon class="mr-3" color="primary">mdi-heart-outline</v-icon>
+              <p class="my-auto">いいね{{ likeCount }}</p>
+            </v-btn>
+            <v-btn v-show="isLiked" rounded block @click="dislikeItem">
+              <v-icon class="mr-3" color="primary">mdi-heart</v-icon>
+              <p class="my-auto">いいね{{ likeCount }}</p>
             </v-btn>
           </v-col>
           <v-col cols="6">
@@ -56,18 +61,48 @@
         >
         <p>※新しいタブで開きます</p>
       </div>
+      <div>currentUserId : {{ currentUserId }}</div>
+      <div>likeList : {{ likeList }}</div>
+      <div>likeCount : {{ likeCount }}</div>
+      <div>isLiked : {{ isLiked }}</div>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import PageHeader from '~/components/layout/PageHeader.vue'
+
 export default {
+  components: {
+    PageHeader
+  },
   data() {
     return {
+      text: '',
       item: {
         user: {}
       },
-      userEmail: ''
+      currentUserId: '',
+      userEmail: '',
+      likeList: []
+    }
+  },
+  computed: {
+    likeCount() {
+      return this.likeList.length
+    },
+    isLiked() {
+      if (this.likeList.length === 0) {
+        return false
+      } else {
+        // const liked = this.likeList.some(function(like) {
+        //   return like.user_id === this.currentUserId
+        // })
+        const liked = this.likeList.some(
+          (like) => like.user_id === this.currentUserId
+        )
+        return liked
+      }
     }
   },
   created() {
@@ -77,15 +112,55 @@ export default {
     this.$axios
       .get(`api/v1/items/${this.$route.params.id}`)
       .then((response) => {
-        this.item = response.data
-        console.log(response)
-        console.log(this.item)
         console.log('アイテム情報の取得に成功')
+        this.item = response.data
+        this.likeList = response.data.item_likes
+        this.text = this.item.name
+        this.currentUserId = this.$store.getters[
+          'authentication/currentUser'
+        ].id
+        console.log(response)
       })
       .catch((error) => {
         console.log('アイテム情報の取得に失敗')
         console.log(error)
       })
+  },
+  methods: {
+    async likeItem() {
+      await this.$axios
+        .$post('/api/v1/item_likes', {
+          user_id: this.currentUserId,
+          item_id: this.item.id
+        })
+        .then((response) => {
+          console.log('いいね成功しました！')
+          this.likeList = response
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log('いいね失敗しました！')
+          return error
+        })
+    },
+    async dislikeItem() {
+      await this.$axios
+        .delete('/api/v1/item_likes', {
+          params: {
+            user_id: this.currentUserId,
+            item_id: this.item.id
+          }
+        })
+        .then((response) => {
+          console.log('いいねの取り消しに成功しました！')
+          this.likeList = response.data
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log('いいねの取り消しに失敗しました！')
+          return error
+        })
+    }
   }
 }
 </script>

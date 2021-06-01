@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar v-model="status" absolute rounded="pill" top :color="type">
+  <v-snackbar v-model="status" absolute top :color="type" width="100vw">
     <div class="font-weight-bold white--text text-center">
       {{ text }}
     </div>
