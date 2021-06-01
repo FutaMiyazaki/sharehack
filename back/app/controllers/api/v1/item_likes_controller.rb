@@ -1,15 +1,18 @@
 class Api::V1::ItemLikesController < ApplicationController
   def create
-    item_like = ItemLike.new(item_like_params.except(:uid))
-    if item_like.save
-      render status: :created, json: true
+    like = ItemLike.new(item_like_params.except(:uid))
+    item_likes = ItemLike.filter_by_item(params[:item_id]).select(:id, :user_id, :item_id)
+    if like.save
+      render json: item_likes.as_json
     end
   end
 
   def destroy
-    item_like = ItemLike.find_by(user_id: params[:user_id], item_id: params[:item_id])
-    item_like.destroy
-    render status: 200, json: false
+    like = ItemLike.find_by(user_id: params[:user_id], item_id: params[:item_id])
+    if like.destroy
+      item_likes = ItemLike.filter_by_item(params[:item_id]).select(:id, :user_id, :item_id)
+      render json: item_likes.as_json
+    end
   end
 
   private

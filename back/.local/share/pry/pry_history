@@ -1,0 +1,9 @@
+params
+params[:user_id]
+params[:item_id]
+params
+params[:item_like]
+params[:item_likes]
+exit
+params
+exit

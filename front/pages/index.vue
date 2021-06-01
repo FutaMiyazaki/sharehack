@@ -8,9 +8,8 @@
           <v-divider class="mx-4"></v-divider>
           <v-card-actions>
             <p class="my-auto">{{ item.user.name }}</p>
-            <v-btn icon>
-              <v-icon>mdi-heart-outline</v-icon>
-            </v-btn>
+            <v-icon color="primary">mdi-heart-outline</v-icon>
+            {{ item.item_likes.length }}
           </v-card-actions>
         </v-card>
       </v-col>
