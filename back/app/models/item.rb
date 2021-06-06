@@ -1,6 +1,9 @@
 class Item < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   START_HTTPS_LINK = /\Ahttps:\/\/[^\n]+\Z/
   belongs_to :user
+  has_one_attached :image
   has_many :item_likes, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
@@ -8,4 +11,8 @@ class Item < ApplicationRecord
   validates :description, presence: true, length: { maximum: 255 }
   validates :link, format: { with: START_HTTPS_LINK, allow_blank: true }
   validates :price, presence: true
+
+  def image_url
+    image.attached? ? url_for(image) : nil
+  end
 end

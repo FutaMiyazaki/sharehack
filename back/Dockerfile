@@ -28,6 +28,8 @@ RUN apk update && \
   /usr/lib/mysqld* \
   /usr/bin/mysql*
 
+RUN apk add vim
+
 # ホスト（自分のパソコンにあるファイル）から必要ファイルをDocker上にコピー
 ADD . ${HOME}
 
