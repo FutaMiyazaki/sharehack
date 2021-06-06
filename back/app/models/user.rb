@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  has_one_attached :avatar
   has_many :items, dependent: :destroy
   has_many :item_likes, dependent: :destroy
 

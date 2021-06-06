@@ -1,18 +1,18 @@
 class Api::V1::ItemsController < ApplicationController
   def index
     items = Item.includes(:user, :item_likes)
-    render json: items.as_json(include: [:user, :item_likes])
+    render json: items.as_json(include: [:user, :item_likes], methods: :image_url)
   end
 
   def show
     item = Item.find(params[:id])
-    render json: item.as_json(include: [:user, :item_likes])
+    render json: item.as_json(include: [:user, :item_likes], methods: :image_url)
   end
 
   def create
     item = Item.new(item_params.except(:uid))
     if item.save
-      render json: item.as_json(include: :user)
+      render json: item.as_json(only: :id)
     else
       render json: { data: item.errors }
     end
@@ -34,6 +34,6 @@ class Api::V1::ItemsController < ApplicationController
 
   private
     def item_params
-      params.require(:item).permit(:name, :description, :link, :price, :user_id)
+      params.require(:item).permit(:name, :description, :link, :price, :user_id, :uid, :image)
     end
 end

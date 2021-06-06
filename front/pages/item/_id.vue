@@ -3,7 +3,7 @@
     <PageHeader :text="text" />
     <v-row>
       <v-col cols="12" sm="8">
-        <h1>商品画像</h1>
+        <v-img max-height="auto" max-width="100%" :src="item.image_url"></v-img>
         <v-row>
           <v-col cols="6" align="left">
             <p class="my-auto">{{ item.created_at }}</p>
