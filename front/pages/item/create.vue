@@ -2,7 +2,7 @@
   <v-container class="pt-0">
     <PageHeader :text="text" />
     <validation-observer v-slot="{ invalid }">
-      <v-form ref="form" lazy-validation>
+      <v-form ref="form" lazy-validation class="mt-5">
         <validation-provider
           v-slot="{ errors }"
           rules="required|max:30"
@@ -10,17 +10,32 @@
         >
           <v-text-field
             v-model="name"
+            counter
+            auto-grow
+            outlined
+            rows="1"
+            background-color="secondary"
             prepend-icon="mdi-pencil"
             label="アイテム名"
             :error-messages="errors"
           />
         </validation-provider>
-        <v-file-input
-          truncate-length="25"
-          prepend-icon="mdi-file-image"
-          label="画像をアップロードする"
-          @change="setImage"
-        />
+        <validation-provider v-slot="{ validate }" rules="required">
+          <v-file-input
+            counter
+            outlined
+            rows="1"
+            background-color="secondary"
+            :value="image"
+            accept="image/*"
+            truncate-length="25"
+            prepend-icon="mdi-camera"
+            label="画像をアップロードする"
+            show-size
+            @input="validate($event)"
+            @change="setImage"
+          />
+        </validation-provider>
         <validation-provider
           v-slot="{ errors }"
           rules="required|max:300"
@@ -28,8 +43,12 @@
         >
           <v-textarea
             v-model="description"
+            counter
+            auto-grow
+            outlined
+            rows="1"
+            background-color="secondary"
             prepend-icon="mdi-text-box"
-            type="email"
             label="説明"
             :error-messages="errors"
           />
@@ -41,6 +60,11 @@
         >
           <v-text-field
             v-model="link"
+            counter
+            auto-grow
+            outlined
+            rows="1"
+            background-color="secondary"
             prepend-icon="mdi-link"
             label="商品URL"
             :error-messages="errors"
@@ -53,6 +77,11 @@
         >
           <v-text-field
             v-model.number="price"
+            counter
+            auto-grow
+            outlined
+            rows="1"
+            background-color="secondary"
             prepend-icon="mdi-currency-usd"
             label="参考価格"
             :error-messages="errors"
@@ -93,7 +122,6 @@ export default {
   methods: {
     setImage(e) {
       this.image = e
-      console.log(this.image)
     },
     async createItem() {
       const data = new FormData()
@@ -111,7 +139,6 @@ export default {
         'item[user_id]',
         this.$store.getters['authentication/currentUser'].id
       )
-      data.append('item[uid]', localStorage.getItem('uid'))
       await this.$axios
         .post('api/v1/items', data, config)
         .then((response) => {

@@ -2,20 +2,12 @@
   <v-app>
     <v-container class="pt-0">
       <PageHeader :text="text" />
-      <v-card class="mx-auto">
-        <v-tabs v-model="tab" show-arrows grow>
-          <v-tab>
-            <v-icon>mdi-account-edit</v-icon>
-          </v-tab>
-          <v-tab>
-            <v-icon>mdi-email-edit</v-icon>
-          </v-tab>
-          <v-tab>
-            <v-icon>mdi-lock</v-icon>
-          </v-tab>
-          <v-tab>
-            <v-icon>mdi-alert</v-icon>
-          </v-tab>
+      <v-card flat class="mx-auto">
+        <v-tabs v-model="tab" show-arrows left>
+          <v-tab> <v-icon>mdi-account-edit</v-icon>プロフィール </v-tab>
+          <v-tab> <v-icon>mdi-email-edit</v-icon>メールアドレス </v-tab>
+          <v-tab> <v-icon>mdi-lock</v-icon>パスワード </v-tab>
+          <v-tab> <v-icon>mdi-alert</v-icon>その他の設定 </v-tab>
         </v-tabs>
 
         <v-tabs-items v-model="tab">

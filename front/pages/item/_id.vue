@@ -2,13 +2,13 @@
   <v-container class="pt-0">
     <PageHeader :text="text" />
     <v-row>
-      <v-col cols="12" sm="8">
+      <v-col cols="12" sm="7">
         <v-img max-height="auto" max-width="100%" :src="item.image_url"></v-img>
         <v-row>
           <v-col cols="6" align="left">
             <p class="my-auto">{{ item.created_at }}</p>
           </v-col>
-          <template>
+          <template v-if="currentUserId == item.user.id">
             <v-col cols="6" align="right">
               <nuxt-link
                 :to="{ name: 'item-edit-id', params: { id: item.id } }"
@@ -19,10 +19,10 @@
           </template>
         </v-row>
       </v-col>
-      <v-col cols="12" sm="4">
+      <v-col cols="12" sm="5">
         <v-row>
           <v-col cols="6" align="left">
-            <v-btn text color="primary">
+            <v-btn text color="primary" :to="'/users/' + item.user.id">
               <v-icon>mdi-account-circle</v-icon>
               <p class="my-auto">{{ item.user.name }}</p>
             </v-btn>
@@ -51,21 +51,18 @@
             </v-btn>
           </v-col>
         </v-row>
+        <div class="my-5 pa-3 rounded-xl secondary">
+          <p style="white-space:pre-wrap;" v-text="item.description"></p>
+        </div>
+        <div>
+          <a :href="item.link" target="_blank" rel="noopener noreferrer"
+            >商品URL</a
+          >
+          <p>※新しいタブで開きます</p>
+        </div>
       </v-col>
     </v-row>
-    <v-row>
-      <div>
-        <p>{{ item.description }}</p>
-        <a :href="item.link" target="_blank" rel="noopener noreferrer"
-          >商品URL</a
-        >
-        <p>※新しいタブで開きます</p>
-      </div>
-      <div>currentUserId : {{ currentUserId }}</div>
-      <div>likeList : {{ likeList }}</div>
-      <div>likeCount : {{ likeCount }}</div>
-      <div>isLiked : {{ isLiked }}</div>
-    </v-row>
+    <v-row></v-row>
   </v-container>
 </template>
 
@@ -112,13 +109,13 @@ export default {
     this.$axios
       .get(`api/v1/items/${this.$route.params.id}`)
       .then((response) => {
-        console.log('アイテム情報の取得に成功')
         this.item = response.data
         this.likeList = response.data.item_likes
         this.text = this.item.name
         this.currentUserId = this.$store.getters[
           'authentication/currentUser'
         ].id
+        console.log('アイテム情報の取得に成功')
         console.log(response)
       })
       .catch((error) => {

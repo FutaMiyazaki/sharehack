@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card width="400px" class="mx-auto">
+    <v-card flat width="400px" class="mx-auto">
       <v-card-title class="justify-center">
         <h4>新規登録</h4>
       </v-card-title>
@@ -14,6 +14,10 @@
             >
               <v-text-field
                 v-model="user.name"
+                auto-grow
+                outlined
+                rows="1"
+                background-color="secondary"
                 prepend-icon="mdi-account"
                 label="ユーザー名"
                 :error-messages="errors"
@@ -26,6 +30,10 @@
             >
               <v-text-field
                 v-model="user.email"
+                auto-grow
+                outlined
+                rows="1"
+                background-color="secondary"
                 prepend-icon="mdi-email"
                 type="email"
                 label="メールアドレス"
@@ -39,6 +47,10 @@
             >
               <v-text-field
                 v-model="user.password"
+                auto-grow
+                outlined
+                rows="1"
+                background-color="secondary"
                 :type="showPassword ? 'text' : 'password'"
                 prepend-icon="mdi-lock"
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -54,6 +66,10 @@
             >
               <v-text-field
                 v-model="user.password_confirmation"
+                auto-grow
+                outlined
+                rows="1"
+                background-color="secondary"
                 :type="showConfirmPassword ? 'text' : 'password'"
                 prepend-icon="mdi-lock"
                 :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -77,6 +93,17 @@
           </v-form>
         </validation-observer>
         <v-divider class="my-3"></v-divider>
+        <v-card-actions>
+          <v-btn
+            block
+            rounded
+            color="accent"
+            class="white--text font-weight-bold"
+            @click="guestLogin"
+          >
+            ゲストユーザーでログイン
+          </v-btn>
+        </v-card-actions>
         <v-card-actions class="py-0 justify-center">
           アカウントをお持ちの方はこちらから
         </v-card-actions>
@@ -100,6 +127,10 @@ export default {
         password: '',
         password_confirmation: ''
       },
+      guest: {
+        email: 'guest@sharehack.com',
+        password: 'pwkkf3ST9uWW5XFe'
+      },
       showPassword: false,
       showConfirmPassword: false
     }
@@ -110,6 +141,9 @@ export default {
     }),
     signUpUser() {
       this.signUp(this.user)
+    },
+    guestLogin() {
+      this.login(this.guest)
     }
   }
 }

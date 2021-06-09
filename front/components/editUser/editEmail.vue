@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-card-title class="justify-center font-weight-bold">
+    <v-card-title class="font-weight-bold">
       メールアドレス
     </v-card-title>
     <v-card-text>
@@ -13,6 +13,9 @@
           >
             <v-text-field
               v-model="user.email"
+              outlined
+              rows="1"
+              background-color="secondary"
               prepend-icon="mdi-email-edit"
               label="新しいメールアドレス"
               :error-messages="errors"
@@ -25,6 +28,9 @@
           >
             <v-text-field
               v-model="user.password"
+              outlined
+              rows="1"
+              background-color="secondary"
               :type="showPassword ? 'text' : 'password'"
               prepend-icon="mdi-lock"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -45,7 +51,7 @@
             >
               メールアドレスを変更する
             </v-btn>
-            <v-btn v-else width="30vw" rounded disabled class="d-block mx-auto">
+            <v-btn v-else rounded disabled class="d-block mx-auto">
               ゲストユーザーのため変更できません
             </v-btn>
           </v-card-actions>

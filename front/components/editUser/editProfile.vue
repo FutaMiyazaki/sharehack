@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-card-title class="justify-center font-weight-bold">
+    <v-card-title class="font-weight-bold">
       プロフィール
     </v-card-title>
     <v-card-text>
@@ -13,6 +13,10 @@
           >
             <v-text-field
               v-model="user.name"
+              counter
+              outlined
+              rows="1"
+              background-color="secondary"
               prepend-icon="mdi-account-edit"
               label="ユーザー名"
               :error-messages="errors"
@@ -25,6 +29,9 @@
           >
             <v-text-field
               v-model="user.password"
+              outlined
+              rows="1"
+              background-color="secondary"
               :type="showPassword ? 'text' : 'password'"
               prepend-icon="mdi-lock"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -37,7 +44,6 @@
             <v-btn
               v-if="userEmail != guest"
               rounded
-              width="30vw"
               color="light-green darken-1"
               class="white--text d-block mx-auto"
               :disabled="invalid"
@@ -45,13 +51,7 @@
             >
               プロフィールを変更する
             </v-btn>
-            <v-btn
-              v-else
-              rounded
-              width="30vw"
-              disabled
-              class="white--text d-block mx-auto"
-            >
+            <v-btn v-else rounded disabled class="white--text d-block mx-auto">
               ゲストユーザーのため変更できません
             </v-btn>
           </v-card-actions>

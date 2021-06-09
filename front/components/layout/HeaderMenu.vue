@@ -12,14 +12,21 @@
       </v-btn>
     </template>
     <v-list>
-      <nuxt-link to="/users/settings" class="menu-item">
+      <nuxt-link :to="'/users/' + currentUserId" class="menu-item">
         <v-list-item class="hover-color">
-          <v-list-item-title> <v-icon>mdi-cog</v-icon>設定 </v-list-item-title>
+          <v-list-item-title>
+            マイページ
+          </v-list-item-title>
+        </v-list-item>
+      </nuxt-link>
+      <nuxt-link to="/users/setting" class="menu-item">
+        <v-list-item class="hover-color">
+          <v-list-item-title>設定</v-list-item-title>
         </v-list-item>
       </nuxt-link>
       <v-list-item class="menu-item hover-color" @click="logout">
         <v-list-item-title>
-          <v-icon>mdi-logout</v-icon>ログアウト
+          ログアウト
         </v-list-item-title>
       </v-list-item>
     </v-list>
@@ -30,6 +37,11 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  data() {
+    return {
+      currentUserId: this.$store.getters['authentication/currentUser'].id
+    }
+  },
   computed: {
     ...mapGetters({
       isLoggedIn: 'authentication/isLoggedIn'

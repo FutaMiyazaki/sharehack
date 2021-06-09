@@ -1,8 +1,8 @@
 <template>
   <header>
-    <v-app-bar app>
+    <v-app-bar>
       <v-toolbar-title class="mr-2">
-        <nuxt-link to="/" class="black--text font-weight-bold"
+        <nuxt-link to="/" class="black--text font-weight-bold" color="white"
           >Sharehack</nuxt-link
         >
       </v-toolbar-title>
@@ -21,10 +21,10 @@
         <HeaderMenu />
       </template>
       <template v-if="!isLoggedIn">
-        <v-btn rounded class="mr-3 hidden-sm-and-down">
+        <v-btn outlined class="mr-3 hidden-sm-and-down">
           <nuxt-link to="/users/login" class="black--text">ログイン</nuxt-link>
         </v-btn>
-        <v-btn rounded class="hidden-sm-and-down">
+        <v-btn text color="primary" class="hidden-sm-and-down">
           <nuxt-link to="/users/signup" class="black--text">新規登録</nuxt-link>
         </v-btn>
       </template>
@@ -77,7 +77,7 @@
               </nuxt-link>
             </v-list-item>
             <v-list-item>
-              <nuxt-link to="/users/settings" class="black--text">
+              <nuxt-link to="/users/setting" class="black--text">
                 <v-list-item-title
                   ><v-icon>mdi-cog</v-icon>設定</v-list-item-title
                 >
