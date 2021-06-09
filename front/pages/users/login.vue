@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card width="400px" class="mx-auto">
+    <v-card flat width="400px" class="mx-auto">
       <v-card-title class="justify-center">
         <h4>ログイン</h4>
       </v-card-title>
@@ -14,6 +14,10 @@
             >
               <v-text-field
                 v-model="user.email"
+                auto-grow
+                outlined
+                rows="1"
+                background-color="secondary"
                 prepend-icon="mdi-email"
                 label="メールアドレス"
                 :error-messages="errors"
@@ -26,6 +30,10 @@
             >
               <v-text-field
                 v-model="user.password"
+                auto-grow
+                outlined
+                rows="1"
+                background-color="secondary"
                 :type="showPassword ? 'text' : 'password'"
                 prepend-icon="mdi-lock"
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"

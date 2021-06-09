@@ -10,7 +10,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
-    item = Item.new(item_params.except(:uid))
+    item = Item.new(item_params)
     if item.save
       render json: item.as_json(only: :id)
     else
@@ -34,6 +34,6 @@ class Api::V1::ItemsController < ApplicationController
 
   private
     def item_params
-      params.require(:item).permit(:name, :description, :link, :price, :user_id, :uid, :image)
+      params.require(:item).permit(:name, :description, :link, :price, :user_id, :image)
     end
 end

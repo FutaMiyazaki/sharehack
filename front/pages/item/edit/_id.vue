@@ -2,7 +2,7 @@
   <v-container class="pt-0 pb-10">
     <PageHeader :text="text" />
     <validation-observer v-slot="{ invalid }">
-      <v-form ref="form" lazy-validation>
+      <v-form ref="form" lazy-validation class="mt-5">
         <validation-provider
           v-slot="{ errors }"
           rules="required|max:30"
@@ -10,9 +10,29 @@
         >
           <v-text-field
             v-model="item.name"
+            counter
+            auto-grow
+            outlined
+            rows="1"
+            background-color="secondary"
             prepend-icon="mdi-pencil"
             label="アイテム名"
             :error-messages="errors"
+          />
+        </validation-provider>
+        <validation-provider v-slot="{ validate }" rules="required">
+          <v-file-input
+            outlined
+            rows="1"
+            background-color="secondary"
+            :value="item.image"
+            accept="image/*"
+            truncate-length="25"
+            prepend-icon="mdi-camera"
+            label="画像をアップロードする"
+            show-size
+            @input="validate($event)"
+            @change="setImage"
           />
         </validation-provider>
         <validation-provider
@@ -22,8 +42,12 @@
         >
           <v-textarea
             v-model="item.description"
+            counter
+            auto-grow
+            outlined
+            rows="1"
+            background-color="secondary"
             prepend-icon="mdi-text-box"
-            type="email"
             label="説明"
             :error-messages="errors"
           />
@@ -35,6 +59,11 @@
         >
           <v-text-field
             v-model="item.link"
+            counter
+            auto-grow
+            outlined
+            rows="1"
+            background-color="secondary"
             prepend-icon="mdi-link"
             label="商品URL"
             :error-messages="errors"
@@ -47,6 +76,11 @@
         >
           <v-text-field
             v-model="item.price"
+            counter
+            auto-grow
+            outlined
+            rows="1"
+            background-color="secondary"
             prepend-icon="mdi-currency-usd"
             label="参考価格"
             :error-messages="errors"
@@ -80,8 +114,8 @@
         <v-card-text class="justify-center font-weight-bold text-center">
           ※この操作は取り消せません
         </v-card-text>
-        <v-card-actions class="justify-center">
-          <template v-if="userEmail != guest">
+        <v-card-actions class="justify-center pb-5">
+          <template v-if="currentUserId != guestUserId">
             <v-btn rounded outlined width="100px" @click="dialog = false">
               キャンセル
             </v-btn>
@@ -99,7 +133,7 @@
             <v-btn
               rounded
               color="red"
-              class="white--text"
+              class="white--text font-weight-bold"
               @click="dialog = false"
             >
               ゲストユーザーは投稿を削除できません
@@ -122,10 +156,11 @@ export default {
     return {
       text: 'アイテム編集',
       dialog: false,
-      userEmail: this.$store.getters['authentication/currentUser'].uid,
-      guest: 'guest@sharehack.com',
+      currentUserId: this.$store.getters['authentication/currentUser'].id,
+      guestUserId: '19',
       item: {
         name: '',
+        image: null,
         description: '',
         link: '',
         price: ''
@@ -137,9 +172,8 @@ export default {
       .get(`api/v1/items/${this.$route.params.id}`)
       .then((response) => {
         this.item = response.data
-        console.log(response)
-        console.log(this.item)
         console.log('アイテム情報の取得に成功')
+        console.log(response)
       })
       .catch((error) => {
         console.log('アイテム情報の取得に失敗')
@@ -147,15 +181,24 @@ export default {
       })
   },
   methods: {
+    setImage(e) {
+      this.item.image = e
+    },
     async updateItem() {
+      const data = new FormData()
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }
+      data.append('item[name]', this.item.name)
+      data.append('item[image]', this.item.image)
+      data.append('item[description]', this.item.description)
+      data.append('item[link]', this.item.link)
+      data.append('item[price]', this.item.price)
+      data.append('item[user_id]', this.currentUserId)
       await this.$axios
-        .patch(`api/v1/items/${this.$route.params.id}`, this.item, {
-          headers: {
-            'access-token': localStorage.getItem('access-token'),
-            uid: localStorage.getItem('uid'),
-            client: localStorage.getItem('client')
-          }
-        })
+        .patch(`api/v1/items/${this.$route.params.id}`, data, config)
         .then((response) => {
           console.log(response)
           this.$router.push(`/item/${this.item.id}`)
@@ -177,14 +220,20 @@ export default {
         })
     },
     async deleteItem() {
+      const data = new FormData()
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+          uid: localStorage.getItem('uid')
+        }
+      }
+      data.append('item[name]', this.item.name)
+      data.append('item[image]', this.item.image)
+      data.append('item[description]', this.item.description)
+      data.append('item[link]', this.item.link)
+      data.append('item[price]', this.item.price)
       await this.$axios
-        .delete(`api/v1/items/${this.$route.params.id}`, this.item, {
-          headers: {
-            'access-token': localStorage.getItem('access-token'),
-            uid: localStorage.getItem('uid'),
-            client: localStorage.getItem('client')
-          }
-        })
+        .delete(`api/v1/items/${this.$route.params.id}`, this.item, config)
         .then((response) => {
           console.log(response)
           this.$store.dispatch(

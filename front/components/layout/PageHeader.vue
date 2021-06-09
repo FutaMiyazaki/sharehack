@@ -1,5 +1,5 @@
 <template>
-  <div class="page-header py-4">
+  <div class="page-header py-4 mb-5">
     <p class="mb-0 font-weight-bold">{{ text }}</p>
   </div>
 </template>

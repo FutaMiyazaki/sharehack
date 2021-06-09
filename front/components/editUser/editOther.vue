@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="justify-center font-weight-bold">
+    <v-card-title class="font-weight-bold">
       その他の設定
     </v-card-title>
     <v-card-text>

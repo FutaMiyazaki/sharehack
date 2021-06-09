@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-card-title class="justify-center font-weight-bold">
+    <v-card-title class="font-weight-bold">
       パスワード
     </v-card-title>
     <v-card-text>
@@ -13,6 +13,9 @@
           >
             <v-text-field
               v-model="user.password"
+              outlined
+              rows="1"
+              background-color="secondary"
               :type="showPassword ? 'text' : 'password'"
               prepend-icon="mdi-lock"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -28,6 +31,9 @@
           >
             <v-text-field
               v-model="user.password_confirmation"
+              outlined
+              rows="1"
+              background-color="secondary"
               :type="showConfirmPassword ? 'text' : 'password'"
               prepend-icon="mdi-lock"
               :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -40,7 +46,6 @@
             <v-btn
               v-if="userEmail != guest"
               rounded
-              width="30vw"
               color="primary"
               class="white--text d-block mx-auto"
               :disabled="invalid"
@@ -48,7 +53,7 @@
             >
               パスワードを変更する
             </v-btn>
-            <v-btn v-else rounded width="30vw" disabled class="d-block mx-auto">
+            <v-btn v-else rounded disabled class="d-block mx-auto">
               ゲストユーザーのため変更できません
             </v-btn>
           </v-card-actions>
