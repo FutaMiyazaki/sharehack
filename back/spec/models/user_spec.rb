@@ -7,6 +7,25 @@ RSpec.describe User, type: :model do
   let(:email) { 'test@sharehack.com' }
   let(:password) { 'password' }
 
+
+  describe 'Association' do
+    context 'with item model' do
+      it '1:N' do
+        expect(User.reflect_on_association(:items).macro).to eq :has_many
+      end
+    end
+    context 'with item_like model' do
+      it '1:N' do
+        expect(User.reflect_on_association(:item_likes).macro).to eq :has_many
+      end
+    end
+    context 'with item_comment model' do
+      it '1:N' do
+        expect(User.reflect_on_association(:item_comments).macro).to eq :has_many
+      end
+    end
+  end
+
   context '全てのパラメータが正しい場合' do
     it { is_expected.to be_valid }
   end
