@@ -10,13 +10,13 @@
             <v-btn
               v-if="userEmail != guest"
               text
-              color="red lighten-2"
+              color="warning"
               v-bind="attrs"
               v-on="on"
             >
               アカウントを削除する
             </v-btn>
-            <v-btn v-else text color="red lighten-2">
+            <v-btn v-else text color="warning">
               ゲストユーザーはアカウントを削除できません
             </v-btn>
           </template>
@@ -31,7 +31,7 @@
             </v-card-text>
             <v-card-actions class="justify-center">
               <v-btn
-                color="red"
+                color="warning"
                 rounded
                 outlined
                 class="white--text"
@@ -42,7 +42,7 @@
               </v-btn>
               <v-btn
                 rounded
-                color="red"
+                color="warning"
                 class="white--text"
                 width="100px"
                 @click="deleteUser"

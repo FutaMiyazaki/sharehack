@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
   has_many :item_likes, dependent: :destroy
+  has_many :item_comments, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
   validates :name, presence: true, length: { maximum: 30 }

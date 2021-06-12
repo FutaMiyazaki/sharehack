@@ -6,7 +6,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def show
     item = Item.find(params[:id])
-    render json: item.as_json(include: [:user, :item_likes], methods: :image_url)
+    render json: item.as_json(include: [:user, :item_likes, item_comments: {include: :user}], methods: :image_url)
   end
 
   def create

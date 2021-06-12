@@ -4,9 +4,11 @@
     <v-row>
       <v-col cols="12" sm="7">
         <v-img max-height="auto" max-width="100%" :src="item.image_url"></v-img>
-        <v-row>
+        <v-row class="my-1">
           <v-col cols="6" align="left">
-            <p class="my-auto">{{ item.created_at }}</p>
+            <p class="my-auto text-caption">
+              {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
+            </p>
           </v-col>
           <template v-if="currentUserId == item.user.id">
             <v-col cols="6" align="right">
@@ -51,7 +53,7 @@
             </v-btn>
           </v-col>
         </v-row>
-        <div class="my-5 pa-3 rounded-xl secondary">
+        <div class="my-5 pa-3 rounded-lg secondary">
           <p style="white-space:pre-wrap;" v-text="item.description"></p>
         </div>
         <div>
@@ -62,7 +64,73 @@
         </div>
       </v-col>
     </v-row>
-    <v-row></v-row>
+    <v-row>
+      <v-col cols="12" sm="7">
+        <v-row>
+          <v-col cols="12">
+            <div v-for="comment in comments" :key="comment.id" class="mb-5">
+              <v-row>
+                <v-col cols="6" class="my-auto">
+                  <nuxt-link
+                    :to="'/users/' + comment.user.id"
+                    class="text-decoration-none"
+                  >
+                    {{ comment.user.name }}
+                  </nuxt-link>
+                  <span class="ml-3 text-caption">
+                    {{ $moment(comment.created_at).format('YYYY/MM/DD HH:mm') }}
+                  </span>
+                </v-col>
+                <v-col cols="6" align="right">
+                  <v-btn
+                    v-if="currentUserId == comment.user.id"
+                    text
+                    color="warning"
+                    @click="deleteComment(comment.id)"
+                    >コメントを削除する</v-btn
+                  >
+                </v-col>
+              </v-row>
+              <v-card rounded flat color="secondary" class="pa-5">{{
+                comment.content
+              }}</v-card>
+            </div>
+          </v-col>
+          <v-col cols="12">
+            <ValidationObserver ref="observer" v-slot="{ invalid }">
+              <v-form ref="form" lazy-validation class="mt-5">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required|max:255"
+                  mode="lazy"
+                >
+                  <v-textarea
+                    v-model="commentText"
+                    counter
+                    auto-grow
+                    outlined
+                    rows="1"
+                    background-color="secondary"
+                    prepend-icon="mdi-text-box"
+                    label="コメントを入力する"
+                    :error-messages="errors"
+                  />
+                </ValidationProvider>
+                <v-btn
+                  rounded
+                  color="primary"
+                  class="white--text font-weight-bold d-block mx-auto"
+                  :disabled="invalid"
+                  @click="createComment"
+                >
+                  コメントする
+                </v-btn>
+              </v-form>
+            </ValidationObserver>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -81,7 +149,9 @@ export default {
       },
       currentUserId: '',
       userEmail: '',
-      likeList: []
+      likeList: [],
+      comments: [],
+      commentText: ''
     }
   },
   computed: {
@@ -92,9 +162,6 @@ export default {
       if (this.likeList.length === 0) {
         return false
       } else {
-        // const liked = this.likeList.some(function(like) {
-        //   return like.user_id === this.currentUserId
-        // })
         const liked = this.likeList.some(
           (like) => like.user_id === this.currentUserId
         )
@@ -111,16 +178,14 @@ export default {
       .then((response) => {
         this.item = response.data
         this.likeList = response.data.item_likes
+        this.comments = response.data.item_comments
         this.text = this.item.name
         this.currentUserId = this.$store.getters[
           'authentication/currentUser'
         ].id
-        console.log('アイテム情報の取得に成功')
-        console.log(response)
       })
       .catch((error) => {
-        console.log('アイテム情報の取得に失敗')
-        console.log(error)
+        return error
       })
   },
   methods: {
@@ -131,12 +196,10 @@ export default {
           item_id: this.item.id
         })
         .then((response) => {
-          console.log('いいね成功しました！')
           this.likeList = response
           console.log(response)
         })
         .catch((error) => {
-          console.log('いいね失敗しました！')
           return error
         })
     },
@@ -149,12 +212,43 @@ export default {
           }
         })
         .then((response) => {
-          console.log('いいねの取り消しに成功しました！')
           this.likeList = response.data
           console.log(response)
         })
         .catch((error) => {
-          console.log('いいねの取り消しに失敗しました！')
+          return error
+        })
+    },
+    async createComment() {
+      await this.$axios
+        .post('/api/v1/item_comments', {
+          content: this.commentText,
+          user_id: this.currentUserId,
+          item_id: this.item.id,
+          uid: localStorage.getItem('uid')
+        })
+        .then((response) => {
+          this.comments = response.data
+          this.commentText = ''
+        })
+        .catch((error) => {
+          return error
+        })
+    },
+    async deleteComment(commentId) {
+      await this.$axios
+        .delete(`api/v1/item_comments/${commentId}`, {
+          params: {
+            user_id: this.currentUserId,
+            item_id: this.item.id,
+            uid: localStorage.getItem('uid')
+          }
+        })
+        .then((response) => {
+          this.comments = response.data
+          this.$refs.observer.reset()
+        })
+        .catch((error) => {
           return error
         })
     }

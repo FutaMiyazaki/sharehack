@@ -1,9 +1,9 @@
 <template>
   <v-container class="pt-0 pb-10">
     <PageHeader :text="text" />
-    <validation-observer v-slot="{ invalid }">
+    <ValidationObserver v-slot="{ invalid }">
       <v-form ref="form" lazy-validation class="mt-5">
-        <validation-provider
+        <ValidationProvider
           v-slot="{ errors }"
           rules="required|max:30"
           mode="lazy"
@@ -19,8 +19,8 @@
             label="アイテム名"
             :error-messages="errors"
           />
-        </validation-provider>
-        <validation-provider v-slot="{ validate }" rules="required">
+        </ValidationProvider>
+        <ValidationProvider v-slot="{ validate }" rules="required">
           <v-file-input
             outlined
             rows="1"
@@ -34,8 +34,8 @@
             @input="validate($event)"
             @change="setImage"
           />
-        </validation-provider>
-        <validation-provider
+        </ValidationProvider>
+        <ValidationProvider
           v-slot="{ errors }"
           rules="required|max:300"
           mode="lazy"
@@ -51,8 +51,8 @@
             label="説明"
             :error-messages="errors"
           />
-        </validation-provider>
-        <validation-provider
+        </ValidationProvider>
+        <ValidationProvider
           v-slot="{ errors }"
           rules="regex:/\Ahttps:\/\/[^\n]+\Z/"
           mode="lazy"
@@ -68,8 +68,8 @@
             label="商品URL"
             :error-messages="errors"
           />
-        </validation-provider>
-        <validation-provider
+        </ValidationProvider>
+        <ValidationProvider
           v-slot="{ errors }"
           rules="required|integer"
           mode="lazy"
@@ -85,7 +85,7 @@
             label="参考価格"
             :error-messages="errors"
           />
-        </validation-provider>
+        </ValidationProvider>
         <v-btn
           rounded
           width="40vw"
@@ -97,7 +97,7 @@
           変更を保存する
         </v-btn>
       </v-form>
-    </validation-observer>
+    </ValidationObserver>
     <v-divider class="my-8" />
     <v-dialog v-model="dialog" width="400px">
       <template v-slot:activator="{ on, attrs }">

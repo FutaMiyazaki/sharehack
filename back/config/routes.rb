@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       end
       resources :items, only: %i[index show create update destroy]
       resource :item_likes, only: %i[create destroy]
-      resource :item_comments, only: %i[create update destroy]
+      resources :item_comments, only: %i[create destroy]
     end
   end
 end

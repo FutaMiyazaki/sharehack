@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_one_attached :avatar
   has_many :items, dependent: :destroy
   has_many :item_likes, dependent: :destroy
+  has_many :item_comments, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 30 }
 end

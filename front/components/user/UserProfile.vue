@@ -14,12 +14,12 @@
           </v-list-item-subtitle>
           <v-divider class="my-5" />
           <div>
-            <v-btn v-show="currentUser !== userId" block>
+            <v-btn v-show="currentUserId !== userId" block>
               <v-icon class="mr-3" color="primary">mdi-account-plus</v-icon>
               <p class="my-auto">フォローする</p>
             </v-btn>
             <v-btn
-              v-show="currentUser === userId"
+              v-show="currentUserId === userId"
               outlined
               block
               color="primary"
@@ -74,7 +74,7 @@ export default {
       required: true,
       default: 0
     },
-    currentUser: {
+    currentUserId: {
       type: Number,
       required: false,
       default: 0

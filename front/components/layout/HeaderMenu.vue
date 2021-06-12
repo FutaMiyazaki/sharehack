@@ -12,7 +12,7 @@
       </v-btn>
     </template>
     <v-list>
-      <nuxt-link :to="'/users/' + currentUserId" class="menu-item">
+      <nuxt-link :to="'/users/' + currentUser.id" class="menu-item">
         <v-list-item class="hover-color">
           <v-list-item-title>
             マイページ
@@ -37,14 +37,10 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  data() {
-    return {
-      currentUserId: this.$store.getters['authentication/currentUser'].id
-    }
-  },
   computed: {
     ...mapGetters({
-      isLoggedIn: 'authentication/isLoggedIn'
+      isLoggedIn: 'authentication/isLoggedIn',
+      currentUser: 'authentication/currentUser'
     })
   },
   methods: {

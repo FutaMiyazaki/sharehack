@@ -1,10 +1,10 @@
 <template>
   <header>
-    <v-app-bar>
+    <v-app-bar color="#fbfbfb">
       <v-toolbar-title class="mr-2">
-        <nuxt-link to="/" class="black--text font-weight-bold" color="white"
-          >Sharehack</nuxt-link
-        >
+        <nuxt-link to="/" class="black--text font-weight-bold">
+          Sharehack
+        </nuxt-link>
       </v-toolbar-title>
       <!-- <v-tabs class="hidden-md-and-down">
         <v-tab>
@@ -38,55 +38,68 @@
       right
       fixed
       temporary
+      color="#757575"
+      width="70%"
       class="hidden-md-and-up"
     >
       <v-list nav dense>
         <v-list-item-group>
           <template v-if="!isLoggedIn">
-            <v-list-item>
-              <nuxt-link to="/users/login" class="black--text">
-                <v-list-item-title
-                  ><v-icon>mdi-login</v-icon>ログイン</v-list-item-title
-                >
-              </nuxt-link>
-            </v-list-item>
-            <v-list-item>
-              <nuxt-link to="/users/signup" class="black--text">
-                <v-list-item-title
-                  ><v-icon>mdi-pencil</v-icon>新規登録</v-list-item-title
-                >
-              </nuxt-link>
-            </v-list-item>
+            <NavigationItem
+              link="/users/login"
+              icon="mdi-login"
+              text="ログイン"
+            />
+            <NavigationItem
+              link="/users/signup"
+              icon="mdi-pencil"
+              text="新規登録"
+            />
           </template>
-          <v-list-item>
-            <v-list-item-title>
-              <v-icon>mdi-jabber</v-icon>ライフハックを探す
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title>
-              <v-icon>mdi-tools</v-icon>ライフハックアイテムを探す
-            </v-list-item-title>
-          </v-list-item>
           <template v-if="isLoggedIn">
-            <v-list-item>
-              <nuxt-link to="/item/create" class="black--text">
-                <v-list-item-title
-                  ><v-icon>mdi-pencil</v-icon>投稿</v-list-item-title
-                >
-              </nuxt-link>
+            <v-list-item two-line>
+              <v-list-item-avatar>
+                <img src="https://randomuser.me/api/portraits/women/81.jpg" />
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title class="white--text font-weight-bold">{{
+                  currentUser.name
+                }}</v-list-item-title>
+              </v-list-item-content>
             </v-list-item>
-            <v-list-item>
-              <nuxt-link to="/users/setting" class="black--text">
-                <v-list-item-title
-                  ><v-icon>mdi-cog</v-icon>設定</v-list-item-title
-                >
-              </nuxt-link>
-            </v-list-item>
-            <v-list-item v-if="isLoggedIn" class="black--text" @click="logout">
-              <v-list-item-title
-                ><v-icon>mdi-logout</v-icon>ログアウト</v-list-item-title
-              >
+            <v-divider color="white" class="mb-3"></v-divider>
+          </template>
+          <NavigationItem
+            v-if="!isLoggedIn"
+            link="/"
+            icon="mdi-home-outline"
+            text="トップページ"
+          />
+          <template v-if="isLoggedIn">
+            <NavigationItem
+              link="/item/create"
+              icon="mdi-pencil-outline"
+              text="投稿する"
+            />
+            <NavigationItem
+              :link="'/users/' + currentUser.id"
+              icon="mdi-account-outline"
+              text="マイページ"
+            />
+            <NavigationItem
+              link="/users/setting"
+              icon="mdi-cog-outline"
+              text="設定"
+            />
+            <v-list-item @click="logoutUser">
+              <v-list-item-icon>
+                <v-icon color="white">mdi-logout</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="white--text font-weight-bold">
+                  ログアウト
+                </v-list-item-title>
+              </v-list-item-content>
             </v-list-item>
           </template>
         </v-list-item-group>
@@ -98,10 +111,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import HeaderMenu from '~/components/layout/HeaderMenu.vue'
+import NavigationItem from '~/components/layout/NavigationItem.vue'
 
 export default {
   components: {
-    HeaderMenu
+    HeaderMenu,
+    NavigationItem
   },
   data() {
     return {
@@ -110,13 +125,18 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLoggedIn: 'authentication/isLoggedIn'
+      isLoggedIn: 'authentication/isLoggedIn',
+      currentUser: 'authentication/currentUser'
     })
   },
   methods: {
     ...mapActions({
       logout: 'authentication/logout'
-    })
+    }),
+    logoutUser() {
+      this.logout()
+      this.drawer = false
+    }
   }
 }
 </script>
