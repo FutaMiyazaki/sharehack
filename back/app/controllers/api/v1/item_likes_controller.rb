@@ -1,8 +1,8 @@
 class Api::V1::ItemLikesController < ApplicationController
   def create
     like = ItemLike.new(item_like_params.except(:uid))
-    item_likes = ItemLike.filter_by_item(params[:item_id]).select(:id, :user_id, :item_id)
     if like.save
+      item_likes = ItemLike.filter_by_item(params[:item_id]).select(:id, :user_id, :item_id)
       render json: item_likes.as_json
     end
   end

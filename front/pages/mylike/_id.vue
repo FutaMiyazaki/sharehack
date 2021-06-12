@@ -15,14 +15,20 @@
       <v-col cols="12" sm="8">
         <v-row>
           <v-col v-for="itemLike in itemLikes" :key="itemLike.id" :cols="6">
-            <v-card :to="`/item/${itemLike.item.id}`">
-              <v-img
-                max-height="auto"
-                max-width="100%"
-                :src="itemLike.item.image_url"
-              ></v-img>
-              <v-card-title>{{ itemLike.item.name }}</v-card-title>
-            </v-card>
+            <v-hover v-slot="{ hover }">
+              <v-card
+                :to="`/item/${itemLike.item.id}`"
+                :elevation="hover ? 16 : 2"
+                :class="{ 'on-hover': hover }"
+              >
+                <v-img
+                  max-height="auto"
+                  max-width="100%"
+                  :src="itemLike.item.image_url"
+                ></v-img>
+                <v-card-title>{{ itemLike.item.name }}</v-card-title>
+              </v-card>
+            </v-hover>
           </v-col>
         </v-row>
       </v-col>
