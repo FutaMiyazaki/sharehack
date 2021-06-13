@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      get 'tags/index'
+    end
+  end
   devise_for :users
 
   namespace :api do
