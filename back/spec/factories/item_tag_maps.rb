@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :item_tag_map do
-    item { nil }
-    tag { nil }
+    association :item
+    association :tag
   end
 end
