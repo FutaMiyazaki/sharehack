@@ -13,19 +13,70 @@
       </v-tabs> -->
       <v-spacer />
       <template v-if="isLoggedIn">
-        <v-btn rounded class="mr-3 hidden-sm-and-down">
-          <nuxt-link to="/item/create" class="black--text">
-            アイテムを投稿
-          </nuxt-link>
-        </v-btn>
-        <HeaderMenu />
+        <v-tooltip bottom color="primary">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              depressed
+              v-bind="attrs"
+              class="mr-3 hidden-sm-and-down"
+              to="/item/create"
+              v-on="on"
+            >
+              <v-icon color="primary">mdi-pencil-box-multiple</v-icon>
+            </v-btn>
+          </template>
+          <span class="white--text font-weight-bold">新規投稿</span>
+        </v-tooltip>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              v-bind="attrs"
+              class="hidden-sm-and-down"
+              v-on="on"
+            >
+              <v-icon>mdi-account-circle</v-icon><v-icon>mdi-menu-down</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <NavigationItem
+              link="/item/create"
+              icon="mdi-pencil"
+              text="投稿する"
+            />
+            <NavigationItem
+              :link="'/users/' + currentUser.id"
+              icon="mdi-account"
+              text="マイページ"
+            />
+            <NavigationItem link="/users/setting" icon="mdi-cog" text="設定" />
+            <v-list-item @click="logoutUser">
+              <v-list-item-icon>
+                <v-icon>mdi-logout</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>
+                  ログアウト
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </template>
       <template v-if="!isLoggedIn">
-        <v-btn outlined class="mr-3 hidden-sm-and-down">
-          <nuxt-link to="/users/login" class="black--text">ログイン</nuxt-link>
+        <v-btn
+          text
+          class="hidden-sm-and-down font-weight-bold mr-3"
+          to="/users/login"
+        >
+          <span>ログイン</span>
         </v-btn>
-        <v-btn text color="primary" class="hidden-sm-and-down">
-          <nuxt-link to="/users/signup" class="black--text">新規登録</nuxt-link>
+        <v-btn
+          color="primary"
+          class="hidden-sm-and-down font-weight-bold white--text"
+          to="/users/signup"
+        >
+          新規登録
         </v-btn>
       </template>
       <v-app-bar-nav-icon
@@ -33,6 +84,7 @@
         @click="drawer = true"
       ></v-app-bar-nav-icon>
     </v-app-bar>
+
     <v-navigation-drawer
       v-model="drawer"
       right
@@ -47,12 +99,16 @@
           <template v-if="!isLoggedIn">
             <NavigationItem
               link="/users/login"
-              icon="mdi-login"
+              icon-color="white"
+              icon="mdi-login-outline"
+              list-item-title-class="white--text font-weight-bold"
               text="ログイン"
             />
             <NavigationItem
               link="/users/signup"
-              icon="mdi-pencil"
+              icon-color="white"
+              icon="mdi-pencil-outline"
+              list-item-title-class="white--text font-weight-bold"
               text="新規登録"
             />
           </template>
@@ -72,23 +128,31 @@
           <NavigationItem
             v-if="!isLoggedIn"
             link="/"
+            icon-color="white"
             icon="mdi-home-outline"
+            list-item-title-class="white--text font-weight-bold"
             text="トップページ"
           />
           <template v-if="isLoggedIn">
             <NavigationItem
               link="/item/create"
+              icon-color="white"
               icon="mdi-pencil-outline"
+              list-item-title-class="white--text font-weight-bold"
               text="投稿する"
             />
             <NavigationItem
               :link="'/users/' + currentUser.id"
+              icon-color="white"
               icon="mdi-account-outline"
+              list-item-title-class="white--text font-weight-bold"
               text="マイページ"
             />
             <NavigationItem
               link="/users/setting"
+              icon-color="white"
               icon="mdi-cog-outline"
+              list-item-title-class="white--text font-weight-bold"
               text="設定"
             />
             <v-list-item @click="logoutUser">
@@ -110,12 +174,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import HeaderMenu from '~/components/layout/HeaderMenu.vue'
 import NavigationItem from '~/components/layout/NavigationItem.vue'
 
 export default {
   components: {
-    HeaderMenu,
     NavigationItem
   },
   data() {
@@ -144,5 +206,15 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+}
+
+.menu-item {
+  text-decoration: none;
+  color: black;
+  font-size: 5px;
+}
+
+.hover-color:hover {
+  background-color: #e5e5e5;
 }
 </style>

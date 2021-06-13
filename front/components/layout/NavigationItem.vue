@@ -1,10 +1,10 @@
 <template>
   <v-list-item :to="link">
     <v-list-item-icon>
-      <v-icon color="white">{{ icon }}</v-icon>
+      <v-icon :color="iconColor">{{ icon }}</v-icon>
     </v-list-item-icon>
     <v-list-item-content>
-      <v-list-item-title class="white--text font-weight-bold">{{
+      <v-list-item-title :class="listItemTitleClass">{{
         text
       }}</v-list-item-title>
     </v-list-item-content>
@@ -18,9 +18,17 @@ export default {
       type: String,
       required: true
     },
+    iconColor: {
+      type: String,
+      default: ''
+    },
     icon: {
       type: String,
       required: true
+    },
+    listItemTitleClass: {
+      type: String,
+      default: ''
     },
     text: {
       type: String,
