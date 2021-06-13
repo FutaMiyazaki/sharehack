@@ -13,7 +13,7 @@ class Item < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
   validates :description, presence: true, length: { maximum: 255 }
   validates :link, format: { with: START_HTTPS_LINK, allow_blank: true }
-  validates :price, presence: true
+  validates :price, presence: true, numericality: { less_than: 1000000 }
 
   def image_url
     image.attached? ? url_for(image) : nil

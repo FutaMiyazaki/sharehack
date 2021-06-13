@@ -57,7 +57,9 @@ RSpec.describe Item, type: :model do
 
     context '30文字より多い場合' do
       let(:name) { 'a' * 31 }
-      it { is_expected.to_not be_valid }
+      it '無効であること' do
+        expect(subject).to_not be_valid
+      end
     end
   end
 
@@ -85,7 +87,9 @@ RSpec.describe Item, type: :model do
 
     context '255文字より多い場合' do
       let(:description) { 'a' * 256 }
-      it { is_expected.to_not be_valid }
+      it '無効であること' do
+        expect(subject).to_not be_valid
+      end
     end
   end
 
@@ -115,6 +119,13 @@ RSpec.describe Item, type: :model do
 
     context '空文字の場合' do
       let(:price) { '' }
+      it '無効であること' do
+        expect(subject).to_not be_valid
+      end
+    end
+
+    context '1000000より大きい場合' do
+      let(:price) { 1000001 }
       it '無効であること' do
         expect(subject).to_not be_valid
       end

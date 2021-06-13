@@ -35,7 +35,9 @@ RSpec.describe User, type: :model do
   describe 'name' do
     context 'nilの場合' do
       let(:name) { nil }
-      it { is_expected.to_not be_valid }
+      it '無効であること' do
+        expect(subject).to_not be_valid
+      end
     end
 
     context '空白の場合' do
@@ -54,14 +56,18 @@ RSpec.describe User, type: :model do
 
     context '30文字より多い場合' do
       let(:name) { 'a' * 31 }
-      it { is_expected.to_not be_valid }
+      it '無効であること' do
+        expect(subject).to_not be_valid
+      end
     end
   end
 
   describe 'email' do
     context 'nilの場合' do
       let(:email) { nil }
-      it { is_expected.to_not be_valid }
+      it '無効であること' do
+        expect(subject).to_not be_valid
+      end
     end
 
     context '空白の場合' do
@@ -82,7 +88,9 @@ RSpec.describe User, type: :model do
   describe 'password' do
     context 'nilの場合' do
       let(:password) { nil }
-      it { is_expected.to_not be_valid }
+      it '無効であること' do
+        expect(subject).to_not be_valid
+      end
     end
 
     context '空白の場合' do

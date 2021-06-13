@@ -43,7 +43,9 @@ RSpec.describe Tag, type: :model do
 
     context '20文字より多い場合' do
       let(:name) { 'a' * 21 }
-      it { is_expected.to_not be_valid }
+      it '無効であること' do
+        expect(subject).to_not be_valid
+      end
     end
   end
 
