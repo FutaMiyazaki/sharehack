@@ -55,7 +55,14 @@ RSpec.describe Item, type: :model do
       end
     end
 
-    context '30文字より多い場合' do
+    context '30文字以下の場合' do
+      let(:name) { 'a' * 30 }
+      it '有効であること' do
+        expect(subject).to be_valid
+      end
+    end
+
+    context '31文字以上の場合' do
       let(:name) { 'a' * 31 }
       it '無効であること' do
         expect(subject).to be_invalid
@@ -85,10 +92,26 @@ RSpec.describe Item, type: :model do
       end
     end
 
-    context '255文字より多い場合' do
+    context '255文字以下の場合' do
+      let(:description) { 'a' * 255 }
+      it '有効であること' do
+        expect(subject).to be_valid
+      end
+    end
+
+    context '256文字以上の場合' do
       let(:description) { 'a' * 256 }
       it '無効であること' do
         expect(subject).to be_invalid
+      end
+    end
+  end
+
+  describe 'link' do
+    context '正しいURL形式の場合' do
+      let(:link) { 'https://sharehack.com' }
+      it '有効であること' do
+        expect(subject).to be_valid
       end
     end
   end

@@ -5,10 +5,9 @@ FactoryBot.define do
     link { "https://www.amazon.co.jp/%E3%82%A2%E3" }
     price { 100000 }
     association :user
-    # association :item_comments
 
-    # after(:create) do |item|
-    #   create_list(:item_tag_map, 1, item: item, tag: create(:tag))
-    # end
+    after(:create) do |item|
+      create_list(:item_tag_map, 1, item: item, tag: create(:tag))
+    end
   end
 end

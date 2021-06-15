@@ -36,28 +36,35 @@ RSpec.describe User, type: :model do
     context 'nilの場合' do
       let(:name) { nil }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空白の場合' do
       let(:name) { ' ' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空文字の場合' do
       let(:name) { '' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
-    context '30文字より多い場合' do
+    context '30文字以下の場合' do
+      let(:name) { 'a' * 30 }
+      it '有効であること' do
+        expect(subject).to be_valid
+      end
+    end
+
+    context '31文字以上の場合' do
       let(:name) { 'a' * 31 }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
   end
@@ -66,21 +73,21 @@ RSpec.describe User, type: :model do
     context 'nilの場合' do
       let(:email) { nil }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空白の場合' do
       let(:email) { ' ' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空文字の場合' do
       let(:email) { '' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
   end
@@ -89,21 +96,21 @@ RSpec.describe User, type: :model do
     context 'nilの場合' do
       let(:password) { nil }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空白の場合' do
       let(:password) { ' ' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空文字の場合' do
       let(:password) { '' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
   end

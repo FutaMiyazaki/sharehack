@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
   subject { item.tags.build(params) }
-  let(:user) { create(:user) }
   let(:item) { create(:item) }
   let(:params) { { name: name } }
   let(:name) { '新生活' }
@@ -23,30 +22,36 @@ RSpec.describe Tag, type: :model do
     context 'nilの場合' do
       let(:name) { nil }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空白の場合' do
       let(:name) { ' ' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空文字の場合' do
       let(:name) { '' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
-    context '20文字より多い場合' do
+    context '20文字以下の場合' do
+      let(:name) { 'a' * 20 }
+      it '有効であること' do
+        expect(subject).to be_valid
+      end
+    end
+
+    context '21文字以上の場合' do
       let(:name) { 'a' * 21 }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
   end
-
 end
