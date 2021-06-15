@@ -17,7 +17,6 @@
           <v-col v-for="itemLike in itemLikes" :key="itemLike.id" :cols="6">
             <v-hover v-slot="{ hover }">
               <v-card
-                :to="`/item/${itemLike.item.id}`"
                 :elevation="hover ? 16 : 2"
                 :class="{ 'on-hover': hover }"
               >
@@ -26,7 +25,36 @@
                   max-width="100%"
                   :src="itemLike.item.image_url"
                 ></v-img>
-                <v-card-title>{{ itemLike.item.name }}</v-card-title>
+                <v-card-title class="px-2 py-0">{{
+                  itemLike.item.name
+                }}</v-card-title>
+                <v-card-text class="px-2 py-0">
+                  <v-row>
+                    <v-col cols="10" align="left">
+                      <p class="my-auto text--secondary">
+                        {{ itemLike.item.user.name }}
+                      </p>
+                    </v-col>
+                    <v-col cols="2" align="right">
+                      <v-icon color="red darken-3">mdi-heart</v-icon>
+                      {{ itemLike.item.item_likes.length }}
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+                <v-card-actions>
+                  <v-row class="px-1 py-2">
+                    <v-chip
+                      v-for="tag in itemLike.item.tags"
+                      :key="tag.id"
+                      outlined
+                      color="primary"
+                      class="ma-1"
+                      :to="'/tag/' + tag.id"
+                    >
+                      #{{ tag.name }}
+                    </v-chip>
+                  </v-row>
+                </v-card-actions>
               </v-card>
             </v-hover>
           </v-col>

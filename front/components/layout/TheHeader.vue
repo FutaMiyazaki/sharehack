@@ -6,11 +6,6 @@
           Sharehack
         </nuxt-link>
       </v-toolbar-title>
-      <!-- <v-tabs class="hidden-md-and-down">
-        <v-tab>
-          <nuxt-link to="/"> <v-icon>mdi-home</v-icon>Home </nuxt-link>
-        </v-tab>
-      </v-tabs> -->
       <v-spacer />
       <template v-if="isLoggedIn">
         <v-tooltip bottom color="primary">
@@ -100,7 +95,7 @@
             <NavigationItem
               link="/users/login"
               icon-color="white"
-              icon="mdi-login-outline"
+              icon="mdi-login"
               list-item-title-class="white--text font-weight-bold"
               text="ログイン"
             />

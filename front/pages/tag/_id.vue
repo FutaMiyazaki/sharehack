@@ -1,6 +1,6 @@
 <template>
   <v-container class="pt-0">
-    <PageHeader text="最新の投稿" icon="mdi-rss" />
+    <PageHeader :text="'タグ「' + text + '」の投稿一覧'" icon="mdi-tag" />
     <v-row>
       <v-col v-for="item in items" :key="item.id" cols="12" sm="4">
         <v-hover v-slot="{ hover }">
@@ -20,9 +20,7 @@
                     :to="'/users/' + item.user.id"
                     class="text-decoration-none"
                   >
-                    <p class="my-auto text--secondary">
-                      {{ item.user.name }}
-                    </p>
+                    <p class="my-auto text--secondary">{{ item.user.name }}</p>
                   </nuxt-link>
                 </v-col>
                 <v-col cols="2" align="right">
@@ -49,25 +47,10 @@
         </v-hover>
       </v-col>
     </v-row>
-    <PageHeader text="タグから探す" icon="mdi-tag-multiple" class="mt-6" />
-    <v-row>
-      <v-chip
-        v-for="tag in tags"
-        :key="tag.id"
-        class="ma-2"
-        color="primary"
-        label
-        outlined
-        :to="'/tag/' + tag.id"
-      >
-        #{{ tag.name }}
-      </v-chip>
-    </v-row>
   </v-container>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 
 export default {
@@ -76,26 +59,25 @@ export default {
   },
   data() {
     return {
-      tags: []
+      text: '',
+      items: []
     }
   },
-  computed: {
-    ...mapGetters({ items: 'item/items' })
-  },
+  computed: {},
   created() {
-    this.getItems()
     this.$axios
-      .get('api/v1/tags')
+      .get(`api/v1/tags/${this.$route.params.id}`)
       .then((response) => {
-        this.tags = response.data
+        this.text = response.data.name
+        this.items = response.data.items
+        this.currentUserId = this.$store.getters[
+          'authentication/currentUser'
+        ].id
         console.log(response)
       })
       .catch((error) => {
         return error
       })
-  },
-  methods: {
-    ...mapActions({ getItems: 'item/getItems' })
   }
 }
 </script>

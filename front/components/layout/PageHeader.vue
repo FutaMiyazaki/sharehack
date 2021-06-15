@@ -1,12 +1,17 @@
 <template>
   <div class="page-header py-4 mb-5">
-    <p class="mb-0 font-weight-bold">{{ text }}</p>
+    <v-icon class="pb-1">{{ icon }}</v-icon>
+    <h4 class="d-inline-block font-weight-bold">{{ text }}</h4>
   </div>
 </template>
 
 <script>
 export default {
   props: {
+    icon: {
+      type: String,
+      default: ''
+    },
     text: {
       type: String,
       required: true

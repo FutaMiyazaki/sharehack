@@ -37,28 +37,28 @@ RSpec.describe Item, type: :model do
     context 'nilの場合' do
       let(:name) { nil }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空白の場合' do
       let(:name) { ' ' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空文字の場合' do
       let(:name) { '' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '30文字より多い場合' do
       let(:name) { 'a' * 31 }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
   end
@@ -67,28 +67,28 @@ RSpec.describe Item, type: :model do
     context 'nilの場合' do
       let(:description) { nil }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空白の場合' do
       let(:description) { ' ' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '空文字の場合' do
       let(:description) { '' }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
 
     context '255文字より多い場合' do
       let(:description) { 'a' * 256 }
       it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
   end
@@ -97,37 +97,7 @@ RSpec.describe Item, type: :model do
     context '不正な値の場合' do
       let(:link) { 'httpsharehack.com' }
       it '無効であること' do
-        expect(subject).to_not be_valid
-      end
-    end
-  end
-
-  describe 'price' do
-    context 'nilの場合' do
-      let(:price) { nil }
-      it '無効であること' do
-        expect(subject).to_not be_valid
-      end
-    end
-
-    context '空白の場合' do
-      let(:price) { ' ' }
-      it '無効であること' do
-        expect(subject).to_not be_valid
-      end
-    end
-
-    context '空文字の場合' do
-      let(:price) { '' }
-      it '無効であること' do
-        expect(subject).to_not be_valid
-      end
-    end
-
-    context '1000000より大きい場合' do
-      let(:price) { 1000001 }
-      it '無効であること' do
-        expect(subject).to_not be_valid
+        expect(subject).to be_invalid
       end
     end
   end

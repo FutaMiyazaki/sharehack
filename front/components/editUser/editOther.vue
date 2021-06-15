@@ -22,7 +22,10 @@
           </template>
 
           <v-card>
-            <v-card-title class="justify-center font-weight-bold ">
+            <v-btn icon absolute right @click="dialog = false">
+              ✕
+            </v-btn>
+            <v-card-title class="mt-2 px-0 justify-center font-weight-bold ">
               本当にアカウントを削除しますか？
             </v-card-title>
             <v-divider class="mb-5" />
@@ -34,7 +37,7 @@
                 color="warning"
                 rounded
                 outlined
-                class="white--text"
+                class="white--text font-weight-bold"
                 width="100px"
                 @click="dialog = false"
               >
@@ -43,7 +46,7 @@
               <v-btn
                 rounded
                 color="warning"
-                class="white--text"
+                class="white--text font-weight-bold"
                 width="100px"
                 @click="deleteUser"
               >
