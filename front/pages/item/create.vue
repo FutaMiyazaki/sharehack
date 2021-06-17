@@ -32,11 +32,14 @@
             <FormLabel
               label-title="画像をアップロードする"
               label-text="画像形式：JPEG/PNG"
-              label-sub-text="容量：10MB以内"
+              label-sub-text="容量：5MB以内"
             />
           </v-col>
           <v-col cols="12" sm="8">
-            <validation-provider v-slot="{ validate }" rules="required">
+            <validation-provider
+              v-slot="{ errors, validate }"
+              rules="required|size:5000"
+            >
               <v-file-input
                 counter
                 outlined
@@ -47,6 +50,7 @@
                 truncate-length="25"
                 prepend-icon="mdi-camera"
                 label="画像をアップロードする"
+                :error-messages="errors"
                 show-size
                 @input="validate($event)"
                 @change="setImage"
@@ -83,7 +87,11 @@
             <FormLabel label-title="商品URLを追加する" :display="false" />
           </v-col>
           <v-col cols="12" sm="8">
-            <validation-provider v-slot="{ errors }" mode="lazy">
+            <validation-provider
+              v-slot="{ errors }"
+              :rules="{ regex: /https?:/ }"
+              mode="lazy"
+            >
               <v-text-field
                 v-model.trim="link"
                 counter
