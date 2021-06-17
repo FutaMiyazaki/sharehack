@@ -3,90 +3,175 @@
     <PageHeader :text="text" />
     <validation-observer v-slot="{ invalid }">
       <v-form ref="form" lazy-validation class="mt-5">
-        <validation-provider
-          v-slot="{ errors }"
-          rules="required|max:30"
-          mode="lazy"
-        >
-          <v-text-field
-            v-model="name"
-            counter
-            auto-grow
-            outlined
-            rows="1"
-            background-color="secondary"
-            prepend-icon="mdi-pencil"
-            label="アイテム名"
-            :error-messages="errors"
-          />
-        </validation-provider>
-        <validation-provider v-slot="{ validate }" rules="required">
-          <v-file-input
-            counter
-            outlined
-            rows="1"
-            background-color="secondary"
-            :value="image"
-            accept="image/*"
-            truncate-length="25"
-            prepend-icon="mdi-camera"
-            label="画像をアップロードする"
-            show-size
-            @input="validate($event)"
-            @change="setImage"
-          />
-        </validation-provider>
-        <validation-provider
-          v-slot="{ errors }"
-          rules="required|max:300"
-          mode="lazy"
-        >
-          <v-textarea
-            v-model="description"
-            counter
-            auto-grow
-            outlined
-            rows="1"
-            background-color="secondary"
-            prepend-icon="mdi-text-box"
-            label="説明"
-            :error-messages="errors"
-          />
-        </validation-provider>
-        <validation-provider
-          v-slot="{ errors }"
-          rules="regex:/\Ahttps:\/\/[^\n]+\Z/"
-          mode="lazy"
-        >
-          <v-text-field
-            v-model="link"
-            counter
-            auto-grow
-            outlined
-            rows="1"
-            background-color="secondary"
-            prepend-icon="mdi-link"
-            label="商品URL"
-            :error-messages="errors"
-          />
-        </validation-provider>
-        <validation-provider
-          v-slot="{ errors }"
-          rules="required|integer"
-          mode="lazy"
-        >
-          <v-text-field
-            v-model.number="price"
-            counter
-            auto-grow
-            outlined
-            rows="1"
-            background-color="secondary"
-            prepend-icon="mdi-currency-usd"
-            label="参考価格"
-            :error-messages="errors"
-          />
-        </validation-provider>
+        <v-row>
+          <v-col cols="12" sm="4">
+            <FormLabel label-title="アイテム名を記入" />
+          </v-col>
+          <v-col cols="12" sm="8">
+            <validation-provider
+              v-slot="{ errors }"
+              rules="required|max:30"
+              mode="lazy"
+            >
+              <v-text-field
+                v-model="name"
+                counter
+                auto-grow
+                outlined
+                rows="1"
+                background-color="secondary"
+                prepend-icon="mdi-pencil"
+                label="アイテム名"
+                :error-messages="errors"
+              />
+            </validation-provider>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="4">
+            <FormLabel
+              label-title="画像をアップロードする"
+              label-text="画像形式：JPEG/PNG"
+              label-sub-text="容量：5MB以内"
+            />
+          </v-col>
+          <v-col cols="12" sm="8">
+            <validation-provider
+              v-slot="{ errors, validate }"
+              rules="required|size:5000"
+            >
+              <v-file-input
+                counter
+                outlined
+                rows="1"
+                background-color="secondary"
+                :value="image"
+                accept="image/*"
+                truncate-length="25"
+                prepend-icon="mdi-camera"
+                label="画像をアップロードする"
+                :error-messages="errors"
+                show-size
+                @input="validate($event)"
+                @change="setImage"
+              />
+            </validation-provider>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="4">
+            <FormLabel label-title="説明を記入する" label-text="300文字以内" />
+          </v-col>
+          <v-col cols="12" sm="8">
+            <validation-provider
+              v-slot="{ errors }"
+              rules="required|max:300"
+              mode="lazy"
+            >
+              <v-textarea
+                v-model="description"
+                counter
+                auto-grow
+                outlined
+                rows="3"
+                background-color="secondary"
+                prepend-icon="mdi-text-box"
+                label="説明"
+                :error-messages="errors"
+              />
+            </validation-provider>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="4">
+            <FormLabel label-title="商品URLを追加する" :display="false" />
+          </v-col>
+          <v-col cols="12" sm="8">
+            <validation-provider
+              v-slot="{ errors }"
+              :rules="{ regex: /https?:/ }"
+              mode="lazy"
+            >
+              <v-text-field
+                v-model.trim="link"
+                counter
+                auto-grow
+                outlined
+                rows="1"
+                background-color="secondary"
+                prepend-icon="mdi-link"
+                label="商品URL"
+                :error-messages="errors"
+              />
+            </validation-provider>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="4"
+            ><FormLabel label-title="参考価格を追加する" :display="false"
+          /></v-col>
+          <v-col cols="12" sm="8">
+            <validation-provider
+              v-slot="{ errors }"
+              rules="integer"
+              mode="lazy"
+            >
+              <v-text-field
+                v-model.number="price"
+                type="number"
+                auto-grow
+                outlined
+                rows="1"
+                background-color="secondary"
+                prepend-icon="mdi-currency-usd"
+                label="参考価格"
+                :error-messages="errors"
+              />
+            </validation-provider>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="4">
+            <FormLabel label-title="タグ" label-text="5つまで追加できます" />
+          </v-col>
+          <v-col cols="12" sm="8">
+            <validation-provider
+              v-slot="{ errors }"
+              rules="required"
+              mode="lazy"
+            >
+              <v-combobox
+                v-model="tags"
+                :items="tagLists"
+                :search-input.sync="search"
+                hide-selected
+                hint="自身でタグを作成することもできます"
+                label="タグを追加する"
+                auto-grow
+                outlined
+                chips
+                deletable-chips
+                item-color="primary"
+                prepend-icon="mdi-tag"
+                multiple
+                persistent-hint
+                small-chips
+                :error-messages="errors"
+              >
+                <template v-slot:no-data>
+                  <v-list-item>
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        <strong>{{ search }}</strong
+                        >に一致するタグは見つかりません。自分で入力することも可能です。
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </template>
+              </v-combobox>
+            </validation-provider>
+          </v-col>
+        </v-row>
         <v-btn
           rounded
           width="40vw"
@@ -104,10 +189,12 @@
 
 <script>
 import PageHeader from '~/components/layout/PageHeader.vue'
+import FormLabel from '~/components/layout/FormLabel.vue'
 
 export default {
   components: {
-    PageHeader
+    PageHeader,
+    FormLabel
   },
   data() {
     return {
@@ -116,8 +203,31 @@ export default {
       image: null,
       description: '',
       link: '',
-      price: ''
+      price: '',
+      tags: '',
+      tagLists: [],
+      search: null
     }
+  },
+  watch: {
+    tags(val) {
+      if (val.length > 5) {
+        this.$nextTick(() => this.tags.pop())
+      }
+    }
+  },
+  created() {
+    this.$axios
+      .get('api/v1/tags')
+      .then((response) => {
+        const tagData = response.data
+        this.tagLists = tagData.map(function(tagData) {
+          return tagData.name
+        })
+      })
+      .catch((error) => {
+        return error
+      })
   },
   methods: {
     setImage(e) {
@@ -135,6 +245,7 @@ export default {
       data.append('item[description]', this.description)
       data.append('item[link]', this.link)
       data.append('item[price]', this.price)
+      data.append('item[tags]', this.tags)
       data.append(
         'item[user_id]',
         this.$store.getters['authentication/currentUser'].id

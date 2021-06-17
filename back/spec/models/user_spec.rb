@@ -14,11 +14,13 @@ RSpec.describe User, type: :model do
         expect(User.reflect_on_association(:items).macro).to eq :has_many
       end
     end
+
     context 'with item_like model' do
       it '1:N' do
         expect(User.reflect_on_association(:item_likes).macro).to eq :has_many
       end
     end
+
     context 'with item_comment model' do
       it '1:N' do
         expect(User.reflect_on_association(:item_comments).macro).to eq :has_many
@@ -30,23 +32,86 @@ RSpec.describe User, type: :model do
     it { is_expected.to be_valid }
   end
 
-  context 'nameが無い場合' do
-    let(:name) { nil }
-    it { is_expected.to_not be_valid }
+  describe 'name' do
+    context 'nilの場合' do
+      let(:name) { nil }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '空白の場合' do
+      let(:name) { ' ' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '空文字の場合' do
+      let(:name) { '' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '30文字以下の場合' do
+      let(:name) { 'a' * 30 }
+      it '有効であること' do
+        expect(subject).to be_valid
+      end
+    end
+
+    context '31文字以上の場合' do
+      let(:name) { 'a' * 31 }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
   end
 
-  context 'nameが30文字より多い場合' do
-    let(:name) { 'a' * 31 }
-    it { is_expected.to_not be_valid }
+  describe 'email' do
+    context 'nilの場合' do
+      let(:email) { nil }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '空白の場合' do
+      let(:email) { ' ' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '空文字の場合' do
+      let(:email) { '' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
   end
 
-  context 'emailが無い場合' do
-    let(:email) { nil }
-    it { is_expected.to_not be_valid }
-  end
+  describe 'password' do
+    context 'nilの場合' do
+      let(:password) { nil }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
 
-  context 'passwordが無い場合' do
-    let(:password) { nil }
-    it { is_expected.to_not be_valid }
+    context '空白の場合' do
+      let(:password) { ' ' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '空文字の場合' do
+      let(:password) { '' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
   end
 end

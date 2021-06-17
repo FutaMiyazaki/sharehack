@@ -6,7 +6,14 @@ import {
   localize
 } from 'vee-validate'
 import ja from 'vee-validate/dist/locale/ja.json'
-import { required, max, email, integer, regex } from 'vee-validate/dist/rules'
+import {
+  required,
+  max,
+  email,
+  integer,
+  regex,
+  size
+} from 'vee-validate/dist/rules'
 
 extend('required', {
   ...required,
@@ -30,7 +37,12 @@ extend('integer', {
 
 extend('regex', {
   ...regex,
-  message: 'httpsから始まるURLを入力してください'
+  message: '正しいURL形式で入力してください'
+})
+
+extend('size', {
+  ...size,
+  message: '5MB以上のファイルはアップロードできません'
 })
 
 localize('ja', ja)

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
       resources :items, only: %i[index show create update destroy]
       resource :item_likes, only: %i[create destroy]
       resources :item_comments, only: %i[create destroy]
+      resources :tags, only: %i[index show] do
+        get :search, on: :collection
+      end
     end
   end
 end

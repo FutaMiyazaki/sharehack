@@ -15,11 +15,13 @@ RSpec.describe Item, type: :model do
         expect(Item.reflect_on_association(:user).macro).to eq :belongs_to
       end
     end
+
     context 'with item_comment model' do
       it '1:N' do
         expect(Item.reflect_on_association(:item_comments).macro).to eq :has_many
       end
     end
+
     context 'with item_like model' do
       it '1:N' do
         expect(Item.reflect_on_association(:item_likes).macro).to eq :has_many
@@ -31,41 +33,95 @@ RSpec.describe Item, type: :model do
     it { is_expected.to be_valid }
   end
 
-  context 'nameが無い場合' do
-    let(:name) { nil }
-    it '無効であること' do
-      expect(subject).to_not be_valid
+  describe 'name' do
+    context 'nilの場合' do
+      let(:name) { nil }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '空白の場合' do
+      let(:name) { ' ' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '空文字の場合' do
+      let(:name) { '' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '30文字以下の場合' do
+      let(:name) { 'a' * 30 }
+      it '有効であること' do
+        expect(subject).to be_valid
+      end
+    end
+
+    context '31文字以上の場合' do
+      let(:name) { 'a' * 31 }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
     end
   end
 
-  context 'nameが30文字より多い場合' do
-    let(:name) { 'a' * 31 }
-    it { is_expected.to_not be_valid }
-  end
+  describe 'description' do
+    context 'nilの場合' do
+      let(:description) { nil }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
 
-  context 'descriptionが無い場合' do
-    let(:description) { nil }
-    it '無効であること' do
-      expect(subject).to_not be_valid
+    context '空白の場合' do
+      let(:description) { ' ' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '空文字の場合' do
+      let(:description) { '' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '255文字以下の場合' do
+      let(:description) { 'a' * 255 }
+      it '有効であること' do
+        expect(subject).to be_valid
+      end
+    end
+
+    context '256文字以上の場合' do
+      let(:description) { 'a' * 256 }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
     end
   end
 
-  context 'descriptionが255文字より多い場合' do
-    let(:description) { 'a' * 256 }
-    it { is_expected.to_not be_valid }
-  end
-
-  context 'linkが不正な値の場合' do
-    let(:link) { 'httpsharehack.com' }
-    it '無効であること' do
-      expect(subject).to_not be_valid
+  describe 'link' do
+    context '正しいURL形式の場合' do
+      let(:link) { 'https://sharehack.com' }
+      it '有効であること' do
+        expect(subject).to be_valid
+      end
     end
   end
 
-  context 'priceが無い場合' do
-    let(:price) { nil }
-    it '無効であること' do
-      expect(subject).to_not be_valid
+  describe 'link' do
+    context '不正な値の場合' do
+      let(:link) { 'httpsharehack.com' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
     end
   end
 end

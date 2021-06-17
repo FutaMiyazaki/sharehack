@@ -1,10 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ItemLike, type: :model do
-  subject { user.item_likes.build(params) }
-  let(:user) { create(:user) }
-  let(:item) { create(:item) }
-  let(:params) { { user_id: user.id, item_id: item.id } }
+  let(:item_like) { create(:item_like) }
 
   describe 'Association' do
     context 'with user model' do
@@ -19,7 +16,24 @@ RSpec.describe ItemLike, type: :model do
     end
   end
 
-  context '全てのパラメータが正しい場合' do
-    it { is_expected.to be_valid }
+  context 'user_idおよびitem_idが存在する場合' do
+    it '有効であること' do
+      expect(item_like).to be_valid
+    end
   end
+
+  context 'user_idがnilの場合' do
+    it '無効であること' do
+      item_like.user_id = nil
+      expect(item_like).to be_invalid
+    end
+  end
+
+  context 'item_idがnilの場合' do
+    it '無効であること' do
+      item_like.item_id = nil
+      expect(item_like).to be_invalid
+    end
+  end
+
 end

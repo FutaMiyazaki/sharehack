@@ -24,22 +24,34 @@ RSpec.describe ItemComment, type: :model do
     it { is_expected.to be_valid }
   end
 
-  context 'contentがnilの場合' do
-    let(:content) { nil }
-    it '無効であること' do
-      expect(subject).to_not be_valid
+  describe 'content' do
+    context 'nilの場合' do
+      let(:content) { nil }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '空白の場合' do
+      let(:content) { ' ' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '空文字の場合' do
+      let(:content) { '' }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
+    end
+
+    context '255文字より多い場合' do
+      let(:content) { 'a' * 256 }
+      it '無効であること' do
+        expect(subject).to be_invalid
+      end
     end
   end
 
-  context 'contentが空白の場合' do
-    let(:content) { '' }
-    it '無効であること' do
-      expect(subject).to_not be_valid
-    end
-  end
-
-  context 'contentが255文字より多い場合' do
-    let(:content) { 'a' * 256 }
-    it { is_expected.to_not be_valid }
-  end
 end

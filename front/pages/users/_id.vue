@@ -19,14 +19,39 @@
               <v-card
                 :elevation="hover ? 16 : 2"
                 :class="{ 'on-hover': hover }"
-                @click="toPost(item.id)"
               >
                 <v-img
                   max-height="auto"
                   max-width="100%"
                   :src="item.image_url"
                 ></v-img>
-                <v-card-title>{{ item.name }}</v-card-title>
+                <v-card-text class="px-2 py-0">
+                  <v-row>
+                    <v-col cols="10" align="left">
+                      <p class="my-auto text--secondary text-h5">
+                        {{ item.name }}
+                      </p>
+                    </v-col>
+                    <v-col cols="2" align="right">
+                      <v-icon color="red darken-3">mdi-heart</v-icon>
+                      {{ item.item_likes.length }}
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+                <v-card-actions>
+                  <v-row class="px-1 py-2">
+                    <v-chip
+                      v-for="tag in item.tags"
+                      :key="tag.id"
+                      outlined
+                      color="primary"
+                      class="ma-1"
+                      :to="'/tag/' + tag.id"
+                    >
+                      #{{ tag.name }}
+                    </v-chip>
+                  </v-row>
+                </v-card-actions>
               </v-card>
             </v-hover>
           </v-col>

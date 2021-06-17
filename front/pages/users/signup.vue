@@ -81,7 +81,6 @@
             <v-card-actions>
               <v-btn
                 block
-                rounded
                 color="primary"
                 class="white--text font-weight-bold"
                 :disabled="invalid"
@@ -96,7 +95,6 @@
         <v-card-actions>
           <v-btn
             block
-            rounded
             color="accent"
             class="white--text font-weight-bold"
             @click="guestLogin"
@@ -104,7 +102,7 @@
             ゲストユーザーでログイン
           </v-btn>
         </v-card-actions>
-        <v-card-actions class="py-0 justify-center">
+        <v-card-actions class="mt-2 py-0 justify-center">
           アカウントをお持ちの方はこちらから
         </v-card-actions>
         <v-card-actions class="pt-0 justify-center">
@@ -137,7 +135,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      signUp: 'authentication/signUp'
+      signUp: 'authentication/signUp',
+      login: 'authentication/login'
     }),
     signUpUser() {
       this.signUp(this.user)

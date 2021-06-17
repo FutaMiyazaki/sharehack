@@ -36,38 +36,103 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="6">
-            <v-btn v-show="!isLiked" rounded block @click="likeItem">
-              <v-icon class="mr-3" color="primary">mdi-heart-outline</v-icon>
-              <p class="my-auto">いいね{{ likeCount }}</p>
-            </v-btn>
-            <v-btn v-show="isLiked" rounded block @click="dislikeItem">
-              <v-icon class="mr-3" color="primary">mdi-heart</v-icon>
-              <p class="my-auto">いいね{{ likeCount }}</p>
-            </v-btn>
+          <v-col cols="12" sm="6">
+            <template v-if="isLoggedIn">
+              <v-btn
+                v-show="!isLiked"
+                block
+                rounded
+                depressed
+                @click="likeItem"
+              >
+                <v-icon>mdi-heart-outline</v-icon>
+                <p class="my-auto mx-2">いいね!</p>
+                <span class="font-weight-bold">{{ likeCount }}</span>
+              </v-btn>
+              <v-btn
+                v-show="isLiked"
+                block
+                rounded
+                outlined
+                color="red darken-3"
+                @click="dislikeItem"
+              >
+                <v-icon>mdi-heart</v-icon>
+                <p class="my-auto mx-2">いいね!</p>
+                <span class="font-weight-bold">{{ likeCount }}</span>
+              </v-btn>
+            </template>
+            <template v-if="!isLoggedIn">
+              <v-dialog v-model="dialog" width="500">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn block rounded depressed v-bind="attrs" v-on="on">
+                    <v-icon color="red darken-3">mdi-heart</v-icon>
+                    <p class="my-auto mx-2">いいね!</p>
+                    <span class="font-weight-bold">{{ likeCount }}</span>
+                  </v-btn>
+                </template>
+                <v-card class="py-2">
+                  <v-btn icon absolute right @click="dialog = false">
+                    ✕
+                  </v-btn>
+                  <v-card-title
+                    class="mt-2 px-0 justify-center font-weight-bold "
+                  >
+                    いいねするには、ログインが必要です
+                  </v-card-title>
+                  <v-divider class="mb-5" />
+                  <v-card-text class="justify-center text-center">
+                    いいねするには、ログインが必要です
+                  </v-card-text>
+                  <v-card-actions class="justify-center">
+                    <v-btn
+                      block
+                      rounded
+                      color="accent"
+                      class="white--text font-weight-bold"
+                      to="/users/login"
+                    >
+                      ログイン
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </template>
           </v-col>
-          <v-col cols="6">
-            <v-btn rounded block>
-              <v-icon class="mr-3">mdi-folder-plus-outline</v-icon>
-              <p class="my-auto">保存する</p>
-            </v-btn>
+          <v-col v-if="item.link != ''" cols="12" sm="6">
+            <a
+              :href="item.link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-decoration-none"
+            >
+              <v-btn outlined block color="primary">
+                <v-icon class="mr-3">mdi-open-in-new</v-icon>
+                <p class="my-auto">販売サイトへ</p>
+              </v-btn>
+            </a>
           </v-col>
         </v-row>
         <div class="my-5 pa-3 rounded-lg secondary">
           <p style="white-space:pre-wrap;" v-text="item.description"></p>
         </div>
-        <div>
-          <a :href="item.link" target="_blank" rel="noopener noreferrer"
-            >商品URL</a
-          >
-          <p>※新しいタブで開きます</p>
-        </div>
+        <v-chip
+          v-for="tag in tags"
+          :key="tag.id"
+          class="ma-2"
+          color="primary"
+          label
+          outlined
+          :to="'/tag/' + tag.id"
+        >
+          #{{ tag.name }}
+        </v-chip>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12" sm="7">
         <v-row>
-          <v-col cols="12">
+          <v-col v-if="comments.length" cols="12">
             <div v-for="comment in comments" :key="comment.id" class="mb-5">
               <v-row>
                 <v-col cols="6" class="my-auto">
@@ -82,13 +147,60 @@
                   </span>
                 </v-col>
                 <v-col cols="6" align="right">
-                  <v-btn
-                    v-if="currentUserId == comment.user.id"
-                    text
-                    color="warning"
-                    @click="deleteComment(comment.id)"
-                    >コメントを削除する</v-btn
-                  >
+                  <v-dialog v-model="dialog" width="500">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        v-if="currentUserId == comment.user.id"
+                        text
+                        color="warning"
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        コメントを削除する
+                      </v-btn>
+                    </template>
+                    <v-card class="py-2">
+                      <v-btn
+                        icon
+                        absolute
+                        right
+                        class="d-block"
+                        @click="dialog = false"
+                      >
+                        ✕
+                      </v-btn>
+                      <v-card-title
+                        class="mt-2 px-0 justify-center font-weight-bold "
+                      >
+                        本当にコメントを削除しますか？
+                      </v-card-title>
+                      <v-divider class="mb-5" />
+                      <v-card-text class="justify-center text-center">
+                        ※この操作は取り消せません
+                      </v-card-text>
+                      <v-card-actions class="justify-center">
+                        <v-btn
+                          color="warning"
+                          rounded
+                          outlined
+                          class="white--text font-weight-bold"
+                          width="100px"
+                          @click="dialog = false"
+                        >
+                          キャンセル
+                        </v-btn>
+                        <v-btn
+                          rounded
+                          color="warning"
+                          class="white--text font-weight-bold"
+                          width="100px"
+                          @click="deleteComment(comment.id)"
+                        >
+                          OK
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                 </v-col>
               </v-row>
               <v-card rounded flat color="secondary" class="pa-5">{{
@@ -135,6 +247,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 
 export default {
@@ -143,18 +256,23 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       text: '',
       item: {
         user: {}
       },
       currentUserId: '',
       userEmail: '',
+      tags: [],
       likeList: [],
       comments: [],
       commentText: ''
     }
   },
   computed: {
+    ...mapGetters({
+      isLoggedIn: 'authentication/isLoggedIn'
+    }),
     likeCount() {
       return this.likeList.length
     },
@@ -170,19 +288,18 @@ export default {
     }
   },
   created() {
-    // if (this.$store.getters['authentication/currentUser'].uid !== null) {
-    //   this.userEmail = this.$store.getters['authentication/currentUser'].uid
-    // }
     this.$axios
       .get(`api/v1/items/${this.$route.params.id}`)
       .then((response) => {
         this.item = response.data
+        this.tags = response.data.tags
         this.likeList = response.data.item_likes
         this.comments = response.data.item_comments
         this.text = this.item.name
         this.currentUserId = this.$store.getters[
           'authentication/currentUser'
         ].id
+        console.log(this.tags)
       })
       .catch((error) => {
         return error
@@ -246,6 +363,7 @@ export default {
         })
         .then((response) => {
           this.comments = response.data
+          this.dialog = false
           this.$refs.observer.reset()
         })
         .catch((error) => {

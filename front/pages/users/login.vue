@@ -45,7 +45,6 @@
             <v-card-actions>
               <v-btn
                 block
-                rounded
                 color="primary"
                 class="white--text font-weight-bold"
                 :disabled="invalid"
@@ -60,7 +59,6 @@
         <v-card-actions>
           <v-btn
             block
-            rounded
             color="accent"
             class="white--text font-weight-bold"
             @click="guestLogin"
