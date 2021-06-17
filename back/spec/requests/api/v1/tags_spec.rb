@@ -1,35 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Tags", type: :request do
-  # describe "GET /index" do
-  #   it "returns http success" do
-  #     get "/api/v1/tags/index"
-  #     expect(response).to have_http_status(:success)
-  #   end
+  let(:tag) { create(:tag) }
 
-  #   context 'タグおよび対象のタグを持つ投稿が存在する場合' do
-  #     let(:takashi) { FactoryBot.create :takashi }
+  describe "GET /api/v1/tags" do
+    before do
+      create_list(:tag, 10)
+    end
 
-  #     it 'リクエストが成功すること' do
-  #       get :show, params: { id: takashi }
-  #       expect(response.status).to eq 200
-  #     end
+    it "リクエストが成功すること" do
+      get api_v1_tags_path
+      expect(response).to have_http_status 200
+    end
 
-  #     it 'showテンプレートで表示されること' do
-  #       get :show, params: { id: takashi }
-  #       expect(response).to render_template :show
-  #     end
+    it 'tagがすべて取得できていること' do
+      get api_v1_tags_path
+      expect(json.length).to eq(Tag.count)
+    end
+  end
 
-  #     it '@userが取得できていること' do
-  #       get :show, params: { id: takashi }
-  #       expect(assigns :user).to eq takashi
-  #     end
-  #   end
-
-  #   context 'ユーザーが存在しない場合' do
-  #     subject { -> { get :show, params: { id: 1 } } }
-
-  #     it { is_expected.to raise_error ActiveRecord::RecordNotFound }
-  #   end
-  # end
+  describe "GET /api/v1/tags/:id" do
+    it "リクエストが成功すること" do
+      get api_v1_tags_path(tag.id)
+      expect(response).to have_http_status 200
+    end
+  end
 end
