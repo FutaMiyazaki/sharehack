@@ -8,23 +8,12 @@
             <FormLabel label-title="アイテム名を記入" />
           </v-col>
           <v-col cols="12" sm="8">
-            <ValidationProvider
-              v-slot="{ errors }"
+            <TextField
+              v-model="item.name"
               rules="required|max:30"
-              mode="lazy"
-            >
-              <v-text-field
-                v-model="item.name"
-                counter
-                auto-grow
-                outlined
-                rows="1"
-                background-color="secondary"
-                prepend-icon="mdi-pencil"
-                label="アイテム名"
-                :error-messages="errors"
-              />
-            </ValidationProvider>
+              icon="mdi-pencil"
+              label="アイテム名"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -58,23 +47,12 @@
             <FormLabel label-title="説明を記入する" label-text="300文字以内" />
           </v-col>
           <v-col cols="12" sm="8">
-            <ValidationProvider
-              v-slot="{ errors }"
+            <TextArea
+              v-model="item.description"
               rules="required|max:300"
-              mode="lazy"
-            >
-              <v-textarea
-                v-model="item.description"
-                counter
-                auto-grow
-                outlined
-                rows="3"
-                background-color="secondary"
-                prepend-icon="mdi-text-box"
-                label="説明"
-                :error-messages="errors"
-              />
-            </ValidationProvider>
+              icon="mdi-text-box"
+              label="説明"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -82,23 +60,12 @@
             <FormLabel label-title="商品URLを追加する" :display="false" />
           </v-col>
           <v-col cols="12" sm="8">
-            <ValidationProvider
-              v-slot="{ errors }"
-              rules="regex:/\Ahttps:\/\/[^\n]+\Z/"
-              mode="lazy"
-            >
-              <v-text-field
-                v-model="item.link"
-                counter
-                auto-grow
-                outlined
-                rows="1"
-                background-color="secondary"
-                prepend-icon="mdi-link"
-                label="商品URL"
-                :error-messages="errors"
-              />
-            </ValidationProvider>
+            <TextField
+              v-model.trim="item.link"
+              type="url"
+              icon="mdi-link"
+              label="商品URL"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -106,23 +73,13 @@
             ><FormLabel label-title="参考価格を追加する" :display="false"
           /></v-col>
           <v-col cols="12" sm="8">
-            <ValidationProvider
-              v-slot="{ errors }"
-              rules="required|integer"
-              mode="lazy"
-            >
-              <v-text-field
-                v-model="item.price"
-                counter
-                auto-grow
-                outlined
-                rows="1"
-                background-color="secondary"
-                prepend-icon="mdi-currency-usd"
-                label="参考価格"
-                :error-messages="errors"
-              />
-            </ValidationProvider>
+            <TextField
+              v-model.number="item.price"
+              type="number"
+              rules="integer"
+              icon="mdi-currency-usd"
+              label="参考価格"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -186,7 +143,6 @@
           投稿を削除する
         </v-btn>
       </template>
-
       <v-card class="py-2">
         <v-btn icon absolute right @click="dialog = false">
           ✕
@@ -232,11 +188,15 @@
 <script>
 import PageHeader from '~/components/layout/PageHeader.vue'
 import FormLabel from '~/components/layout/FormLabel.vue'
+import TextField from '~/components/input/TextField.vue'
+import TextArea from '~/components/input/TextArea.vue'
 
 export default {
   components: {
     PageHeader,
-    FormLabel
+    FormLabel,
+    TextField,
+    TextArea
   },
   data() {
     return {
@@ -249,11 +209,11 @@ export default {
         image: null,
         description: '',
         link: '',
-        price: '',
-        tags: '',
-        tagLists: [],
-        search: null
-      }
+        price: ''
+      },
+      tags: '',
+      tagLists: [],
+      search: null
     }
   },
   watch: {
@@ -268,6 +228,12 @@ export default {
       .get(`api/v1/items/${this.$route.params.id}`)
       .then((response) => {
         this.item = response.data
+        for (let i = 0; i < this.item.tags.length; i++) {
+          this.tags += this.item.tags[i].name + ','
+          console.log(this.item.tags[i].name)
+        }
+        this.tags = this.tags.slice(0, -1)
+        this.tags = this.tags.split(',')
         console.log('アイテム情報の取得に成功')
         console.log(response)
       })
@@ -309,7 +275,7 @@ export default {
         .patch(`api/v1/items/${this.$route.params.id}`, data, config)
         .then((response) => {
           console.log(response)
-          this.$router.push(`/item/${this.item.id}`)
+          this.$router.push(`/item/${response.data.id}`)
           this.$store.dispatch(
             'flashMessage/showMessage',
             {

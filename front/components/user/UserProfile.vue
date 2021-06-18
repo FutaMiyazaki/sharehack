@@ -23,7 +23,7 @@
               outlined
               block
               color="primary"
-              @click="toSetting"
+              to="/users/setting"
             >
               <v-icon class="mr-3">mdi-cog</v-icon>
               <p class="my-auto">アカウントを編集する</p>
@@ -83,11 +83,6 @@ export default {
       type: String,
       required: true,
       default: ''
-    }
-  },
-  methods: {
-    toSetting() {
-      this.$router.push('/users/setting')
     }
   }
 }

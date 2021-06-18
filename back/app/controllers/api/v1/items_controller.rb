@@ -23,9 +23,11 @@ class Api::V1::ItemsController < ApplicationController
 
   def update
     item = Item.find(params[:id])
+    sent_tags = item_tags_params[:tags] === nil ? [] : item_tags_params[:tags]
+    tag_list = sent_tags.split(',')
     if item.update(item_params)
       item.save_tags(tag_list)
-      render json: item.as_json(include: :user)
+      render json: item.as_json(only: :id)
     else
       render json: { data: item.errors }
     end
