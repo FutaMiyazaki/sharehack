@@ -6,31 +6,30 @@
       </nuxt-link>
       <v-card-title class="px-2 py-0">{{ item.name }}</v-card-title>
       <v-card-text class="px-2 py-0">
-        <v-row>
-          <v-col cols="10" align="left">
-            <nuxt-link
-              v-if="'user' in item"
-              :to="'/users/' + item.user.id"
-              class="text-decoration-none"
-            >
-              <p class="my-auto text--secondary">
-                {{ item.user.name }}
-              </p>
-            </nuxt-link>
-          </v-col>
-          <v-col cols="2" align="right">
-            <v-icon color="red darken-3">mdi-heart</v-icon>
-            {{ item.item_likes.length }}
-          </v-col>
-        </v-row>
+        <nuxt-link
+          v-if="'user' in item"
+          :to="'/users/' + item.user.id"
+          class="text-decoration-none"
+        >
+          <p class="my-auto text--secondary">
+            {{ item.user.name }}
+          </p>
+        </nuxt-link>
+      </v-card-text>
+      <v-card-text class="px-2 py-0">
+        <v-icon color="red darken-3">mdi-heart</v-icon>
+        {{ item.item_likes.length }}
+        <v-icon color="primary" class="ml-2">mdi-comment-outline</v-icon>
+        {{ item.item_comments.length }}
       </v-card-text>
       <v-card-actions>
         <v-row class="px-1 py-2">
           <v-chip
             v-for="tag in item.tags"
             :key="`item-tag-${tag.id}`"
-            outlined
-            color="primary"
+            label
+            small
+            color="accent"
             class="ma-1"
             :to="'/tag/' + tag.id"
           >
@@ -54,6 +53,7 @@ export default {
         image_url: '',
         user: {},
         item_likes: {},
+        item_comments: {},
         tags: {}
       })
     }

@@ -6,7 +6,7 @@
         <v-img max-height="auto" max-width="100%" :src="item.image_url"></v-img>
         <v-row class="my-1">
           <v-col cols="6" align="left">
-            <p class="my-auto text-caption">
+            <p class="my-auto text-subtitle-2">
               {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
             </p>
           </v-col>
@@ -30,8 +30,9 @@
             </v-btn>
           </v-col>
           <v-col cols="6" align="right">
-            <v-btn icon>
+            <v-btn color="primary" depressed outlined rounded>
               <v-icon>mdi-account-plus-outline</v-icon>
+              フォローする
             </v-btn>
           </v-col>
         </v-row>
@@ -142,7 +143,7 @@
                   >
                     {{ comment.user.name }}
                   </nuxt-link>
-                  <span class="ml-3 text-caption">
+                  <span class="ml-3 text-subtitle-2">
                     {{ $moment(comment.created_at).format('YYYY/MM/DD HH:mm') }}
                   </span>
                 </v-col>
@@ -347,6 +348,7 @@ export default {
         .then((response) => {
           this.comments = response.data
           this.commentText = ''
+          this.$refs.observer.reset()
         })
         .catch((error) => {
           return error
