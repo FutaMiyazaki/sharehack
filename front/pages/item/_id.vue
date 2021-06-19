@@ -133,6 +133,8 @@
     <v-row>
       <v-col cols="12" sm="7">
         <v-row>
+          <h1>コメント</h1>
+          <p v-if="!comments.length">この投稿にコメントはありません。</p>
           <v-col v-if="comments.length" cols="12">
             <div v-for="comment in comments" :key="comment.id" class="mb-5">
               <v-row>
@@ -209,7 +211,7 @@
               }}</v-card>
             </div>
           </v-col>
-          <v-col cols="12">
+          <v-col v-if="isLoggedIn" cols="12">
             <ValidationObserver ref="observer" v-slot="{ invalid }">
               <v-form ref="form" lazy-validation class="mt-5">
                 <ValidationProvider

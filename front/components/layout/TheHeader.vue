@@ -109,7 +109,7 @@
             <NavigationItem
               link="/users/signup"
               icon-color="white"
-              icon="mdi-pencil-outline"
+              icon="mdi-account-plus-outline"
               list-item-title-class="white--text font-weight-bold"
               text="新規登録"
             />
