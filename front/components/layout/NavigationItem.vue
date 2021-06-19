@@ -1,5 +1,5 @@
 <template>
-  <v-list-item :to="link">
+  <v-list-item class="mx-auto" :to="link">
     <v-list-item-icon>
       <v-icon :color="iconColor">{{ icon }}</v-icon>
     </v-list-item-icon>

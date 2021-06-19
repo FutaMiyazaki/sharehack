@@ -7,41 +7,13 @@
       <v-card-text>
         <validation-observer v-slot="{ invalid }">
           <v-form ref="form" lazy-validation>
-            <validation-provider
-              v-slot="{ errors }"
+            <TextField
+              v-model="user.email"
               rules="required|email|max:256"
-              mode="lazy"
-            >
-              <v-text-field
-                v-model="user.email"
-                auto-grow
-                outlined
-                rows="1"
-                background-color="secondary"
-                prepend-icon="mdi-email"
-                label="メールアドレス"
-                :error-messages="errors"
-              />
-            </validation-provider>
-            <validation-provider
-              v-slot="{ errors }"
-              rules="required|max:50"
-              mode="lazy"
-            >
-              <v-text-field
-                v-model="user.password"
-                auto-grow
-                outlined
-                rows="1"
-                background-color="secondary"
-                :type="showPassword ? 'text' : 'password'"
-                prepend-icon="mdi-lock"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                label="パスワード"
-                :error-messages="errors"
-                @click:append="showPassword = !showPassword"
-              />
-            </validation-provider>
+              icon="mdi-email"
+              label="メールアドレス"
+            />
+            <PasswordField v-model="user.password" label="パスワード" />
             <v-card-actions>
               <v-btn
                 block
@@ -66,7 +38,7 @@
             ゲストユーザーでログイン
           </v-btn>
         </v-card-actions>
-        <v-card-actions class="justify-center">
+        <v-card-actions class="mt-2 py-0 justify-center">
           アカウントをお持ちでない方はこちらから
         </v-card-actions>
         <v-card-actions class="pt-0 justify-center">
@@ -79,8 +51,14 @@
 
 <script>
 import { mapActions } from 'vuex'
+import TextField from '~/components/input/TextField.vue'
+import PasswordField from '~/components/input/PasswordField.vue'
 
 export default {
+  components: {
+    TextField,
+    PasswordField
+  },
   data() {
     return {
       user: {

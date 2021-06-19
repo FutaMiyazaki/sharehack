@@ -8,23 +8,12 @@
             <FormLabel label-title="アイテム名を記入" />
           </v-col>
           <v-col cols="12" sm="8">
-            <validation-provider
-              v-slot="{ errors }"
+            <TextField
+              v-model="name"
               rules="required|max:30"
-              mode="lazy"
-            >
-              <v-text-field
-                v-model="name"
-                counter
-                auto-grow
-                outlined
-                rows="1"
-                background-color="secondary"
-                prepend-icon="mdi-pencil"
-                label="アイテム名"
-                :error-messages="errors"
-              />
-            </validation-provider>
+              icon="mdi-pencil"
+              label="アイテム名"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -63,23 +52,12 @@
             <FormLabel label-title="説明を記入する" label-text="300文字以内" />
           </v-col>
           <v-col cols="12" sm="8">
-            <validation-provider
-              v-slot="{ errors }"
+            <TextArea
+              v-model="description"
               rules="required|max:300"
-              mode="lazy"
-            >
-              <v-textarea
-                v-model="description"
-                counter
-                auto-grow
-                outlined
-                rows="3"
-                background-color="secondary"
-                prepend-icon="mdi-text-box"
-                label="説明"
-                :error-messages="errors"
-              />
-            </validation-provider>
+              icon="mdi-text-box"
+              label="説明"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -87,23 +65,12 @@
             <FormLabel label-title="商品URLを追加する" :display="false" />
           </v-col>
           <v-col cols="12" sm="8">
-            <validation-provider
-              v-slot="{ errors }"
-              :rules="{ regex: /https?:/ }"
-              mode="lazy"
-            >
-              <v-text-field
-                v-model.trim="link"
-                counter
-                auto-grow
-                outlined
-                rows="1"
-                background-color="secondary"
-                prepend-icon="mdi-link"
-                label="商品URL"
-                :error-messages="errors"
-              />
-            </validation-provider>
+            <TextField
+              v-model.trim="link"
+              type="url"
+              icon="mdi-link"
+              label="商品URL"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -111,23 +78,13 @@
             ><FormLabel label-title="参考価格を追加する" :display="false"
           /></v-col>
           <v-col cols="12" sm="8">
-            <validation-provider
-              v-slot="{ errors }"
+            <TextField
+              v-model.number="price"
+              type="number"
               rules="integer"
-              mode="lazy"
-            >
-              <v-text-field
-                v-model.number="price"
-                type="number"
-                auto-grow
-                outlined
-                rows="1"
-                background-color="secondary"
-                prepend-icon="mdi-currency-usd"
-                label="参考価格"
-                :error-messages="errors"
-              />
-            </validation-provider>
+              icon="mdi-currency-usd"
+              label="参考価格"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -190,11 +147,15 @@
 <script>
 import PageHeader from '~/components/layout/PageHeader.vue'
 import FormLabel from '~/components/layout/FormLabel.vue'
+import TextField from '~/components/input/TextField.vue'
+import TextArea from '~/components/input/TextArea.vue'
 
 export default {
   components: {
     PageHeader,
-    FormLabel
+    FormLabel,
+    TextField,
+    TextArea
   },
   data() {
     return {

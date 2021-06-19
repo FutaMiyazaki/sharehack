@@ -6,7 +6,7 @@ class Api::V1::TagsController < ApplicationController
 
   def show
     tag = Tag.find(params[:id])
-    render json: tag.as_json(include: {items: {include: [:user, :tags, :item_likes], methods: :image_url} } )
+    render json: tag.as_json(include: {items: {include: [:user, :tags, :item_likes, :item_comments], methods: :image_url} } )
   end
 
   def top_index

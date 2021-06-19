@@ -6,24 +6,7 @@
     <v-card-text>
       <validation-observer v-slot="{ invalid }">
         <v-form ref="form" lazy-validation>
-          <validation-provider
-            v-slot="{ errors }"
-            rules="required|max:50"
-            mode="lazy"
-          >
-            <v-text-field
-              v-model="user.password"
-              outlined
-              rows="1"
-              background-color="secondary"
-              :type="showPassword ? 'text' : 'password'"
-              prepend-icon="mdi-lock"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              label="新しいパスワード"
-              :error-messages="errors"
-              @click:append="showPassword = !showPassword"
-            />
-          </validation-provider>
+          <PasswordField v-model="user.password" label="新しいパスワード" />
           <validation-provider
             v-slot="{ errors }"
             rules="required|max:50"
@@ -64,7 +47,12 @@
 </template>
 
 <script>
+import PasswordField from '~/components/input/PasswordField.vue'
+
 export default {
+  components: {
+    PasswordField
+  },
   data() {
     return {
       user: {

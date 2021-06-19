@@ -6,39 +6,13 @@
     <v-card-text>
       <validation-observer v-slot="{ invalid }">
         <v-form ref="form" lazy-validation>
-          <validation-provider
-            v-slot="{ errors }"
+          <TextField
+            v-model="user.email"
             rules="required|email|max:256"
-            mode="lazy"
-          >
-            <v-text-field
-              v-model="user.email"
-              outlined
-              rows="1"
-              background-color="secondary"
-              prepend-icon="mdi-email-edit"
-              label="新しいメールアドレス"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            rules="required|max:50"
-            mode="lazy"
-          >
-            <v-text-field
-              v-model="user.password"
-              outlined
-              rows="1"
-              background-color="secondary"
-              :type="showPassword ? 'text' : 'password'"
-              prepend-icon="mdi-lock"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              label="パスワード"
-              :error-messages="errors"
-              @click:append="showPassword = !showPassword"
-            />
-          </validation-provider>
+            icon="mdi-email-edit"
+            label="新しいメールアドレス"
+          />
+          <PasswordField v-model="user.password" label="パスワード" />
           <v-card-actions>
             <v-btn
               v-if="userEmail != guest"
@@ -62,7 +36,14 @@
 </template>
 
 <script>
+import TextField from '~/components/input/TextField.vue'
+import PasswordField from '~/components/input/PasswordField.vue'
+
 export default {
+  components: {
+    TextField,
+    PasswordField
+  },
   data() {
     return {
       user: {
