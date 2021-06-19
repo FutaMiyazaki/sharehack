@@ -3,7 +3,6 @@
     <v-text-field
       v-model="inputValue"
       :type="type"
-      counter
       outlined
       rows="1"
       background-color="secondary"
