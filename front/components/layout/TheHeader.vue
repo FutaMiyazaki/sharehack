@@ -7,21 +7,10 @@
         </nuxt-link>
       </v-toolbar-title>
       <v-spacer />
+      <SearchForm />
+      <v-spacer />
       <template v-if="isLoggedIn">
-        <v-tooltip bottom color="primary">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              depressed
-              v-bind="attrs"
-              class="mr-3 hidden-sm-and-down"
-              to="/item/create"
-              v-on="on"
-            >
-              <v-icon color="primary">mdi-pencil-box-multiple</v-icon>
-            </v-btn>
-          </template>
-          <span class="white--text font-weight-bold">新規投稿</span>
-        </v-tooltip>
+        <ToItemCreateButton />
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -182,10 +171,14 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import NavigationItem from '~/components/layout/NavigationItem.vue'
+import SearchForm from '~/components/layout/SearchForm.vue'
+import ToItemCreateButton from '~/components/layout/ToItemCreateButton.vue'
 
 export default {
   components: {
-    NavigationItem
+    NavigationItem,
+    SearchForm,
+    ToItemCreateButton
   },
   data() {
     return {
