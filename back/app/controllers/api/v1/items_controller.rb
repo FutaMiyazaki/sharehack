@@ -1,19 +1,20 @@
 class Api::V1::ItemsController < ApplicationController
   def index
     items = Item.includes(:user, :item_likes).limit(6)
-    render json: items.as_json(include: [:user,
-                                         :tags,
-                                         :item_likes,
-                                         :item_comments],
+    render json: items.as_json(include: [{user: {only: [:id, :name]}},
+                                         {tags: {only: [:id, :name]}},
+                                         {item_likes: {only: :id}},
+                                         {item_comments: {only: :id}}],
                                methods: :image_url)
   end
 
   def show
     item = Item.find(params[:id])
-    render json: item.as_json(include: [{user: {include: :followers}},
-                                        :tags,
-                                        :item_likes,
-                                        item_comments: {include: :user}],
+    render json: item.as_json(include: [{user: {include: {followers: {only: [:id, :name]}},
+                                                only: [:id, :name]}},
+                                        {tags: {only: [:id, :name]}},
+                                        {item_likes: {except: [:created_at, :updated_at]}},
+                                        item_comments: {include: {user: {only: [:id, :name]}}}],
                               methods: :image_url)
   end
 

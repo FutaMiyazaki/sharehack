@@ -6,7 +6,9 @@ class Api::V1::RelationshipsController < ApplicationController
 
     following = @current_user.follow(@other_user)
     if following.save
-      render json: @other_user.as_json(include: [:followings, :followers])
+      render json: @other_user.as_json(include: [{followings: {only: [:id, :name]}},
+                                                 {followers: {only: [:id, :name]}}],
+                                       only: [:id, :name])
     end
   end
 
@@ -15,7 +17,9 @@ class Api::V1::RelationshipsController < ApplicationController
 
     following = @current_user.unfollow(@other_user)
     if following.destroy
-      render json: @other_user.as_json(include: [:followings, :followers])
+      render json: @other_user.as_json(include: [{followings: {only: [:id, :name]}},
+                                                 {followers: {only: [:id, :name]}}],
+                                       only: [:id, :name])
     end
   end
 

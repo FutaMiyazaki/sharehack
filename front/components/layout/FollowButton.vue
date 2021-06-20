@@ -110,12 +110,9 @@ export default {
           uid: localStorage.getItem('uid')
         })
         .then((response) => {
-          console.log('フォローに成功')
-          console.log(response)
           this.userFollowers = response.followers
         })
         .catch((error) => {
-          console.log('フォローに失敗')
           return error
         })
     },
@@ -129,13 +126,10 @@ export default {
           }
         })
         .then((response) => {
-          console.log('フォロー解除に成功')
-          console.log(response)
           this.userFollowers = response.followers
           this.dialog = false
         })
         .catch((error) => {
-          console.log('フォロー解除に失敗')
           return error
         })
     }
