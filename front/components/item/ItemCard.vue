@@ -26,7 +26,7 @@
         <v-row class="px-1 py-2">
           <v-chip
             v-for="tag in item.tags"
-            :key="`item-tag-${tag.id}`"
+            :key="`item-${item.id}-tag-${tag.id}`"
             label
             small
             color="accent"

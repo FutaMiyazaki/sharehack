@@ -34,11 +34,10 @@
             </v-card-text>
             <v-card-actions class="justify-center">
               <v-btn
-                color="warning"
                 rounded
-                outlined
-                class="white--text font-weight-bold"
-                width="100px"
+                depressed
+                class="font-weight-bold"
+                width="30%"
                 @click="dialog = false"
               >
                 キャンセル
@@ -47,7 +46,7 @@
                 rounded
                 color="warning"
                 class="white--text font-weight-bold"
-                width="100px"
+                width="30%"
                 @click="deleteUser"
               >
                 OK

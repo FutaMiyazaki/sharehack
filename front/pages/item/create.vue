@@ -145,6 +145,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import FormLabel from '~/components/layout/FormLabel.vue'
 import TextField from '~/components/input/TextField.vue'
@@ -169,6 +170,11 @@ export default {
       tagLists: [],
       search: null
     }
+  },
+  computed: {
+    ...mapGetters({
+      currentUser: 'authentication/currentUser'
+    })
   },
   watch: {
     tags(val) {
@@ -207,10 +213,7 @@ export default {
       data.append('item[link]', this.link)
       data.append('item[price]', this.price)
       data.append('item[tags]', this.tags)
-      data.append(
-        'item[user_id]',
-        this.$store.getters['authentication/currentUser'].id
-      )
+      data.append('item[user_id]', this.currentUser.id)
       await this.$axios
         .post('api/v1/items', data, config)
         .then((response) => {

@@ -155,7 +155,7 @@
           ※この操作は取り消せません
         </v-card-text>
         <v-card-actions class="justify-center pb-5">
-          <template v-if="currentUserId != guestUserId">
+          <template v-if="currentUser && currentUser.id != guestUserId">
             <v-btn rounded outlined width="100px" @click="dialog = false">
               キャンセル
             </v-btn>
@@ -186,6 +186,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import FormLabel from '~/components/layout/FormLabel.vue'
 import TextField from '~/components/input/TextField.vue'
@@ -202,7 +203,6 @@ export default {
     return {
       text: 'アイテム編集',
       dialog: false,
-      currentUserId: this.$store.getters['authentication/currentUser'].id,
       guestUserId: '19',
       item: {
         name: '',
@@ -215,6 +215,11 @@ export default {
       tagLists: [],
       search: null
     }
+  },
+  computed: {
+    ...mapGetters({
+      currentUser: 'authentication/currentUser'
+    })
   },
   watch: {
     tags(val) {
@@ -270,7 +275,7 @@ export default {
       data.append('item[link]', this.item.link)
       data.append('item[price]', this.item.price)
       data.append('item[tags]', this.tags)
-      data.append('item[user_id]', this.currentUserId)
+      data.append('item[user_id]', this.currentUser.id)
       await this.$axios
         .patch(`api/v1/items/${this.$route.params.id}`, data, config)
         .then((response) => {
@@ -319,7 +324,7 @@ export default {
             },
             { root: true }
           )
-          this.$router.push(`/users/${this.currentUserId}`)
+          this.$router.push(`/users/${this.currentUser.id}`)
         })
         .catch((error) => {
           console.log('アイテムの削除に失敗')
