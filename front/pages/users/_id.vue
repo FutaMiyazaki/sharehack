@@ -6,9 +6,11 @@
         <UserProfile
           :user-name="user.name"
           :items-count="items.length"
+          :likes-count="likes.length"
           :user-id="user.id"
-          :current-user-id="currentUserId"
           selected-item="0"
+          :followings="followings"
+          :followers="followers"
         />
       </v-col>
       <v-col cols="12" sm="8">
@@ -23,7 +25,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import UserProfile from '~/components/user/UserProfile.vue'
 import ItemCard from '~/components/item/ItemCard.vue'
@@ -40,13 +41,10 @@ export default {
       text: '',
       user: {},
       items: [],
-      currentUserId: ''
+      likes: [],
+      followings: [],
+      followers: []
     }
-  },
-  computed: {
-    ...mapGetters({
-      currentUser: 'authentication/currentUser'
-    })
   },
   created() {
     this.$axios
@@ -54,10 +52,11 @@ export default {
       .then((response) => {
         this.user = response.data
         this.items = this.user.items
+        this.likes = this.user.item_likes
         this.text = this.user.name + 'の投稿一覧'
-        this.currentUserId = this.$store.getters[
-          'authentication/currentUser'
-        ].id
+        this.followings = this.user.followings
+        this.followers = this.user.followers
+        console.log(response)
       })
       .catch((error) => {
         console.log('ユーザー情報の取得に失敗')

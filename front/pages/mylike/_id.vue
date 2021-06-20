@@ -5,10 +5,12 @@
       <v-col cols="12" sm="4">
         <UserProfile
           :user-name="user.name"
-          :items-count="itemLikes.length"
+          :items-count="items.length"
+          :likes-count="itemLikes.length"
           :user-id="user.id"
-          :current-user="currentUserId"
           selected-item="1"
+          :followings="followings"
+          :followers="followers"
         />
       </v-col>
       <v-col cols="12" sm="8">
@@ -39,7 +41,9 @@ export default {
       text: '',
       user: {},
       itemLikes: [],
-      currentUserId: ''
+      items: [],
+      followings: [],
+      followers: []
     }
   },
   created() {
@@ -48,10 +52,11 @@ export default {
       .then((response) => {
         this.user = response.data
         this.itemLikes = this.user.item_likes
+        this.items = this.user.items
         this.text = this.user.name + 'のいいね一覧'
-        this.currentUserId = this.$store.getters[
-          'authentication/currentUser'
-        ].id
+        this.followings = this.user.followings
+        this.followers = this.user.followers
+        console.log(response)
       })
       .catch((error) => {
         console.log('情報の取得に失敗')

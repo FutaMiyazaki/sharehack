@@ -10,7 +10,7 @@
               {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
             </p>
           </v-col>
-          <template v-if="currentUserId == item.user.id">
+          <template v-if="currentUser && currentUser.id == item.user.id">
             <v-col cols="6" align="right">
               <nuxt-link
                 :to="{ name: 'item-edit-id', params: { id: item.id } }"
@@ -30,10 +30,13 @@
             </v-btn>
           </v-col>
           <v-col cols="6" align="right">
-            <v-btn color="primary" depressed outlined rounded>
-              <v-icon>mdi-account-plus-outline</v-icon>
-              フォローする
-            </v-btn>
+            <template
+              v-if="
+                isLoggedIn && currentUser && currentUser.id !== item.user.id
+              "
+            >
+              <FollowButton :followers="followers" :user-id="item.user.id" />
+            </template>
           </v-col>
         </v-row>
         <v-row>
@@ -153,7 +156,7 @@
                   <v-dialog v-model="dialog" width="500">
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
-                        v-if="currentUserId == comment.user.id"
+                        v-if="currentUser && currentUser.id == comment.user.id"
                         text
                         color="warning"
                         v-bind="attrs"
@@ -183,10 +186,9 @@
                       </v-card-text>
                       <v-card-actions class="justify-center">
                         <v-btn
-                          color="warning"
                           rounded
-                          outlined
-                          class="white--text font-weight-bold"
+                          depressed
+                          class="font-weight-bold"
                           width="100px"
                           @click="dialog = false"
                         >
@@ -252,10 +254,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
+import FollowButton from '~/components/layout/FollowButton.vue'
 
 export default {
   components: {
-    PageHeader
+    PageHeader,
+    FollowButton
   },
   data() {
     return {
@@ -264,17 +268,18 @@ export default {
       item: {
         user: {}
       },
-      currentUserId: '',
       userEmail: '',
       tags: [],
       likeList: [],
+      followers: [],
       comments: [],
       commentText: ''
     }
   },
   computed: {
     ...mapGetters({
-      isLoggedIn: 'authentication/isLoggedIn'
+      isLoggedIn: 'authentication/isLoggedIn',
+      currentUser: 'authentication/currentUser'
     }),
     likeCount() {
       return this.likeList.length
@@ -284,9 +289,19 @@ export default {
         return false
       } else {
         const liked = this.likeList.some(
-          (like) => like.user_id === this.currentUserId
+          (like) => like.user_id === this.currentUser.id
         )
         return liked
+      }
+    },
+    isFollowed() {
+      if (this.followers.length === 0) {
+        return false
+      } else {
+        const followed = this.followers.some(
+          (follow) => follow.id === this.currentUser?.id
+        )
+        return followed
       }
     }
   },
@@ -295,14 +310,12 @@ export default {
       .get(`api/v1/items/${this.$route.params.id}`)
       .then((response) => {
         this.item = response.data
-        this.tags = response.data.tags
-        this.likeList = response.data.item_likes
-        this.comments = response.data.item_comments
+        this.tags = this.item.tags
+        this.likeList = this.item.item_likes
+        this.followers = this.item.user.followers
+        this.comments = this.item.item_comments
         this.text = this.item.name
-        this.currentUserId = this.$store.getters[
-          'authentication/currentUser'
-        ].id
-        console.log(this.tags)
+        console.log(response)
       })
       .catch((error) => {
         return error
@@ -312,7 +325,7 @@ export default {
     async likeItem() {
       await this.$axios
         .$post('/api/v1/item_likes', {
-          user_id: this.currentUserId,
+          user_id: this.currentUser.id,
           item_id: this.item.id
         })
         .then((response) => {
@@ -327,7 +340,7 @@ export default {
       await this.$axios
         .delete('/api/v1/item_likes', {
           params: {
-            user_id: this.currentUserId,
+            user_id: this.currentUser.id,
             item_id: this.item.id
           }
         })
@@ -343,7 +356,7 @@ export default {
       await this.$axios
         .post('/api/v1/item_comments', {
           content: this.commentText,
-          user_id: this.currentUserId,
+          user_id: this.currentUser.id,
           item_id: this.item.id,
           uid: localStorage.getItem('uid')
         })
@@ -360,7 +373,7 @@ export default {
       await this.$axios
         .delete(`api/v1/item_comments/${commentId}`, {
           params: {
-            user_id: this.currentUserId,
+            user_id: this.currentUser.id,
             item_id: this.item.id,
             uid: localStorage.getItem('uid')
           }

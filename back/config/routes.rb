@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resources :tags, only: %i[index show] do
         get :search, on: :collection
       end
+      resources :relationships, only: [:create, :destroy]
     end
   end
 end

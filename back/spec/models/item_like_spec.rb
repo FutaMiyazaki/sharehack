@@ -35,5 +35,4 @@ RSpec.describe ItemLike, type: :model do
       expect(item_like).to be_invalid
     end
   end
-
 end

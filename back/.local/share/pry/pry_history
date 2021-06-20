@@ -31,3 +31,6 @@ Tag.create(name: 'ゲーム')
 Tag.create(name: '服・ファッション小物')
 Tag.create(name: 'シューズ')
 Tag.create(name: 'バッグ・財布')
+Item.all
+AAA = Item.find_by(name: 'famas')
+AAA.destroy
