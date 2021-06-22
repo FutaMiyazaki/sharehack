@@ -74,35 +74,28 @@
       right
       fixed
       temporary
-      color="#757575"
       width="100%"
       class="hidden-md-and-up"
     >
       <v-list nav dense>
         <v-list-item-group>
           <v-list-item>
-            <v-icon color="white" class="ml-auto" @click="drawer = false"
-              >mdi-close</v-icon
-            >
+            <span class="font-weight-bold">Sharehack</span>
+            <v-icon class="ml-auto" @click="drawer = false">mdi-close</v-icon>
           </v-list-item>
-          <v-divider color="white" />
           <template v-if="!isLoggedIn">
             <NavigationItem
               link="/users/login"
-              icon-color="white"
               icon="mdi-login"
-              list-item-title-class="white--text font-weight-bold"
+              list-item-title-class="font-weight-bold"
               text="ログイン"
             />
-            <v-divider color="white" />
             <NavigationItem
               link="/users/signup"
-              icon-color="white"
               icon="mdi-account-plus-outline"
-              list-item-title-class="white--text font-weight-bold"
+              list-item-title-class="font-weight-bold"
               text="新規登録"
             />
-            <v-divider color="white" />
           </template>
           <template v-if="isLoggedIn">
             <v-list-item two-line>
@@ -110,7 +103,7 @@
                 <img src="https://randomuser.me/api/portraits/women/81.jpg" />
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title class="white--text font-weight-bold">{{
+                <v-list-item-title class="font-weight-bold">{{
                   currentUser.name
                 }}</v-list-item-title>
               </v-list-item-content>
@@ -119,48 +112,39 @@
           <NavigationItem
             v-if="!isLoggedIn"
             link="/"
-            icon-color="white"
             icon="mdi-home-outline"
-            list-item-title-class="white--text font-weight-bold"
+            list-item-title-class="font-weight-bold"
             text="トップページ"
           />
-          <v-divider color="white" />
           <template v-if="isLoggedIn">
             <NavigationItem
               link="/item/create"
-              icon-color="white"
               icon="mdi-pencil-outline"
-              list-item-title-class="white--text font-weight-bold"
+              list-item-title-class="font-weight-bold"
               text="投稿する"
             />
-            <v-divider color="white" />
             <NavigationItem
               :link="'/users/' + currentUser.id"
-              icon-color="white"
               icon="mdi-account-outline"
-              list-item-title-class="white--text font-weight-bold"
+              list-item-title-class="font-weight-bold"
               text="マイページ"
             />
-            <v-divider color="white" />
             <NavigationItem
               link="/users/setting"
-              icon-color="white"
               icon="mdi-cog-outline"
-              list-item-title-class="white--text font-weight-bold"
+              list-item-title-class="font-weight-bold"
               text="設定"
             />
-            <v-divider color="white" />
             <v-list-item @click="logoutUser">
               <v-list-item-icon>
-                <v-icon color="white">mdi-logout</v-icon>
+                <v-icon>mdi-logout</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title class="white--text font-weight-bold">
+                <v-list-item-title class="font-weight-bold">
                   ログアウト
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-divider color="white" />
           </template>
         </v-list-item-group>
       </v-list>
