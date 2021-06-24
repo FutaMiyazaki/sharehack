@@ -186,7 +186,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import FormLabel from '~/components/layout/FormLabel.vue'
 import TextField from '~/components/input/TextField.vue'
@@ -259,6 +259,9 @@ export default {
       })
   },
   methods: {
+    ...mapActions({
+      showMessage: 'flashMessage/showMessage'
+    }),
     setImage(e) {
       this.item.image = e
     },
@@ -281,20 +284,18 @@ export default {
         .then((response) => {
           console.log(response)
           this.$router.push(`/item/${response.data.id}`)
-          this.$store.dispatch(
-            'flashMessage/showMessage',
-            {
-              text: '変更を保存しました',
-              type: 'success',
-              status: true
-            },
-            { root: true }
-          )
-          console.log('アイテムの編集に成功')
+          this.showMessage({
+            text: '編集に成功しました。',
+            type: 'success',
+            status: true
+          })
         })
         .catch((error) => {
-          console.log('アイテムの編集に失敗')
-          console.log(error)
+          this.showMessage({
+            text: '編集に失敗しました。',
+            type: 'error',
+            status: true
+          })
           return error
         })
     },
@@ -314,21 +315,19 @@ export default {
       await this.$axios
         .delete(`api/v1/items/${this.$route.params.id}`, this.item, config)
         .then((response) => {
-          console.log(response)
-          this.$store.dispatch(
-            'flashMessage/showMessage',
-            {
-              text: 'アイテムを削除しました',
-              type: 'success',
-              status: true
-            },
-            { root: true }
-          )
           this.$router.push(`/users/${this.currentUser.id}`)
+          this.showMessage({
+            text: '削除に成功しました。',
+            type: 'success',
+            status: true
+          })
         })
         .catch((error) => {
-          console.log('アイテムの削除に失敗')
-          console.log(error)
+          this.showMessage({
+            text: '削除に失敗しました。',
+            type: 'error',
+            status: true
+          })
           return error
         })
     }

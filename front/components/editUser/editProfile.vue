@@ -7,24 +7,27 @@
       <validation-observer v-slot="{ invalid }">
         <v-form ref="form" lazy-validation>
           <TextField
-            v-model="user.name"
+            v-model="name"
             rules="required|max:30"
             icon="mdi-account"
             label="ユーザー名"
           />
-          <PasswordField v-model="user.password" label="パスワード" />
+          <PasswordField v-model="password" label="パスワード" />
           <v-card-actions>
             <v-btn
-              v-if="userEmail != guest"
-              rounded
-              color="light-green darken-1"
-              class="white--text d-block mx-auto"
+              v-if="currentUser.email != guest"
+              color="primary"
+              class="white--text font-weight-bold d-block mx-auto"
               :disabled="invalid"
               @click="editProfile"
             >
               プロフィールを変更する
             </v-btn>
-            <v-btn v-else rounded disabled class="white--text d-block mx-auto">
+            <v-btn
+              v-else
+              disabled
+              class="white--text font-weight-bold d-block mx-auto"
+            >
               ゲストユーザーのため変更できません
             </v-btn>
           </v-card-actions>
@@ -35,6 +38,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import TextField from '~/components/input/TextField.vue'
 import PasswordField from '~/components/input/PasswordField.vue'
 
@@ -45,42 +49,53 @@ export default {
   },
   data() {
     return {
-      user: {
-        name: this.$store.getters['authentication/currentUser'].name,
-        password: ''
-      },
-      showPassword: false,
-      userEmail: this.$store.getters['authentication/currentUser'].uid,
+      name: '',
+      password: '',
       guest: 'guest@sharehack.com'
     }
   },
+  computed: {
+    ...mapGetters({
+      currentUser: 'authentication/currentUser'
+    })
+  },
+  created() {
+    this.name = this.currentUser.name
+  },
   methods: {
+    ...mapActions({
+      showMessage: 'flashMessage/showMessage'
+    }),
     async editProfile() {
       await this.$axios
-        .put('api/v1/auth', this.user, {
-          headers: {
-            'access-token': localStorage.getItem('access-token'),
-            uid: localStorage.getItem('uid'),
-            client: localStorage.getItem('client')
+        .put(
+          'api/v1/auth',
+          {
+            name: this.name,
+            password: this.password
+          },
+          {
+            headers: {
+              'access-token': localStorage.getItem('access-token'),
+              uid: localStorage.getItem('uid'),
+              client: localStorage.getItem('client')
+            }
           }
-        })
+        )
         .then((response) => {
-          this.$store.commit('authentication/setCurrentUser', response.data)
-          this.$store.dispatch(
-            'flashMessage/showMessage',
-            {
-              text: 'プロフィールを変更しました。',
-              type: 'success',
-              status: true
-            },
-            { root: true }
-          )
-          console.log(response)
-          console.log('プロフィールの更新に成功')
+          this.$router.push(`/users/${this.currentUser.id}`)
+          this.showMessage({
+            text: 'ユーザー名を変更しました。',
+            type: 'success',
+            status: true
+          })
         })
         .catch((error) => {
-          console.log('プロフィールの更新に失敗')
-          console.log(error)
+          this.showMessage({
+            text: 'ユーザー名の変更に失敗しました。',
+            type: 'error',
+            status: true
+          })
           return error
         })
     }

@@ -6,14 +6,14 @@
     <v-card-text>
       <validation-observer v-slot="{ invalid }">
         <v-form ref="form" lazy-validation>
-          <PasswordField v-model="user.password" label="新しいパスワード" />
+          <PasswordField v-model="password" label="新しいパスワード" />
           <validation-provider
             v-slot="{ errors }"
             rules="required|max:50"
             mode="lazy"
           >
             <v-text-field
-              v-model="user.password_confirmation"
+              v-model="password_confirmation"
               outlined
               rows="1"
               background-color="secondary"
@@ -27,16 +27,19 @@
           </validation-provider>
           <v-card-actions>
             <v-btn
-              v-if="userEmail != guest"
-              rounded
+              v-if="currentUser.email != guest"
               color="primary"
-              class="white--text d-block mx-auto"
+              class="white--text font-weight-bold d-block mx-auto"
               :disabled="invalid"
               @click="editPassword"
             >
               パスワードを変更する
             </v-btn>
-            <v-btn v-else rounded disabled class="d-block mx-auto">
+            <v-btn
+              v-else
+              disabled
+              class="white--text font-weight-bold d-block mx-auto"
+            >
               ゲストユーザーのため変更できません
             </v-btn>
           </v-card-actions>
@@ -47,6 +50,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import PasswordField from '~/components/input/PasswordField.vue'
 
 export default {
@@ -55,17 +59,21 @@ export default {
   },
   data() {
     return {
-      user: {
-        password: '',
-        password_confirmation: ''
-      },
-      showPassword: false,
+      password: '',
+      password_confirmation: '',
       showConfirmPassword: false,
-      userEmail: this.$store.getters['authentication/currentUser'].uid,
       guest: 'guest@sharehack.com'
     }
   },
+  computed: {
+    ...mapGetters({
+      currentUser: 'authentication/currentUser'
+    })
+  },
   methods: {
+    ...mapActions({
+      showMessage: 'flashMessage/showMessage'
+    }),
     async editPassword() {
       await this.$axios
         .put('api/v1/auth/password', this.user, {
@@ -76,18 +84,19 @@ export default {
           }
         })
         .then((response) => {
-          this.$store.commit('authentication/setCurrentUser', response.data)
-          this.$store.dispatch(
-            'flashMessage/showMessage',
-            {
-              text: 'パスワードを変更しました。',
-              type: 'success',
-              status: true
-            },
-            { root: true }
-          )
+          this.$router.push(`/users/${this.currentUser.id}`)
+          this.showMessage({
+            text: 'パスワードを変更しました。',
+            type: 'success',
+            status: true
+          })
         })
         .catch((error) => {
+          this.showMessage({
+            text: 'パスワードの変更に失敗しました。',
+            type: 'error',
+            status: true
+          })
           return error
         })
     }

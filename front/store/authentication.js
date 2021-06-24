@@ -40,7 +40,7 @@ export const actions = {
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 7000)
+        }, 5000)
         return response
       })
       .catch((error) => {
@@ -55,7 +55,7 @@ export const actions = {
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 7000)
+        }, 5000)
         return error
       })
   },
@@ -74,7 +74,7 @@ export const actions = {
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 7000)
+        }, 5000)
         return response
       })
       .catch((error) => {
@@ -89,7 +89,7 @@ export const actions = {
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 7000)
+        }, 5000)
         return error
       })
   },
@@ -107,7 +107,7 @@ export const actions = {
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 7000)
+        }, 5000)
         return response
       })
       .catch((error) => {
