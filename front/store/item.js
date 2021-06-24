@@ -30,13 +30,5 @@ export const actions = {
         console.log('アイテム一覧の取得に失敗')
         console.log(error)
       })
-  },
-  async likeItem({ commit }, authData) {
-    await this.$axios
-      .$post('/api/v1/item_likes', {
-        user_id: authData.user,
-        item_id: authData.item
-      })
-      .then((response) => {})
   }
 }
