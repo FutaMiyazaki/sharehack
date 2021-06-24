@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :users do
         member do
           get :like
+          patch :update_avatar
         end
       end
       resources :items, only: %i[index show create update destroy] do

@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :like]
+  before_action :set_user, only: [:show, :like, :update_avatar]
   def show
     render json: @user.as_json(include: [{items: {include: [:tags,
                                                            :item_likes,
@@ -23,8 +23,22 @@ class Api::V1::UsersController < ApplicationController
                                only: [:id, :name])
   end
 
+  def update_avatar
+    return if @user.email != params[:uid]
+
+    if @user.update(user_params)
+      render json: @user.as_json(only: :id)
+    else
+      render json: { data: @user.errors }
+    end
+  end
+
   private
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def user_params
+      params.require(:user).permit(:avatar)
     end
 end

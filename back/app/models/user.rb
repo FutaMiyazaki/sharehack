@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: 30 }
 
+  def avatar_url
+    avatar.attached? ? url_for(avatar) : nil
+  end
 
   def follow(other_user)
     unless self == other_user
