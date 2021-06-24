@@ -9,15 +9,14 @@
     <PageHeader text="タグから探す" icon="mdi-tag-multiple" class="mt-6" />
     <v-row>
       <v-chip
-        v-for="tag in tags"
+        v-for="tag in limitCount"
         :key="`tag-${tag.id}`"
         class="ma-2"
-        color="primary"
         label
         outlined
         :to="'/tag/' + tag.id"
       >
-        #{{ tag.name }}
+        <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
       </v-chip>
     </v-row>
   </v-container>
@@ -39,7 +38,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ items: 'item/items' })
+    ...mapGetters({ items: 'item/items' }),
+    limitCount() {
+      return this.tags.slice(0, 20)
+    }
   },
   created() {
     this.getItems()

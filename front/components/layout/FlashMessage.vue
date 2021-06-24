@@ -1,9 +1,7 @@
 <template>
-  <v-snackbar v-model="status" absolute top right :color="type">
-    <div class="font-weight-bold white--text text-center">
-      {{ text }}
-    </div>
-  </v-snackbar>
+  <v-alert v-model="status" border="left" :type="type" dismissible>
+    {{ text }}
+  </v-alert>
 </template>
 
 <script>

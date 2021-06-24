@@ -7,7 +7,7 @@
         </nuxt-link>
       </v-toolbar-title>
       <v-spacer />
-      <SearchForm />
+      <SearchFormDialog />
       <v-spacer />
       <template v-if="isLoggedIn">
         <ToItemCreateButton />
@@ -78,11 +78,43 @@
       class="hidden-md-and-up"
     >
       <v-list nav dense>
+        <v-toolbar flat>
+          <v-toolbar-title class="font-weight-bold">Sharehack</v-toolbar-title>
+          <v-spacer />
+          <v-btn icon right @click="drawer = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-toolbar>
+
+        <ValidationObserver ref="observer" v-slot="{ invalid }">
+          <v-form class="mx-2 mb-2" @submit.prevent="search">
+            <ValidationProvider rules="required|max:50" mode="aggressive">
+              <v-text-field
+                v-model.trim="keyword"
+                flat
+                solo
+                dense
+                outlined
+                hide-details
+                label="キーワード検索"
+              >
+                <template v-slot:append>
+                  <v-btn
+                    icon
+                    small
+                    depressed
+                    :disabled="invalid"
+                    @click="search"
+                  >
+                    <v-icon>mdi-magnify</v-icon>
+                  </v-btn>
+                </template>
+              </v-text-field>
+            </ValidationProvider>
+          </v-form>
+        </ValidationObserver>
+
         <v-list-item-group>
-          <v-list-item>
-            <span class="font-weight-bold">Sharehack</span>
-            <v-icon class="ml-auto" @click="drawer = false">mdi-close</v-icon>
-          </v-list-item>
           <template v-if="!isLoggedIn">
             <NavigationItem
               link="/users/login"
@@ -96,18 +128,6 @@
               list-item-title-class="font-weight-bold"
               text="新規登録"
             />
-          </template>
-          <template v-if="isLoggedIn">
-            <v-list-item two-line>
-              <v-list-item-avatar>
-                <img src="https://randomuser.me/api/portraits/women/81.jpg" />
-              </v-list-item-avatar>
-              <v-list-item-content>
-                <v-list-item-title class="font-weight-bold">{{
-                  currentUser.name
-                }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
           </template>
           <NavigationItem
             v-if="!isLoggedIn"
@@ -155,18 +175,19 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import NavigationItem from '~/components/layout/NavigationItem.vue'
-import SearchForm from '~/components/layout/SearchForm.vue'
+import SearchFormDialog from '~/components/layout/SearchFormDialog.vue'
 import ToItemCreateButton from '~/components/layout/ToItemCreateButton.vue'
 
 export default {
   components: {
     NavigationItem,
-    SearchForm,
+    SearchFormDialog,
     ToItemCreateButton
   },
   data() {
     return {
-      drawer: false
+      drawer: false,
+      keyword: ''
     }
   },
   computed: {
@@ -182,6 +203,11 @@ export default {
     logoutUser() {
       this.logout()
       this.drawer = false
+    },
+    search() {
+      this.$router.push({ path: '/search', query: { keyword: this.keyword } })
+      this.keyword = ''
+      this.$refs.observer.reset()
     }
   }
 }

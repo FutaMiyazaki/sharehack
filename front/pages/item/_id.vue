@@ -124,12 +124,11 @@
           v-for="tag in tags"
           :key="tag.id"
           class="ma-2"
-          color="primary"
           label
           outlined
           :to="'/tag/' + tag.id"
         >
-          #{{ tag.name }}
+          <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
         </v-chip>
       </v-col>
     </v-row>

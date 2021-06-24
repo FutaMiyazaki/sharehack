@@ -40,10 +40,22 @@ export const actions = {
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 3000)
+        }, 7000)
         return response
       })
       .catch((error) => {
+        commit(
+          'flashMessage/setText',
+          '新規登録できませんでした。入力内容に誤りがあります。',
+          {
+            root: true
+          }
+        )
+        commit('flashMessage/setType', 'error', { root: true })
+        commit('flashMessage/setStatus', true, { root: true })
+        setTimeout(() => {
+          commit('flashMessage/setStatus', false, { root: true })
+        }, 7000)
         return error
       })
   },
@@ -62,7 +74,7 @@ export const actions = {
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 3000)
+        }, 7000)
         return response
       })
       .catch((error) => {
@@ -77,7 +89,7 @@ export const actions = {
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 3000)
+        }, 7000)
         return error
       })
   },
@@ -95,7 +107,7 @@ export const actions = {
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
-        }, 3000)
+        }, 7000)
         return response
       })
       .catch((error) => {
