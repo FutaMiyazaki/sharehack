@@ -1,27 +1,16 @@
 <template>
   <header>
     <v-app-bar color="#fbfbfb">
-      <v-toolbar-title class="mr-2">
+      <v-toolbar-title class="mr-2 header-title">
         <nuxt-link to="/" class="black--text font-weight-bold">
           Sharehack
         </nuxt-link>
       </v-toolbar-title>
       <v-spacer />
+      <SearchFormDialog />
+      <v-spacer />
       <template v-if="isLoggedIn">
-        <v-tooltip bottom color="primary">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              depressed
-              v-bind="attrs"
-              class="mr-3 hidden-sm-and-down"
-              to="/item/create"
-              v-on="on"
-            >
-              <v-icon color="primary">mdi-pencil-box-multiple</v-icon>
-            </v-btn>
-          </template>
-          <span class="white--text font-weight-bold">新規投稿</span>
-        </v-tooltip>
+        <ToItemCreateButton />
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -85,93 +74,97 @@
       right
       fixed
       temporary
-      color="#757575"
       width="100%"
       class="hidden-md-and-up"
     >
       <v-list nav dense>
+        <v-toolbar flat>
+          <v-toolbar-title class="font-weight-bold">Sharehack</v-toolbar-title>
+          <v-spacer />
+          <v-btn icon right @click="drawer = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-toolbar>
+
+        <ValidationObserver ref="observer" v-slot="{ invalid }">
+          <v-form class="mx-2 mb-2" @submit.prevent="search">
+            <ValidationProvider rules="required|max:50" mode="aggressive">
+              <v-text-field
+                v-model.trim="keyword"
+                flat
+                solo
+                dense
+                outlined
+                hide-details
+                label="キーワード検索"
+              >
+                <template v-slot:append>
+                  <v-btn
+                    icon
+                    small
+                    depressed
+                    :disabled="invalid"
+                    @click="search"
+                  >
+                    <v-icon>mdi-magnify</v-icon>
+                  </v-btn>
+                </template>
+              </v-text-field>
+            </ValidationProvider>
+          </v-form>
+        </ValidationObserver>
+
         <v-list-item-group>
-          <v-list-item>
-            <v-icon color="white" class="ml-auto" @click="drawer = false"
-              >mdi-close</v-icon
-            >
-          </v-list-item>
-          <v-divider color="white" />
           <template v-if="!isLoggedIn">
             <NavigationItem
               link="/users/login"
-              icon-color="white"
               icon="mdi-login"
-              list-item-title-class="white--text font-weight-bold"
+              list-item-title-class="font-weight-bold"
               text="ログイン"
             />
-            <v-divider color="white" />
             <NavigationItem
               link="/users/signup"
-              icon-color="white"
               icon="mdi-account-plus-outline"
-              list-item-title-class="white--text font-weight-bold"
+              list-item-title-class="font-weight-bold"
               text="新規登録"
             />
-            <v-divider color="white" />
-          </template>
-          <template v-if="isLoggedIn">
-            <v-list-item two-line>
-              <v-list-item-avatar>
-                <img src="https://randomuser.me/api/portraits/women/81.jpg" />
-              </v-list-item-avatar>
-              <v-list-item-content>
-                <v-list-item-title class="white--text font-weight-bold">{{
-                  currentUser.name
-                }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
           </template>
           <NavigationItem
             v-if="!isLoggedIn"
             link="/"
-            icon-color="white"
             icon="mdi-home-outline"
-            list-item-title-class="white--text font-weight-bold"
+            list-item-title-class="font-weight-bold"
             text="トップページ"
           />
-          <v-divider color="white" />
           <template v-if="isLoggedIn">
             <NavigationItem
               link="/item/create"
-              icon-color="white"
               icon="mdi-pencil-outline"
-              list-item-title-class="white--text font-weight-bold"
+              list-item-title-class="font-weight-bold"
               text="投稿する"
             />
-            <v-divider color="white" />
             <NavigationItem
               :link="'/users/' + currentUser.id"
-              icon-color="white"
               icon="mdi-account-outline"
-              list-item-title-class="white--text font-weight-bold"
+              list-item-title-class="font-weight-bold"
               text="マイページ"
             />
-            <v-divider color="white" />
             <NavigationItem
               link="/users/setting"
-              icon-color="white"
               icon="mdi-cog-outline"
-              list-item-title-class="white--text font-weight-bold"
+              list-item-title-class="font-weight-bold"
               text="設定"
             />
-            <v-divider color="white" />
             <v-list-item @click="logoutUser">
               <v-list-item-icon>
-                <v-icon color="white">mdi-logout</v-icon>
+                <v-icon>mdi-logout</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title class="white--text font-weight-bold">
+                <v-list-item-title class="font-weight-bold">
                   ログアウト
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-divider color="white" />
           </template>
         </v-list-item-group>
       </v-list>
@@ -182,14 +175,19 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import NavigationItem from '~/components/layout/NavigationItem.vue'
+import SearchFormDialog from '~/components/layout/SearchFormDialog.vue'
+import ToItemCreateButton from '~/components/layout/ToItemCreateButton.vue'
 
 export default {
   components: {
-    NavigationItem
+    NavigationItem,
+    SearchFormDialog,
+    ToItemCreateButton
   },
   data() {
     return {
-      drawer: false
+      drawer: false,
+      keyword: ''
     }
   },
   computed: {
@@ -205,6 +203,11 @@ export default {
     logoutUser() {
       this.logout()
       this.drawer = false
+    },
+    search() {
+      this.$router.push({ path: '/search', query: { keyword: this.keyword } })
+      this.keyword = ''
+      this.$refs.observer.reset()
     }
   }
 }
@@ -223,5 +226,9 @@ a {
 
 .hover-color:hover {
   background-color: #e5e5e5;
+}
+
+.header-title:hover {
+  opacity: 0.5;
 }
 </style>

@@ -28,12 +28,12 @@
             v-for="tag in item.tags"
             :key="`item-${item.id}-tag-${tag.id}`"
             label
+            outlined
             small
-            color="accent"
             class="ma-1"
             :to="'/tag/' + tag.id"
           >
-            #{{ tag.name }}
+            <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
           </v-chip>
         </v-row>
       </v-card-actions>

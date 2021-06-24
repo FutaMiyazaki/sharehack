@@ -31,4 +31,8 @@ class Item < ApplicationRecord
       self.tags << new_gadget_tag
     end
   end
+
+  def self.search(search)
+    Item.where(['name LIKE ? OR description LIKE ?', "%#{search}%", "%#{search}%"])
+  end
 end

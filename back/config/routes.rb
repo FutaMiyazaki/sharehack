@@ -9,7 +9,9 @@ Rails.application.routes.draw do
           get :like
         end
       end
-      resources :items, only: %i[index show create update destroy]
+      resources :items, only: %i[index show create update destroy] do
+        get :search, on: :collection
+      end
       resource :item_likes, only: %i[create destroy]
       resources :item_comments, only: %i[create destroy]
       resources :tags, only: %i[index show] do

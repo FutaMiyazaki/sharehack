@@ -47,6 +47,17 @@ class Api::V1::ItemsController < ApplicationController
     item.destroy
   end
 
+  def search
+    if params[:keyword]
+      items = Item.search(params[:keyword])
+      render json: items.as_json(include: [{user: {only: [:id, :name]}},
+                                           {tags: {only: [:id, :name]}},
+                                           {item_likes: {only: :id}},
+                                           {item_comments: {only: :id}}],
+                                 methods: :image_url)
+    end
+  end
+
   private
     def item_params
       params.require(:item).permit(:name, :description, :link, :price, :user_id, :image)
