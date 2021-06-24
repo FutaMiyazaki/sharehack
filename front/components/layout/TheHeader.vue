@@ -1,7 +1,7 @@
 <template>
   <header>
     <v-app-bar color="#fbfbfb">
-      <v-toolbar-title class="mr-2">
+      <v-toolbar-title class="mr-2 header-title">
         <nuxt-link to="/" class="black--text font-weight-bold">
           Sharehack
         </nuxt-link>
@@ -226,5 +226,9 @@ a {
 
 .hover-color:hover {
   background-color: #e5e5e5;
+}
+
+.header-title:hover {
+  opacity: 0.5;
 }
 </style>
