@@ -23,13 +23,14 @@
       </v-col>
       <v-col cols="12" sm="5">
         <v-row>
-          <v-col cols="6" align="left">
-            <v-btn text color="primary" :to="'/users/' + item.user.id">
-              <v-icon>mdi-account-circle</v-icon>
-              <p class="my-auto">{{ item.user.name }}</p>
-            </v-btn>
+          <v-col cols="12" sm="6" align="left">
+            <UserInformation
+              :user-id="item.user.id"
+              :user-avatar-url="item.user.avatar_url"
+              :user-name="item.user.name"
+            />
           </v-col>
-          <v-col cols="6" align="right">
+          <v-col cols="12" sm="6" align="right">
             <template
               v-if="
                 isLoggedIn && currentUser && currentUser.id !== item.user.id
@@ -253,11 +254,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
+import UserInformation from '~/components/user/UserInformation.vue'
 import FollowButton from '~/components/layout/FollowButton.vue'
 
 export default {
   components: {
     PageHeader,
+    UserInformation,
     FollowButton
   },
   data() {

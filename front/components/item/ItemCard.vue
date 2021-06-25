@@ -11,9 +11,14 @@
           :to="'/users/' + item.user.id"
           class="text-decoration-none"
         >
-          <p class="my-auto text--secondary">
-            {{ item.user.name }}
-          </p>
+          <v-list-item class="grow">
+            <v-list-item-avatar>
+              <v-img alt="プロフィール画像" :src="item.user.avatar_url" />
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.user.name }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </nuxt-link>
       </v-card-text>
       <v-card-text class="px-2 py-0">

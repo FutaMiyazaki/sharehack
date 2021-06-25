@@ -2,29 +2,23 @@
   <v-list subheader>
     <v-subheader>フォロワー</v-subheader>
     <v-divider />
-    <v-list-item
+    <UserInformation
       v-for="follower in followers"
       :key="follower.id"
-      :to="'/users/' + follower.id"
-    >
-      <v-list-item-icon>
-        <v-icon>mdi-account-circle</v-icon>
-      </v-list-item-icon>
-      <!-- <v-list-item-avatar>
-        <v-img
-          :alt="`${chat.title} avatar`"
-          :src="chat.avatar"
-        ></v-img>
-      </v-list-item-avatar> -->
-      <v-list-item-content>
-        <v-list-item-title v-text="follower.name"></v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
+      :user-id="follower.id"
+      :user-avatar-url="follower.avatar_url"
+      :user-name="follower.name"
+    />
   </v-list>
 </template>
 
 <script>
+import UserInformation from '~/components/user/UserInformation.vue'
+
 export default {
+  components: {
+    UserInformation
+  },
   data() {
     return {
       followers: []
@@ -32,8 +26,9 @@ export default {
   },
   created() {
     this.$axios
-      .get(`api/v1/users/${this.$route.params.id}`)
+      .get(`api/v1/users/${this.$route.params.id}/show_followers`)
       .then((response) => {
+        console.log(response)
         this.followers = response.data.followers
       })
       .catch((error) => {
