@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
+  include Rails.application.routes.url_helpers
 
   has_one_attached :avatar
   has_many :items, dependent: :destroy
