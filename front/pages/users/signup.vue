@@ -9,7 +9,7 @@
           <v-form ref="form" lazy-validation>
             <TextField
               v-model="user.name"
-              rules="required|max:30"
+              rules="required|max:20"
               icon="mdi-account"
               label="ユーザー名"
             />

@@ -10,7 +10,7 @@
           <v-col cols="12" sm="8">
             <TextField
               v-model="name"
-              rules="required|max:30"
+              rules="required|max:20"
               icon="mdi-pencil"
               label="アイテム名"
             />

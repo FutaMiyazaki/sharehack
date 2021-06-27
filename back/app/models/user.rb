@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
   has_many :followers, through: :reverse_of_relationships, source: :user
 
-  validates :name, presence: true, length: { maximum: 30 }
+  validates :name, presence: true, length: { maximum: 20 }
 
   def avatar_url
     avatar.attached? ? url_for(avatar) : nil

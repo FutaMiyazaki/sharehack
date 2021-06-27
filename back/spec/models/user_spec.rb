@@ -54,15 +54,15 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context '30文字以下の場合' do
-      let(:name) { 'a' * 30 }
+    context '20文字以下の場合' do
+      let(:name) { 'a' * 20 }
       it '有効であること' do
         expect(subject).to be_valid
       end
     end
 
-    context '31文字以上の場合' do
-      let(:name) { 'a' * 31 }
+    context '21文字以上の場合' do
+      let(:name) { 'a' * 21 }
       it '無効であること' do
         expect(subject).to be_invalid
       end
