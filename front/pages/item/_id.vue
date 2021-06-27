@@ -7,6 +7,7 @@
         <v-row class="my-1">
           <v-col cols="6" align="left">
             <p class="my-auto text-subtitle-2">
+              <v-icon small>mdi-clock-outline</v-icon>
               {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
             </p>
           </v-col>
@@ -23,13 +24,14 @@
       </v-col>
       <v-col cols="12" sm="5">
         <v-row>
-          <v-col cols="6" align="left">
-            <v-btn text color="primary" :to="'/users/' + item.user.id">
-              <v-icon>mdi-account-circle</v-icon>
-              <p class="my-auto">{{ item.user.name }}</p>
-            </v-btn>
+          <v-col cols="12" sm="6" align="left">
+            <UserInformation
+              :user-id="item.user.id"
+              :user-avatar-url="item.user.avatar_url"
+              :user-name="item.user.name"
+            />
           </v-col>
-          <v-col cols="6" align="right">
+          <v-col cols="12" sm="6" align="right">
             <template
               v-if="
                 isLoggedIn && currentUser && currentUser.id !== item.user.id
@@ -135,23 +137,24 @@
     <v-row>
       <v-col cols="12" sm="7">
         <v-row>
-          <h1>コメント</h1>
-          <p v-if="!comments.length">この投稿にコメントはありません。</p>
+          <v-col cols="12">
+            <p v-if="!comments.length">この投稿にコメントはありません</p>
+          </v-col>
           <v-col v-if="comments.length" cols="12">
             <div v-for="comment in comments" :key="comment.id" class="mb-5">
               <v-row>
-                <v-col cols="6" class="my-auto">
-                  <nuxt-link
-                    :to="'/users/' + comment.user.id"
-                    class="text-decoration-none"
-                  >
-                    {{ comment.user.name }}
-                  </nuxt-link>
-                  <span class="ml-3 text-subtitle-2">
+                <v-col cols="9">
+                  <UserInformation
+                    :user-id="comment.user.id"
+                    :user-avatar-url="comment.user.avatar_url"
+                    :user-name="comment.user.name"
+                  />
+                  <div class="text-caption">
+                    <v-icon small>mdi-clock-outline</v-icon>
                     {{ $moment(comment.created_at).format('YYYY/MM/DD HH:mm') }}
-                  </span>
+                  </div>
                 </v-col>
-                <v-col cols="6" align="right">
+                <v-col cols="3" align="right">
                   <v-dialog v-model="dialog" width="500">
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
@@ -161,7 +164,7 @@
                         v-bind="attrs"
                         v-on="on"
                       >
-                        コメントを削除する
+                        削除する
                       </v-btn>
                     </template>
                     <v-card class="py-2">
@@ -253,11 +256,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
+import UserInformation from '~/components/user/UserInformation.vue'
 import FollowButton from '~/components/layout/FollowButton.vue'
 
 export default {
   components: {
     PageHeader,
+    UserInformation,
     FollowButton
   },
   data() {

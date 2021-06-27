@@ -1,18 +1,21 @@
 <template>
   <v-app>
     <v-container class="pt-0">
-      <PageHeader :text="text" />
+      <PageHeader text="アカウント設定" />
       <v-card flat class="mx-auto">
         <v-tabs v-model="tab" show-arrows left>
-          <v-tab> <v-icon>mdi-account-edit</v-icon>プロフィール </v-tab>
+          <v-tab> <v-icon>mdi-account-edit</v-icon>ユーザー名 </v-tab>
+          <v-tab> <v-icon>mdi-image-edit</v-icon>プロフィール画像 </v-tab>
           <v-tab> <v-icon>mdi-email-edit</v-icon>メールアドレス </v-tab>
           <v-tab> <v-icon>mdi-lock</v-icon>パスワード </v-tab>
           <v-tab> <v-icon>mdi-alert</v-icon>その他の設定 </v-tab>
         </v-tabs>
-
         <v-tabs-items v-model="tab">
           <v-tab-item>
             <EditProfile />
+          </v-tab-item>
+          <v-tab-item>
+            <EditAvatar />
           </v-tab-item>
           <v-tab-item>
             <EditEmail />
@@ -32,6 +35,7 @@
 <script>
 import PageHeader from '~/components/layout/PageHeader.vue'
 import EditProfile from '~/components/editUser/EditProfile.vue'
+import EditAvatar from '~/components/editUser/EditAvatar.vue'
 import EditEmail from '~/components/editUser/EditEmail.vue'
 import EditPassword from '~/components/editUser/EditPassword.vue'
 import EditOther from '~/components/editUser/EditOther.vue'
@@ -40,23 +44,15 @@ export default {
   components: {
     PageHeader,
     EditProfile,
+    EditAvatar,
     EditEmail,
     EditPassword,
     EditOther
   },
   data() {
     return {
-      text: 'アカウント設定',
-      tab: null,
-      user: {
-        email: '',
-        password: '',
-        password_confirmation: ''
-      },
-      showPassword: false,
-      showConfirmPassword: false
+      tab: null
     }
-  },
-  methods: {}
+  }
 }
 </script>

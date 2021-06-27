@@ -10,7 +10,7 @@
           <v-col cols="12" sm="8">
             <TextField
               v-model="name"
-              rules="required|max:30"
+              rules="required|max:20"
               icon="mdi-pencil"
               label="アイテム名"
             />
@@ -145,7 +145,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import FormLabel from '~/components/layout/FormLabel.vue'
 import TextField from '~/components/input/TextField.vue'
@@ -197,6 +197,9 @@ export default {
       })
   },
   methods: {
+    ...mapActions({
+      showMessage: 'flashMessage/showMessage'
+    }),
     setImage(e) {
       this.image = e
     },
@@ -219,20 +222,18 @@ export default {
         .then((response) => {
           console.log(response)
           this.$router.push(`/item/${response.data.id}`)
-          this.$store.dispatch(
-            'flashMessage/showMessage',
-            {
-              text: 'アイテムを投稿しました',
-              type: 'success',
-              status: true
-            },
-            { root: true }
-          )
-          console.log('アイテムの投稿に成功')
+          this.showMessage({
+            text: '投稿に成功しました。',
+            type: 'success',
+            status: true
+          })
         })
         .catch((error) => {
-          console.log('アイテムの投稿に失敗')
-          console.log(error)
+          this.showMessage({
+            text: '投稿に失敗しました。',
+            type: 'error',
+            status: true
+          })
           return error
         })
     }

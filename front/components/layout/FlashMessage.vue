@@ -1,5 +1,5 @@
 <template>
-  <v-alert v-model="status" border="left" :type="type" dismissible>
+  <v-alert v-model="status" border="left" :type="type">
     {{ text }}
   </v-alert>
 </template>

@@ -6,7 +6,13 @@
         <v-card class="mx-auto" tile>
           <v-list>
             <v-list-item>
-              <v-list-item-avatar> </v-list-item-avatar>
+              <v-list-item-avatar
+                ><v-img
+                  max-height="auto"
+                  max-width="100%"
+                  :src="user.avatar_url"
+                ></v-img
+              ></v-list-item-avatar>
             </v-list-item>
             <v-list-item>
               <v-list-item-content>
@@ -224,6 +230,8 @@ export default {
         this.text = this.user.name + 'のマイページ'
         this.followings = this.user.followings
         this.followers = this.user.followers
+        console.log('成功')
+        console.log(response)
       })
       .catch((error) => {
         return error

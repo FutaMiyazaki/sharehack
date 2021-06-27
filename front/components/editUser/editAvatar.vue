@@ -1,28 +1,29 @@
 <template>
   <v-card flat>
     <v-card-title class="font-weight-bold">
-      パスワード
+      プロフィール画像
     </v-card-title>
     <v-card-text>
       <validation-observer v-slot="{ invalid }">
         <v-form ref="form" lazy-validation>
-          <PasswordField v-model="password" label="新しいパスワード" />
           <validation-provider
-            v-slot="{ errors }"
-            rules="required|max:50"
-            mode="lazy"
+            v-slot="{ errors, validate }"
+            rules="required|size:5000"
           >
-            <v-text-field
-              v-model="password_confirmation"
+            <v-file-input
+              counter
               outlined
               rows="1"
               background-color="secondary"
-              :type="showConfirmPassword ? 'text' : 'password'"
-              prepend-icon="mdi-lock"
-              :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              label="新しいパスワード(確認用)"
+              :value="image"
+              accept="image/*"
+              truncate-length="25"
+              prepend-icon="mdi-image"
+              label="画像をアップロードする"
               :error-messages="errors"
-              @click:append="showConfirmPassword = !showConfirmPassword"
+              show-size
+              @input="validate($event)"
+              @change="setImage"
             />
           </validation-provider>
           <v-card-actions>
@@ -31,9 +32,9 @@
               color="primary"
               class="white--text font-weight-bold d-block mx-auto"
               :disabled="invalid"
-              @click="editPassword"
+              @click="updateAvatar"
             >
-              パスワードを変更する
+              プロフィール画像を変更する
             </v-btn>
             <v-btn
               v-else
@@ -51,17 +52,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import PasswordField from '~/components/input/PasswordField.vue'
 
 export default {
-  components: {
-    PasswordField
-  },
   data() {
     return {
-      password: '',
-      password_confirmation: '',
-      showConfirmPassword: false,
+      image: null,
       guest: 'guest@sharehack.com'
     }
   },
@@ -74,26 +69,37 @@ export default {
     ...mapActions({
       showMessage: 'flashMessage/showMessage'
     }),
-    async editPassword() {
+    setImage(e) {
+      this.image = e
+    },
+    async updateAvatar() {
+      const data = new FormData()
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }
+      data.append('user[avatar]', this.image)
+      data.append('user[uid]', localStorage.getItem('uid'))
       await this.$axios
-        .put('api/v1/auth/password', this.user, {
-          headers: {
-            'access-token': localStorage.getItem('access-token'),
-            uid: localStorage.getItem('uid'),
-            client: localStorage.getItem('client')
-          }
-        })
+        .patch(
+          `api/v1/users/${this.currentUser.id}/update_avatar`,
+          data,
+          config
+        )
         .then((response) => {
-          this.$router.push(`/users/${this.currentUser.id}`)
+          console.log('画像の変更に成功')
+          console.log(response)
+          this.$router.push(`/users/${response.data.id}`)
           this.showMessage({
-            text: 'パスワードを変更しました。',
+            text: 'プロフィール画像を変更しました。',
             type: 'success',
             status: true
           })
         })
         .catch((error) => {
           this.showMessage({
-            text: 'パスワードの変更に失敗しました。',
+            text: 'プロフィール画像の変更に失敗しました。',
             type: 'error',
             status: true
           })

@@ -7,25 +7,27 @@
       <validation-observer v-slot="{ invalid }">
         <v-form ref="form" lazy-validation>
           <TextField
-            v-model="user.email"
+            v-model="email"
             rules="required|email|max:256"
             icon="mdi-email-edit"
             label="新しいメールアドレス"
           />
-          <PasswordField v-model="user.password" label="パスワード" />
+          <PasswordField v-model="password" label="パスワード" />
           <v-card-actions>
             <v-btn
-              v-if="userEmail != guest"
-              width="30vw"
-              rounded
+              v-if="currentUser.email != guest"
               color="primary"
-              class="white--text d-block mx-auto"
+              class="white--text font-weight-bold d-block mx-auto"
               :disabled="invalid"
               @click="editEmail"
             >
               メールアドレスを変更する
             </v-btn>
-            <v-btn v-else rounded disabled class="d-block mx-auto">
+            <v-btn
+              v-else
+              disabled
+              class="white--text font-weight-bold d-block mx-auto"
+            >
               ゲストユーザーのため変更できません
             </v-btn>
           </v-card-actions>
@@ -36,6 +38,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import TextField from '~/components/input/TextField.vue'
 import PasswordField from '~/components/input/PasswordField.vue'
 
@@ -46,38 +49,53 @@ export default {
   },
   data() {
     return {
-      user: {
-        email: '',
-        password: ''
-      },
-      showPassword: false,
-      userEmail: this.$store.getters['authentication/currentUser'].uid,
+      email: '',
+      password: '',
       guest: 'guest@sharehack.com'
     }
   },
+  computed: {
+    ...mapGetters({
+      currentUser: 'authentication/currentUser'
+    })
+  },
+  created() {
+    this.email = this.currentUser.email
+  },
   methods: {
+    ...mapActions({
+      showMessage: 'flashMessage/showMessage'
+    }),
     async editEmail() {
       await this.$axios
-        .put('api/v1/auth', this.user, {
-          headers: {
-            'access-token': localStorage.getItem('access-token'),
-            uid: localStorage.getItem('uid'),
-            client: localStorage.getItem('client')
+        .put(
+          'api/v1/auth',
+          {
+            email: this.email,
+            password: this.password
+          },
+          {
+            headers: {
+              'access-token': localStorage.getItem('access-token'),
+              uid: localStorage.getItem('uid'),
+              client: localStorage.getItem('client')
+            }
           }
-        })
+        )
         .then((response) => {
-          this.$store.commit('authentication/setCurrentUser', response.data)
-          this.$store.dispatch(
-            'flashMessage/showMessage',
-            {
-              text: 'メールアドレスを変更しました。',
-              type: 'success',
-              status: true
-            },
-            { root: true }
-          )
+          this.$router.push(`/users/${this.currentUser.id}`)
+          this.showMessage({
+            text: 'メールアドレスを変更しました。',
+            type: 'success',
+            status: true
+          })
         })
         .catch((error) => {
+          this.showMessage({
+            text: 'メールアドレスの変更に失敗しました。',
+            type: 'error',
+            status: true
+          })
           return error
         })
     }
