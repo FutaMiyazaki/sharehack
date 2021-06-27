@@ -16,7 +16,8 @@ class Api::V1::ItemsController < ApplicationController
                                                 methods: :avatar_url}},
                                         {tags: {only: [:id, :name]}},
                                         {item_likes: {except: [:created_at, :updated_at]}},
-                                        item_comments: {include: {user: {only: [:id, :name]}}}],
+                                        item_comments: {include: {user: {only: [:id, :name],
+                                                                         methods: :avatar_url}}}],
                               methods: :image_url)
   end
 
