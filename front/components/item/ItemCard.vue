@@ -15,7 +15,7 @@
           <v-list-item-content>
             <v-list-item-title>{{ item.user.name }}</v-list-item-title>
           </v-list-item-content>
-          <v-row align="right" justify="end">
+          <v-row justify="end">
             <v-icon color="red darken-3" class="mr-1">
               mdi-heart
             </v-icon>
