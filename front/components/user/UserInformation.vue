@@ -1,16 +1,12 @@
 <template>
   <nuxt-link :to="'/users/' + userId" class="text-decoration-none">
     <v-list-item class="grow">
-      <!-- <template v-if="userAvatarUrl">
-        <v-list-item-icon>
-          <v-icon>mdi-account</v-icon>
-        </v-list-item-icon>
-      </template> -->
-      <!-- <template v-else> -->
-      <v-list-item-avatar>
-        <v-img alt="プロフィール画像" :src="userAvatarUrl" />
+      <v-list-item-icon v-if="!userAvatarUrl">
+        <v-icon large>mdi-account</v-icon>
+      </v-list-item-icon>
+      <v-list-item-avatar v-else>
+        <v-img alt="ユーザーのプロフィール画像" :src="userAvatarUrl" />
       </v-list-item-avatar>
-      <!-- </template> -->
       <v-list-item-content>
         <v-list-item-title>{{ userName }}</v-list-item-title>
       </v-list-item-content>
@@ -23,15 +19,18 @@ export default {
   props: {
     userId: {
       type: Number,
-      required: true
+      required: true,
+      default: 0
     },
     userAvatarUrl: {
       type: String,
+      required: false,
       default: ''
     },
     userName: {
       type: String,
-      required: true
+      required: true,
+      default: ''
     }
   }
 }

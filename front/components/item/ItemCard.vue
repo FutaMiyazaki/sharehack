@@ -4,15 +4,18 @@
       <nuxt-link :to="'/item/' + item.id">
         <v-img max-height="auto" max-width="100%" :src="item.image_url"></v-img>
       </nuxt-link>
-      <v-card-title class="px-2 py-0">{{ item.name }}</v-card-title>
-      <v-card-text class="px-2 py-0">
+      <v-card-title class="py-0">{{ item.name }}</v-card-title>
+      <v-card-text class="pa-0">
         <nuxt-link
           v-if="'user' in item"
           :to="'/users/' + item.user.id"
           class="text-decoration-none"
         >
-          <v-list-item class="grow">
-            <v-list-item-avatar>
+          <v-list-item dense class="py-0">
+            <v-list-item-icon v-if="!item.user.avatar_url">
+              <v-icon large>mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-avatar v-else>
               <v-img alt="プロフィール画像" :src="item.user.avatar_url" />
             </v-list-item-avatar>
             <v-list-item-content>
@@ -21,7 +24,7 @@
           </v-list-item>
         </nuxt-link>
       </v-card-text>
-      <v-card-text class="px-2 py-0">
+      <v-card-text class="py-0">
         <v-icon color="red darken-3">mdi-heart</v-icon>
         {{ item.item_likes.length }}
         <v-icon color="primary" class="ml-2">mdi-comment-outline</v-icon>
