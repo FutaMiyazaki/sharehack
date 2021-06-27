@@ -1,6 +1,6 @@
 <template>
   <nuxt-link :to="'/users/' + userId" class="text-decoration-none">
-    <v-list-item class="grow">
+    <v-list-item dense>
       <v-list-item-icon v-if="!userAvatarUrl">
         <v-icon large>mdi-account</v-icon>
       </v-list-item-icon>
@@ -8,7 +8,9 @@
         <v-img alt="ユーザーのプロフィール画像" :src="userAvatarUrl" />
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title>{{ userName }}</v-list-item-title>
+        <v-list-item-title class="font-weight-bold">
+          {{ userName }}
+        </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
   </nuxt-link>
