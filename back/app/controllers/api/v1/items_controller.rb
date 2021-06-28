@@ -1,6 +1,11 @@
 class Api::V1::ItemsController < ApplicationController
   def index
-    items = Item.includes(:user, :item_likes).limit(6)
+    if !params[:page]
+      items = Item.all.limit(6)
+    else
+      items = Item.all.page(params[:page]).per(12)
+    end
+
     render json: items.as_json(include: [{user: {only: [:id, :name],
                                                  methods: :avatar_url}},
                                          {tags: {only: [:id, :name]}},
@@ -51,13 +56,16 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def search
-    if params[:keyword]
-      items = Item.search(params[:keyword])
+    if params[:keyword] && params[:page]
+      items = Item.search(params[:keyword]).page(params[:page]).per(12)
       render json: items.as_json(include: [{user: {only: [:id, :name]}},
                                            {tags: {only: [:id, :name]}},
                                            {item_likes: {only: :id}},
                                            {item_comments: {only: :id}}],
                                  methods: :image_url)
+    elsif params[:keyword] && !params[:page]
+      items = Item.search(params[:keyword])
+      render json: items.as_json(only: :id)
     end
   end
 
