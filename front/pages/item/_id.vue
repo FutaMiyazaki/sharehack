@@ -125,7 +125,7 @@
           class="ma-2"
           label
           outlined
-          :to="'/tag/' + tag.id"
+          @click="toTagItems(tag.id)"
         >
           <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
         </v-chip>
@@ -329,6 +329,12 @@ export default {
       })
   },
   methods: {
+    toTagItems(tagId) {
+      this.$router.push({
+        path: `/tag/${tagId}`,
+        query: { keyword: this.keyword, page: 1 }
+      })
+    },
     async likeItem() {
       await this.$axios
         .$post('/api/v1/item_likes', {

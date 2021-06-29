@@ -11,7 +11,7 @@ export default function({ store, route, redirect }) {
     route.fullPath !== `/item/latest?page=${route.query.page}` &&
     route.fullPath !==
       `/item/search?keyword=${route.query.keyword}&page=${route.query.page}` &&
-    route.fullPath !== `/tag/${route.params.id}`
+    route.fullPath !== `/tag/${route.params.id}?page=${route.query.page}`
   ) {
     return redirect('/users/login')
   }
