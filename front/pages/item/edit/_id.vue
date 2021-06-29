@@ -21,11 +21,14 @@
             <FormLabel
               label-title="画像をアップロードする"
               label-text="画像形式：JPEG/PNG"
-              label-sub-text="容量：10MB以内"
+              label-sub-text="容量：5MB以内"
             />
           </v-col>
           <v-col cols="12" sm="8">
-            <ValidationProvider v-slot="{ validate }" rules="required">
+            <ValidationProvider
+              v-slot="{ errors, validate }"
+              rules="required|size:5000"
+            >
               <v-file-input
                 outlined
                 rows="1"
@@ -35,6 +38,7 @@
                 truncate-length="25"
                 prepend-icon="mdi-camera"
                 label="画像をアップロードする"
+                :error-messages="errors"
                 show-size
                 @input="validate($event)"
                 @change="setImage"
@@ -124,16 +128,20 @@
             </validation-provider>
           </v-col>
         </v-row>
-        <v-btn
-          rounded
-          width="40vw"
-          color="primary"
-          class="white--text font-weight-bold d-block mx-auto"
-          :disabled="invalid"
-          @click="updateItem"
-        >
-          変更を保存する
-        </v-btn>
+        <v-row justify="center">
+          <v-col cols="12" sm="4">
+            <v-btn
+              block
+              rounded
+              color="primary"
+              class="white--text font-weight-bold d-block mx-auto"
+              :disabled="invalid"
+              @click="updateItem"
+            >
+              変更を保存する
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-form>
     </ValidationObserver>
     <v-divider class="my-8" />

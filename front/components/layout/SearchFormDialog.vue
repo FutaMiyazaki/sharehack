@@ -34,10 +34,19 @@ export default {
   },
   methods: {
     search() {
-      this.$router.push({ path: '/search', query: { keyword: this.keyword } })
+      this.$router.push({
+        path: '/item/search',
+        query: { keyword: this.keyword, page: 1 }
+      })
       this.searchDialog = false
       this.keyword = ''
       this.$refs.observer.reset()
+    },
+    pageChange(number) {
+      this.$router.push({
+        path: '/item/search',
+        query: { keyword: this.keyword, page: number }
+      })
     }
   }
 }

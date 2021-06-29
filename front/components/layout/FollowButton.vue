@@ -3,6 +3,7 @@
     <v-btn
       v-show="!isFollowed"
       block
+      rounded
       outlined
       color="primary"
       class="font-weight-bold"
@@ -16,6 +17,7 @@
         <v-btn
           v-show="isFollowed"
           block
+          rounded
           v-bind="attrs"
           color="primary"
           class="font-weight-bold"

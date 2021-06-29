@@ -15,6 +15,13 @@
         <ItemCard :item="item" />
       </v-col>
     </v-row>
+    <v-pagination
+      v-if="totalPages != 1"
+      v-model="showPages"
+      :length="totalPages"
+      class="my-5"
+      @input="pageChange"
+    />
   </v-container>
 </template>
 
@@ -30,27 +37,42 @@ export default {
   data() {
     return {
       items: [],
-      keyword: ''
+      keyword: '',
+      showPages: 1,
+      totalPages: 0,
+      totalCount: ''
     }
   },
   computed: {
     text() {
-      return (
-        this.$route.query.keyword + 'の検索結果：' + this.items.length + '件'
-      )
+      return this.$route.query.keyword + 'の検索結果：' + this.totalCount + '件'
     }
   },
   watch: {
     $route(to, from) {
       this.$axios
-        .get('api/v1/items/search/', {
+        .get('api/v1/items/search', {
           params: {
             keyword: this.$route.query.keyword
           }
         })
         .then((response) => {
+          this.totalCount = response.data.length
+          this.totalPages = Math.ceil(this.totalCount / 12)
+          console.log(this.totalCount)
+        })
+        .catch((error) => {
+          return error
+        })
+      this.$axios
+        .get('api/v1/items/search', {
+          params: {
+            keyword: this.$route.query.keyword,
+            page: this.$route.query.page
+          }
+        })
+        .then((response) => {
           this.items = response.data
-          console.log(response)
         })
         .catch((error) => {
           return error
@@ -59,9 +81,24 @@ export default {
   },
   created() {
     this.$axios
-      .get('api/v1/items/search/', {
+      .get('api/v1/items/search', {
         params: {
           keyword: this.$route.query.keyword
+        }
+      })
+      .then((response) => {
+        this.totalCount = response.data.length
+        this.totalPages = Math.ceil(this.totalCount / 12)
+        console.log(this.totalCount)
+      })
+      .catch((error) => {
+        return error
+      })
+    this.$axios
+      .get('api/v1/items/search', {
+        params: {
+          keyword: this.$route.query.keyword,
+          page: 1
         }
       })
       .then((response) => {
@@ -71,7 +108,14 @@ export default {
       .catch((error) => {
         return error
       })
+  },
+  methods: {
+    pageChange(number) {
+      this.$router.push({
+        path: '/item/search',
+        query: { keyword: this.$route.query.keyword, page: number }
+      })
+    }
   }
-  // methods: {}
 }
 </script>

@@ -205,7 +205,10 @@ export default {
       this.drawer = false
     },
     search() {
-      this.$router.push({ path: '/search', query: { keyword: this.keyword } })
+      this.$router.push({
+        path: '/item/search',
+        query: { keyword: this.keyword, page: 1 }
+      })
       this.keyword = ''
       this.$refs.observer.reset()
     }
