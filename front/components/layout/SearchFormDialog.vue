@@ -41,12 +41,6 @@ export default {
       this.searchDialog = false
       this.keyword = ''
       this.$refs.observer.reset()
-    },
-    pageChange(number) {
-      this.$router.push({
-        path: '/item/search',
-        query: { keyword: this.keyword, page: number }
-      })
     }
   }
 }
