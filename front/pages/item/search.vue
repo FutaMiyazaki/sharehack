@@ -16,10 +16,11 @@
       </v-col>
     </v-row>
     <v-pagination
-      v-if="totalPages != 0"
+      v-if="totalPages != 1"
       v-model="showPages"
       :length="totalPages"
       @input="pageChange"
+      class="my-5"
     />
   </v-container>
 </template>
@@ -47,25 +48,37 @@ export default {
       return this.$route.query.keyword + 'の検索結果：' + this.totalCount + '件'
     }
   },
-  // watch: {
-  //   $route(to, from) {
-  //     this.$axios
-  //       .get('api/v1/items/search', {
-  //         params: {
-  //           keyword: this.$route.query.keyword
-  //         }
-  //       })
-  //       .then((response) => {
-  //         this.totalCount = response.data.length
-  //         this.totalPages = Math.ceil(this.totalCount / 12)
-  //         console.log(this.totalPages)
-  //       })
-  //       .catch((error) => {
-  //         return error
-  //       })
-  //     this.pageChange()
-  //   }
-  // },
+  watch: {
+    $route(to, from) {
+      this.$axios
+        .get('api/v1/items/search', {
+          params: {
+            keyword: this.$route.query.keyword
+          }
+        })
+        .then((response) => {
+          this.totalCount = response.data.length
+          this.totalPages = Math.ceil(this.totalCount / 12)
+          console.log(this.totalCount)
+        })
+        .catch((error) => {
+          return error
+        })
+      this.$axios
+        .get('api/v1/items/search', {
+          params: {
+            keyword: this.$route.query.keyword,
+            page: this.$route.query.page
+          }
+        })
+        .then((response) => {
+          this.items = response.data
+        })
+        .catch((error) => {
+          return error
+        })
+    }
+  },
   created() {
     this.$axios
       .get('api/v1/items/search', {
@@ -97,27 +110,11 @@ export default {
       })
   },
   methods: {
-    async pageChange(number) {
+    pageChange(number) {
       this.$router.push({
         path: '/item/search',
         query: { keyword: this.$route.query.keyword, page: number }
       })
-      await this.$axios
-        .get('/api/v1/items/search', {
-          params: {
-            keyword: this.$route.query.keyword,
-            page: number
-          }
-        })
-        .then((response) => {
-          this.items = response.data
-          console.log('取得成功!!!!!!!!!!')
-          console.log(response)
-        })
-        .catch((error) => {
-          console.log('取得失敗!!!!!!!!!!')
-          return error
-        })
     }
   }
 }

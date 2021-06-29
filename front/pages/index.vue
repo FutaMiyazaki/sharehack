@@ -10,7 +10,7 @@
     <PageHeader text="タグから探す" icon="mdi-tag-multiple" class="mt-6" />
     <v-row>
       <v-chip
-        v-for="tag in limitCount"
+        v-for="tag in tags"
         :key="`tag-${tag.id}`"
         class="ma-2"
         label
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import ItemCard from '~/components/item/ItemCard.vue'
 
@@ -35,17 +34,22 @@ export default {
   },
   data() {
     return {
+      items: [],
       tags: []
     }
   },
-  computed: {
-    ...mapGetters({ items: 'item/items' }),
-    limitCount() {
-      return this.tags.slice(0, 20)
-    }
-  },
   created() {
-    this.getItems()
+    this.$axios
+      .get('api/v1/items/top')
+      .then((response) => {
+        this.items = response.data
+        console.log('取得成功!!!!!!!!!!')
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log('取得失敗!!!!!!!!!!')
+        return error
+      })
     this.$axios
       .get('api/v1/tags')
       .then((response) => {
@@ -55,9 +59,6 @@ export default {
       .catch((error) => {
         return error
       })
-  },
-  methods: {
-    ...mapActions({ getItems: 'item/getItems' })
   }
 }
 </script>

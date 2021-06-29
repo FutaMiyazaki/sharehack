@@ -20,7 +20,7 @@ export const mutations = {
 export const actions = {
   async getItems({ commit }) {
     await this.$axios
-      .$get('/api/v1/items')
+      .$get('/api/v1/items/top')
       .then((response) => {
         commit('setItems', response)
         console.log('アイテム一覧の取得に成功')

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
           patch :update_avatar
         end
       end
+      namespace :items do
+        get :top
+      end
       resources :items, only: %i[index show create update destroy] do
         get :search, on: :collection
       end

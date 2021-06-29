@@ -7,9 +7,11 @@
       </v-col>
     </v-row>
     <v-pagination
+      v-if="totalPages != 1"
       v-model="showPages"
       :length="totalPages"
       @input="pageChange"
+      class="my-5"
     />
   </v-container>
 </template>
@@ -28,14 +30,25 @@ export default {
       text: '',
       items: [],
       showPages: 1,
-      totalPages: 5,
+      totalPages: 0,
       totalCount: ''
     }
   },
   computed: {},
   created() {
     this.$axios
-      .get('api/v1/items/', {
+      .get('api/v1/items')
+      .then((response) => {
+        this.totalCount = response.data.length
+        this.totalPages = Math.ceil(this.totalCount / 12)
+        console.log(this.totalCount)
+      })
+      .catch((error) => {
+        return error
+      })
+
+    this.$axios
+      .get('api/v1/items', {
         params: {
           page: this.$route.query.page
         }

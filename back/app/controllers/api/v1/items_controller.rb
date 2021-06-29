@@ -1,17 +1,18 @@
 class Api::V1::ItemsController < ApplicationController
   def index
-    if !params[:page]
-      items = Item.all.limit(6)
-    else
+    if params[:page]
       items = Item.all.page(params[:page]).per(12)
+      render json: items.as_json(include: [{user: {only: [:id, :name],
+                                                   methods: :avatar_url}},
+                                           {tags: {only: [:id, :name]}},
+                                           {item_likes: {only: :id}},
+                                           {item_comments: {only: :id}}],
+                                 methods: :image_url)
+    else
+      items = Item.all
+      render json: items.as_json(only: :id)
     end
 
-    render json: items.as_json(include: [{user: {only: [:id, :name],
-                                                 methods: :avatar_url}},
-                                         {tags: {only: [:id, :name]}},
-                                         {item_likes: {only: :id}},
-                                         {item_comments: {only: :id}}],
-                               methods: :image_url)
   end
 
   def show
@@ -53,6 +54,16 @@ class Api::V1::ItemsController < ApplicationController
   def destroy
     item = Item.find(params[:id])
     item.destroy
+  end
+
+  def top
+    items = Item.all.limit(6)
+    render json: items.as_json(include: [{user: {only: [:id, :name],
+                                                 methods: :avatar_url}},
+                                         {tags: {only: [:id, :name]}},
+                                         {item_likes: {only: :id}},
+                                         {item_comments: {only: :id}}],
+                               methods: :image_url)
   end
 
   def search
