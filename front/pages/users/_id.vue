@@ -6,20 +6,20 @@
         <v-card class="mx-auto" tile>
           <v-list>
             <v-list-item>
-              <v-list-item-avatar
-                ><v-img
+              <v-list-item-avatar class="mx-auto">
+                <v-img
                   max-height="auto"
                   max-width="100%"
                   :src="user.avatar_url"
-                ></v-img
-              ></v-list-item-avatar>
+                />
+              </v-list-item-avatar>
             </v-list-item>
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title class="text-center">
                   {{ user.name }}
                 </v-list-item-title>
-                <v-list-item-subtitle class="text-center">
+                <v-list-item-subtitle class="mt-2 text-center">
                   {{ items.length }}件の投稿
                 </v-list-item-subtitle>
                 <v-divider class="my-5" />
@@ -47,6 +47,7 @@
                     <v-btn
                       v-show="!isFollowed"
                       block
+                      rounded
                       outlined
                       color="primary"
                       class="font-weight-bold"
@@ -60,6 +61,7 @@
                         <v-btn
                           v-show="isFollowed"
                           block
+                          rounded
                           v-bind="attrs"
                           color="primary"
                           class="font-weight-bold"

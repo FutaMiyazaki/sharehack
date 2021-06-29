@@ -69,7 +69,7 @@
               </v-btn>
             </template>
             <template v-if="!isLoggedIn">
-              <v-dialog v-model="dialog" width="500">
+              <v-dialog v-model="likeDialog" width="500">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn block rounded depressed v-bind="attrs" v-on="on">
                     <v-icon color="red darken-3">mdi-heart</v-icon>
@@ -78,18 +78,15 @@
                   </v-btn>
                 </template>
                 <v-card class="py-2">
-                  <v-btn icon absolute right @click="dialog = false">
+                  <v-btn icon absolute right @click="likeDialog = false">
                     ✕
                   </v-btn>
                   <v-card-title
-                    class="mt-2 px-0 justify-center font-weight-bold "
+                    class="mt-2 px-0 pt-5 justify-center font-weight-bold "
                   >
-                    いいねするには、ログインが必要です
+                    いいね!には、ログインが必要です
                   </v-card-title>
                   <v-divider class="mb-5" />
-                  <v-card-text class="justify-center text-center">
-                    いいねするには、ログインが必要です
-                  </v-card-text>
                   <v-card-actions class="justify-center">
                     <v-btn
                       block
@@ -273,6 +270,7 @@ export default {
   data() {
     return {
       dialog: false,
+      likeDialog: false,
       text: '',
       item: {
         user: {}
