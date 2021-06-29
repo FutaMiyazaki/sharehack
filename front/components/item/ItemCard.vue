@@ -46,7 +46,7 @@
             outlined
             small
             class="ma-1"
-            :to="'/tag/' + tag.id"
+            @click="toTagItems(tag.id)"
           >
             <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
           </v-chip>
@@ -74,6 +74,14 @@ export default {
         item_likes: {},
         item_comments: {},
         tags: {}
+      })
+    }
+  },
+  methods: {
+    toTagItems(tagId) {
+      this.$router.push({
+        path: `/tag/${tagId}`,
+        query: { keyword: this.keyword, page: 1 }
       })
     }
   }
