@@ -5,7 +5,7 @@
       <v-col v-for="item in items" :key="`item-${item.id}`" cols="12" sm="4">
         <ItemCard :item="item" />
       </v-col>
-      <v-btn block to="/item/latest?page=1">もっと見る</v-btn>
+      <v-btn rounded color="primary" to="/item/latest?page=1">もっと見る</v-btn>
     </v-row>
     <PageHeader text="タグから探す" icon="mdi-tag-multiple" class="mt-6" />
     <v-row>

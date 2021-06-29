@@ -10,8 +10,8 @@
       v-if="totalPages != 1"
       v-model="showPages"
       :length="totalPages"
-      @input="pageChange"
       class="my-5"
+      @input="pageChange"
     />
   </v-container>
 </template>

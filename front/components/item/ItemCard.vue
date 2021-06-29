@@ -3,11 +3,12 @@
     <v-card :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }">
       <v-card-actions class="pa-0">
         <v-list-item dense nuxt :to="'/users/' + item.user.id">
-          <v-list-item-icon v-if="!item.user.avatar_url">
-            <v-icon large>mdi-account</v-icon>
-          </v-list-item-icon>
-          <v-list-item-avatar v-else>
+          <v-list-item-avatar>
+            <v-icon v-if="!item.user.avatar_url" large
+              >mdi-account-circle</v-icon
+            >
             <v-img
+              v-else
               alt="ユーザーのプロフィール画像"
               :src="item.user.avatar_url"
             />
