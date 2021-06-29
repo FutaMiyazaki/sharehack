@@ -4,9 +4,9 @@
       <v-card-actions class="pa-0">
         <v-list-item dense nuxt :to="'/users/' + item.user.id">
           <v-list-item-avatar>
-            <v-icon v-if="!item.user.avatar_url" large
-              >mdi-account-circle</v-icon
-            >
+            <v-icon v-if="!item.user.avatar_url" large>
+              mdi-account-circle
+            </v-icon>
             <v-img
               v-else
               alt="ユーザーのプロフィール画像"
@@ -28,10 +28,15 @@
           </v-row>
         </v-list-item>
       </v-card-actions>
-      <nuxt-link :to="'/item/' + item.id">
-        <v-img max-height="auto" max-width="100%" :src="item.image_url"></v-img>
+      <nuxt-link
+        :to="'/item/' + item.id"
+        class="text-decoration-none black--text"
+      >
+        <v-img max-height="auto" max-width="100%" :src="item.image_url" />
+        <v-card-title class="pt-1 pb-0">
+          {{ item.name }}
+        </v-card-title>
       </nuxt-link>
-      <v-card-title class="pt-1 pb-0">{{ item.name }}</v-card-title>
       <v-card-actions>
         <v-row class="px-1 py-2">
           <v-chip

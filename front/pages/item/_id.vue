@@ -235,15 +235,20 @@
                     :error-messages="errors"
                   />
                 </ValidationProvider>
-                <v-btn
-                  rounded
-                  color="primary"
-                  class="white--text font-weight-bold d-block mx-auto"
-                  :disabled="invalid"
-                  @click="createComment"
-                >
-                  コメントする
-                </v-btn>
+                <v-row justify="center">
+                  <v-col cols="12" sm="6">
+                    <v-btn
+                      block
+                      rounded
+                      color="primary"
+                      class="white--text font-weight-bold d-block mx-auto"
+                      :disabled="invalid"
+                      @click="createComment"
+                    >
+                      コメントする
+                    </v-btn>
+                  </v-col>
+                </v-row>
               </v-form>
             </ValidationObserver>
           </v-col>

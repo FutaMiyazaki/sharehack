@@ -30,7 +30,6 @@
               rules="required|size:5000"
             >
               <v-file-input
-                counter
                 outlined
                 rows="1"
                 background-color="secondary"
@@ -129,16 +128,20 @@
             </validation-provider>
           </v-col>
         </v-row>
-        <v-btn
-          rounded
-          width="40vw"
-          color="primary"
-          class="white--text font-weight-bold d-block mx-auto"
-          :disabled="invalid"
-          @click="createItem"
-        >
-          アイテムを投稿する
-        </v-btn>
+        <v-row justify="center">
+          <v-col cols="12" sm="4">
+            <v-btn
+              block
+              rounded
+              color="primary"
+              class="white--text font-weight-bold d-block mx-auto"
+              :disabled="invalid"
+              @click="createItem"
+            >
+              アイテムを投稿する
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-form>
     </validation-observer>
   </v-container>
