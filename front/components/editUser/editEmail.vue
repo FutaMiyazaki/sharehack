@@ -1,9 +1,6 @@
 <template>
   <v-card flat>
-    <v-card-title class="font-weight-bold">
-      メールアドレス
-    </v-card-title>
-    <v-card-text>
+    <v-card-text class="mt-5">
       <validation-observer v-slot="{ invalid }">
         <v-form ref="form" lazy-validation>
           <TextField
@@ -14,22 +11,30 @@
           />
           <PasswordField v-model="password" label="パスワード" />
           <v-card-actions>
-            <v-btn
-              v-if="currentUser.email != guest"
-              color="primary"
-              class="white--text font-weight-bold d-block mx-auto"
-              :disabled="invalid"
-              @click="editEmail"
-            >
-              メールアドレスを変更する
-            </v-btn>
-            <v-btn
-              v-else
-              disabled
-              class="white--text font-weight-bold d-block mx-auto"
-            >
-              ゲストユーザーのため変更できません
-            </v-btn>
+            <v-row justify="center">
+              <v-col cols="12" sm="4">
+                <v-btn
+                  v-if="currentUser.email != guest"
+                  block
+                  rounded
+                  color="primary"
+                  class="white--text font-weight-bold d-block mx-auto"
+                  :disabled="invalid"
+                  @click="editEmail"
+                >
+                  メールアドレスを変更する
+                </v-btn>
+                <v-btn
+                  v-else
+                  block
+                  rounded
+                  disabled
+                  class="white--text font-weight-bold d-block mx-auto"
+                >
+                  ゲストユーザーのため変更できません
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-card-actions>
         </v-form>
       </validation-observer>

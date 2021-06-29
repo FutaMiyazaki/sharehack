@@ -1,31 +1,34 @@
 <template>
   <v-card>
-    <v-card-title class="font-weight-bold">
-      その他の設定
-    </v-card-title>
     <v-card-text>
       <v-card-actions class="justify-center">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              v-if="userEmail != guest"
-              text
-              color="warning"
-              v-bind="attrs"
-              v-on="on"
-            >
-              アカウントを削除する
-            </v-btn>
-            <v-btn v-else text color="warning">
-              ゲストユーザーはアカウントを削除できません
-            </v-btn>
+            <v-row justify="center">
+              <v-col cols="12" sm="4">
+                <v-btn
+                  v-if="userEmail != guest"
+                  text
+                  block
+                  rounded
+                  color="warning"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  アカウントを削除する
+                </v-btn>
+                <v-btn v-else text color="warning">
+                  ゲストユーザーはアカウントを削除できません
+                </v-btn>
+              </v-col>
+            </v-row>
           </template>
 
           <v-card>
             <v-btn icon absolute right @click="dialog = false">
               ✕
             </v-btn>
-            <v-card-title class="mt-2 px-0 justify-center font-weight-bold ">
+            <v-card-title class="mt-2 justify-center font-weight-bold ">
               本当にアカウントを削除しますか？
             </v-card-title>
             <v-divider class="mb-5" />
@@ -46,7 +49,6 @@
                 rounded
                 color="warning"
                 class="white--text font-weight-bold"
-                width="30%"
                 @click="deleteUser"
               >
                 OK
