@@ -24,10 +24,10 @@
       <v-chip
         v-for="tag in tags"
         :key="`tag-${tag.id}`"
-        class="ma-2"
         label
         outlined
-        :to="'/tag/' + tag.id"
+        class="ma-2"
+        @click="toTagItems(tag.id)"
       >
         <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
       </v-chip>
@@ -71,6 +71,14 @@ export default {
       .catch((error) => {
         return error
       })
+  },
+  methods: {
+    toTagItems(tagId) {
+      this.$router.push({
+        path: `/tag/${tagId}`,
+        query: { keyword: this.keyword, page: 1 }
+      })
+    }
   }
 }
 </script>

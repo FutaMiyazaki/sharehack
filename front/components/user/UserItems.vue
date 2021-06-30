@@ -4,11 +4,7 @@
       <v-hover v-slot="{ hover }">
         <v-card :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }">
           <nuxt-link :to="'/item/' + item.id">
-            <v-img
-              max-height="auto"
-              max-width="100%"
-              :src="item.image_url"
-            ></v-img>
+            <v-img aspect-ratio="1" :src="item.image_url" />
           </nuxt-link>
           <v-card-title class="py-0">{{ item.name }}</v-card-title>
           <v-card-actions>
