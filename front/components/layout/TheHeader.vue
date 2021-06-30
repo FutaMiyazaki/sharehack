@@ -7,7 +7,7 @@
         </nuxt-link>
       </v-toolbar-title>
       <v-spacer />
-      <SearchFormDialog />
+      <SearchForm />
       <v-spacer />
       <template v-if="isLoggedIn">
         <ToItemCreateButton />
@@ -74,12 +74,11 @@
       right
       fixed
       temporary
-      width="100%"
+      width="80%"
       class="hidden-md-and-up"
     >
       <v-list nav dense>
         <v-toolbar flat>
-          <v-toolbar-title class="font-weight-bold">Sharehack</v-toolbar-title>
           <v-spacer />
           <v-btn icon right @click="drawer = false">
             <v-icon>mdi-close</v-icon>
@@ -94,6 +93,7 @@
                 flat
                 solo
                 dense
+                rounded
                 outlined
                 hide-details
                 label="キーワード検索"
@@ -175,13 +175,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import NavigationItem from '~/components/layout/NavigationItem.vue'
-import SearchFormDialog from '~/components/layout/SearchFormDialog.vue'
+import SearchForm from '~/components/layout/SearchForm.vue'
 import ToItemCreateButton from '~/components/layout/ToItemCreateButton.vue'
 
 export default {
   components: {
     NavigationItem,
-    SearchFormDialog,
+    SearchForm,
     ToItemCreateButton
   },
   data() {

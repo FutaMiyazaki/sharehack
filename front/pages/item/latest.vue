@@ -10,6 +10,7 @@
       v-if="totalPages != 1"
       v-model="showPages"
       :length="totalPages"
+      circle
       class="my-5"
       @input="pageChange"
     />

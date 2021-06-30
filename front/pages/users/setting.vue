@@ -4,11 +4,11 @@
       <PageHeader text="アカウント設定" />
       <v-card flat class="mx-auto">
         <v-tabs v-model="tab" show-arrows left>
-          <v-tab> <v-icon>mdi-account-edit</v-icon>ユーザー名 </v-tab>
-          <v-tab> <v-icon>mdi-image-edit</v-icon>プロフィール画像 </v-tab>
-          <v-tab> <v-icon>mdi-email-edit</v-icon>メールアドレス </v-tab>
-          <v-tab> <v-icon>mdi-lock</v-icon>パスワード </v-tab>
-          <v-tab> <v-icon>mdi-alert</v-icon>その他の設定 </v-tab>
+          <v-tab>ユーザー名 </v-tab>
+          <v-tab>プロフィール画像 </v-tab>
+          <v-tab>メールアドレス </v-tab>
+          <v-tab>パスワード </v-tab>
+          <v-tab>その他の設定 </v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
           <v-tab-item>

@@ -220,6 +220,7 @@ export default {
       data.append('item[price]', this.price)
       data.append('item[tags]', this.tags)
       data.append('item[user_id]', this.currentUser.id)
+      data.append('item[uid]', localStorage.getItem('uid'))
       await this.$axios
         .post('api/v1/items', data, config)
         .then((response) => {

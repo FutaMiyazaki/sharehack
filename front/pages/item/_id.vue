@@ -157,6 +157,7 @@
                       <v-btn
                         v-if="currentUser && currentUser.id == comment.user.id"
                         text
+                        rounded
                         color="warning"
                         v-bind="attrs"
                         v-on="on"
