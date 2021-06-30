@@ -4,11 +4,7 @@
       <v-hover v-slot="{ hover }">
         <v-card :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }">
           <nuxt-link :to="'/item/' + item.id">
-            <v-img
-              max-height="auto"
-              max-width="100%"
-              :src="item.image_url"
-            ></v-img>
+            <v-img aspect-ratio="1" :src="item.image_url" />
           </nuxt-link>
           <v-card-title class="py-0">{{ item.name }}</v-card-title>
           <v-card-actions>
@@ -20,7 +16,7 @@
                 outlined
                 small
                 class="ma-1"
-                :to="'/tag/' + tag.id"
+                @click="toTagItems(tag.id)"
               >
                 <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
               </v-chip>
@@ -48,6 +44,14 @@ export default {
       .catch((error) => {
         return error
       })
+  },
+  methods: {
+    toTagItems(tagId) {
+      this.$router.push({
+        path: `/tag/${tagId}`,
+        query: { keyword: this.keyword, page: 1 }
+      })
+    }
   }
 }
 </script>

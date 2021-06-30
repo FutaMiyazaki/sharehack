@@ -147,15 +147,19 @@
     <v-divider class="my-8" />
     <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn text color="red lighten-2" v-bind="attrs" v-on="on">
-          投稿を削除する
-        </v-btn>
+        <v-row justify="center">
+          <v-col cols="12" sm="4">
+            <v-btn text block rounded color="warning" v-bind="attrs" v-on="on">
+              投稿を削除する
+            </v-btn>
+          </v-col>
+        </v-row>
       </template>
       <v-card class="py-2">
         <v-btn icon absolute right @click="dialog = false">
           ✕
         </v-btn>
-        <v-card-title class="mt-2 px-0 justify-center font-weight-bold ">
+        <v-card-title class="mt-2 justify-center font-weight-bold ">
           本当にこの投稿を削除しますか？
         </v-card-title>
         <v-divider class="mb-5" />
@@ -164,7 +168,13 @@
         </v-card-text>
         <v-card-actions class="justify-center pb-5">
           <template v-if="currentUser && currentUser.id != guestUserId">
-            <v-btn rounded outlined width="100px" @click="dialog = false">
+            <v-btn
+              rounded
+              depressed
+              class="font-weight-bold"
+              width="100px"
+              @click="dialog = false"
+            >
               キャンセル
             </v-btn>
             <v-btn
@@ -287,20 +297,21 @@ export default {
       data.append('item[price]', this.item.price)
       data.append('item[tags]', this.tags)
       data.append('item[user_id]', this.currentUser.id)
+      data.append('item[uid]', localStorage.getItem('uid'))
       await this.$axios
         .patch(`api/v1/items/${this.$route.params.id}`, data, config)
         .then((response) => {
           console.log(response)
           this.$router.push(`/item/${response.data.id}`)
           this.showMessage({
-            text: '編集に成功しました。',
+            text: '編集に成功しました',
             type: 'success',
             status: true
           })
         })
         .catch((error) => {
           this.showMessage({
-            text: '編集に失敗しました。',
+            text: '編集に失敗しました',
             type: 'error',
             status: true
           })
@@ -308,31 +319,24 @@ export default {
         })
     },
     async deleteItem() {
-      const data = new FormData()
-      const config = {
-        headers: {
-          'content-type': 'multipart/form-data',
-          uid: localStorage.getItem('uid')
-        }
-      }
-      data.append('item[name]', this.item.name)
-      data.append('item[image]', this.item.image)
-      data.append('item[description]', this.item.description)
-      data.append('item[link]', this.item.link)
-      data.append('item[price]', this.item.price)
       await this.$axios
-        .delete(`api/v1/items/${this.$route.params.id}`, this.item, config)
+        .delete(`api/v1/items/${this.$route.params.id}`, {
+          params: {
+            user_id: this.currentUser.id,
+            uid: localStorage.getItem('uid')
+          }
+        })
         .then((response) => {
           this.$router.push(`/users/${this.currentUser.id}`)
           this.showMessage({
-            text: '削除に成功しました。',
+            text: '投稿を削除しました',
             type: 'success',
             status: true
           })
         })
         .catch((error) => {
           this.showMessage({
-            text: '削除に失敗しました。',
+            text: '削除に失敗しました',
             type: 'error',
             status: true
           })

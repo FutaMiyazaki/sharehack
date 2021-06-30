@@ -5,6 +5,7 @@ RSpec.describe "Api::V1::ItemComments", type: :request do
   let(:item) { create(:item) }
   let(:comment) { create(:item_comment) }
   let(:content) { '私も使ってます！' }
+
   describe 'POST /api/v1/item_comments' do
     it 'コメントの投稿ができる' do
       post api_v1_item_comments_path, params: { user_id: user.id , item_id: item.id, content: content }

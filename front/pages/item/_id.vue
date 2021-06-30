@@ -3,7 +3,7 @@
     <PageHeader :text="text" />
     <v-row>
       <v-col cols="12" sm="7">
-        <v-img max-height="auto" max-width="100%" :src="item.image_url"></v-img>
+        <v-img aspect-ratio="1" :src="item.image_url" />
         <v-row class="my-1">
           <v-col cols="6" align="left">
             <p class="my-auto text-subtitle-2">
@@ -125,7 +125,7 @@
           class="ma-2"
           label
           outlined
-          :to="'/tag/' + tag.id"
+          @click="toTagItems(tag.id)"
         >
           <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
         </v-chip>
@@ -157,6 +157,7 @@
                       <v-btn
                         v-if="currentUser && currentUser.id == comment.user.id"
                         text
+                        rounded
                         color="warning"
                         v-bind="attrs"
                         v-on="on"
@@ -329,11 +330,18 @@ export default {
       })
   },
   methods: {
+    toTagItems(tagId) {
+      this.$router.push({
+        path: `/tag/${tagId}`,
+        query: { keyword: this.keyword, page: 1 }
+      })
+    },
     async likeItem() {
       await this.$axios
         .$post('/api/v1/item_likes', {
           user_id: this.currentUser.id,
-          item_id: this.item.id
+          item_id: this.item.id,
+          uid: localStorage.getItem('uid')
         })
         .then((response) => {
           this.likeList = response
@@ -348,7 +356,8 @@ export default {
         .delete('/api/v1/item_likes', {
           params: {
             user_id: this.currentUser.id,
-            item_id: this.item.id
+            item_id: this.item.id,
+            uid: localStorage.getItem('uid')
           }
         })
         .then((response) => {

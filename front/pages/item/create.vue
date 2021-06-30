@@ -220,20 +220,21 @@ export default {
       data.append('item[price]', this.price)
       data.append('item[tags]', this.tags)
       data.append('item[user_id]', this.currentUser.id)
+      data.append('item[uid]', localStorage.getItem('uid'))
       await this.$axios
         .post('api/v1/items', data, config)
         .then((response) => {
           console.log(response)
           this.$router.push(`/item/${response.data.id}`)
           this.showMessage({
-            text: '投稿に成功しました。',
+            text: '投稿に成功しました',
             type: 'success',
             status: true
           })
         })
         .catch((error) => {
           this.showMessage({
-            text: '投稿に失敗しました。',
+            text: '投稿に失敗しました',
             type: 'error',
             status: true
           })

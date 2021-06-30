@@ -112,19 +112,20 @@
                   </template>
                   <v-btn
                     v-show="currentUser && currentUser.id == user.id"
-                    outlined
                     block
+                    rounded
+                    outlined
                     color="primary"
                     to="/users/setting"
                   >
                     <v-icon class="mr-3">mdi-cog</v-icon>
-                    <p class="my-auto">アカウントを編集する</p>
+                    アカウントを編集する
                   </v-btn>
                 </div>
               </v-list-item-content>
             </v-list-item>
           </v-list>
-          <v-list nav dense>
+          <v-list nav dense rounded>
             <v-list-item-group v-model="selectedItem" color="primary">
               <v-list-item @click="currentComponent = 'UserItems'">
                 <v-list-item-icon>

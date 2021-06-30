@@ -1,6 +1,6 @@
 <template>
   <v-hover v-slot="{ hover }">
-    <v-card :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }">
+    <v-card flat :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }">
       <v-card-actions class="pa-0">
         <v-list-item dense nuxt :to="'/users/' + item.user.id">
           <v-list-item-avatar>
@@ -32,7 +32,7 @@
         :to="'/item/' + item.id"
         class="text-decoration-none black--text"
       >
-        <v-img max-height="auto" max-width="100%" :src="item.image_url" />
+        <v-img aspect-ratio="1" :src="item.image_url" />
         <v-card-title class="pt-1 pb-0">
           {{ item.name }}
         </v-card-title>
@@ -46,7 +46,7 @@
             outlined
             small
             class="ma-1"
-            :to="'/tag/' + tag.id"
+            @click="toTagItems(tag.id)"
           >
             <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
           </v-chip>
@@ -74,6 +74,14 @@ export default {
         item_likes: {},
         item_comments: {},
         tags: {}
+      })
+    }
+  },
+  methods: {
+    toTagItems(tagId) {
+      this.$router.push({
+        path: `/tag/${tagId}`,
+        query: { keyword: this.keyword, page: 1 }
       })
     }
   }
