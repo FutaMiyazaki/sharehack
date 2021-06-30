@@ -27,7 +27,8 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
-    item = Item.new(item_params)
+    return if User.find(item_params[:user_id]).email != item_params[:uid]
+    item = Item.new(item_params.except(:uid))
     sent_tags = item_tags_params[:tags] === nil ? [] : item_tags_params[:tags]
     tag_list = sent_tags.split(',')
     if item.save
@@ -52,6 +53,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def destroy
     item = Item.find(params[:id])
+    return if User.find(item.user_id).email != params[:uid]
     item.destroy
   end
 
@@ -81,7 +83,7 @@ class Api::V1::ItemsController < ApplicationController
 
   private
     def item_params
-      params.require(:item).permit(:name, :description, :link, :price, :user_id, :image)
+      params.require(:item).permit(:name, :description, :link, :price, :user_id, :image, :uid)
     end
 
     def item_tags_params
