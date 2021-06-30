@@ -297,20 +297,21 @@ export default {
       data.append('item[price]', this.item.price)
       data.append('item[tags]', this.tags)
       data.append('item[user_id]', this.currentUser.id)
+      data.append('item[uid]', localStorage.getItem('uid'))
       await this.$axios
         .patch(`api/v1/items/${this.$route.params.id}`, data, config)
         .then((response) => {
           console.log(response)
           this.$router.push(`/item/${response.data.id}`)
           this.showMessage({
-            text: '編集に成功しました。',
+            text: '編集に成功しました',
             type: 'success',
             status: true
           })
         })
         .catch((error) => {
           this.showMessage({
-            text: '編集に失敗しました。',
+            text: '編集に失敗しました',
             type: 'error',
             status: true
           })
