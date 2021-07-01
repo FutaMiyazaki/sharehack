@@ -87,6 +87,11 @@ export default {
           return error
         })
     }
+  },
+  head() {
+    return {
+      title: `${this.text}の投稿一覧`
+    }
   }
 }
 </script>

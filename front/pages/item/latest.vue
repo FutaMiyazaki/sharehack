@@ -83,6 +83,11 @@ export default {
           return error
         })
     }
+  },
+  head() {
+    return {
+      title: '新着の投稿一覧'
+    }
   }
 }
 </script>

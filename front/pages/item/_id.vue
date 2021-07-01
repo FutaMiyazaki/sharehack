@@ -403,6 +403,11 @@ export default {
           return error
         })
     }
+  },
+  head() {
+    return {
+      title: this.item.name
+    }
   }
 }
 </script>

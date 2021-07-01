@@ -117,6 +117,11 @@ export default {
         query: { keyword: this.$route.query.keyword, page: number }
       })
     }
+  },
+  head() {
+    return {
+      title: `${this.$route.query.keyword}の検索結果`
+    }
   }
 }
 </script>

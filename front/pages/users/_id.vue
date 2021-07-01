@@ -272,6 +272,11 @@ export default {
           return error
         })
     }
+  },
+  head() {
+    return {
+      title: this.user.name
+    }
   }
 }
 </script>

@@ -241,6 +241,11 @@ export default {
           return error
         })
     }
+  },
+  head() {
+    return {
+      title: '新規投稿'
+    }
   }
 }
 </script>

@@ -84,6 +84,11 @@ export default {
     guestLogin() {
       this.login(this.guest)
     }
+  },
+  head() {
+    return {
+      title: 'ログイン'
+    }
   }
 }
 </script>
