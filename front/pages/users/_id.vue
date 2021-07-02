@@ -3,7 +3,7 @@
     <PageHeader :text="text" />
     <v-row class="mt-5">
       <v-col cols="12" sm="4">
-        <v-card class="mx-auto" tile>
+        <v-card class="mx-auto" flat>
           <v-list>
             <v-list-item>
               <v-list-item-avatar class="mx-auto">
@@ -271,6 +271,11 @@ export default {
         .catch((error) => {
           return error
         })
+    }
+  },
+  head() {
+    return {
+      title: this.user.name
     }
   }
 }

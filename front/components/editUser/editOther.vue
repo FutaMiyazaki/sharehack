@@ -17,7 +17,7 @@
                 >
                   アカウントを削除する
                 </v-btn>
-                <v-btn v-else text color="warning">
+                <v-btn v-else text block rounded color="warning">
                   ゲストユーザーはアカウントを削除できません
                 </v-btn>
               </v-col>

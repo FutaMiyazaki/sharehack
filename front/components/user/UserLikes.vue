@@ -3,6 +3,9 @@
     <v-col v-for="itemLike in itemLikes" :key="itemLike.id" :cols="6">
       <ItemCard :item="itemLike.item" />
     </v-col>
+    <v-col v-if="!itemLikes.length" class="white">
+      <p class="text-center ma-0">まだ投稿はありません</p>
+    </v-col>
   </v-row>
 </template>
 

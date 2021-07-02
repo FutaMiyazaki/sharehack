@@ -112,6 +112,11 @@ export default {
     guestLogin() {
       this.login(this.guest)
     }
+  },
+  head() {
+    return {
+      title: '新規登録'
+    }
   }
 }
 </script>

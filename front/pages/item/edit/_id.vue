@@ -343,6 +343,11 @@ export default {
           return error
         })
     }
+  },
+  head() {
+    return {
+      title: '投稿を編集する'
+    }
   }
 }
 </script>

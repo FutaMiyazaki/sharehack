@@ -79,6 +79,12 @@ export default {
         query: { keyword: this.keyword, page: 1 }
       })
     }
+  },
+  head() {
+    return {
+      title: 'Sharehack',
+      titleTemplate: ''
+    }
   }
 }
 </script>

@@ -2,7 +2,11 @@
   <v-row>
     <v-col v-for="item in items" :key="item.id" :cols="6">
       <v-hover v-slot="{ hover }">
-        <v-card :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }">
+        <v-card
+          outlined
+          :elevation="hover ? 16 : 0"
+          :class="{ 'on-hover': hover }"
+        >
           <nuxt-link :to="'/item/' + item.id">
             <v-img aspect-ratio="1" :src="item.image_url" />
           </nuxt-link>
@@ -24,6 +28,9 @@
           </v-card-actions>
         </v-card>
       </v-hover>
+    </v-col>
+    <v-col v-if="!items.length" class="white">
+      <p class="text-center">まだ投稿はありません</p>
     </v-col>
   </v-row>
 </template>
