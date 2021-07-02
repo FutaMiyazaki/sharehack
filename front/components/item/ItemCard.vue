@@ -1,6 +1,6 @@
 <template>
   <v-hover v-slot="{ hover }">
-    <v-card flat :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }">
+    <v-card outlined :elevation="hover ? 16 : 0" :class="{ 'on-hover': hover }">
       <v-card-actions class="pa-0">
         <v-list-item dense nuxt :to="'/users/' + item.user.id">
           <v-list-item-avatar>
