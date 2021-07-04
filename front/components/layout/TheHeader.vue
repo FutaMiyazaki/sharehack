@@ -13,13 +13,19 @@
         <ToItemCreateButton />
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              v-bind="attrs"
-              class="hidden-sm-and-down"
-              v-on="on"
-            >
-              <v-icon>mdi-account-circle</v-icon><v-icon>mdi-menu-down</v-icon>
+            <v-btn icon v-bind="attrs" class="hidden-sm-and-down" v-on="on">
+              <v-list-item dense>
+                <v-list-item-avatar class="mx-auto">
+                  <v-icon v-if="!currentUserAvatar" large color="primary">
+                    mdi-account-circle
+                  </v-icon>
+                  <v-img
+                    v-else
+                    alt="ユーザーのプロフィール画像"
+                    :src="currentUserAvatar"
+                  />
+                </v-list-item-avatar>
+              </v-list-item>
             </v-btn>
           </template>
           <v-list>
@@ -193,7 +199,8 @@ export default {
   computed: {
     ...mapGetters({
       isLoggedIn: 'authentication/isLoggedIn',
-      currentUser: 'authentication/currentUser'
+      currentUser: 'authentication/currentUser',
+      currentUserAvatar: 'authentication/currentUserAvatar'
     })
   },
   methods: {
