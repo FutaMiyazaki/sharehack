@@ -131,6 +131,7 @@
         <v-row justify="center">
           <v-col cols="12" sm="4">
             <v-btn
+              v-if="!loadShow"
               block
               rounded
               color="primary"
@@ -140,6 +141,7 @@
             >
               アイテムを投稿する
             </v-btn>
+            <Loading v-show="loadShow" />
           </v-col>
         </v-row>
       </v-form>
@@ -153,13 +155,15 @@ import PageHeader from '~/components/layout/PageHeader.vue'
 import FormLabel from '~/components/layout/FormLabel.vue'
 import TextField from '~/components/input/TextField.vue'
 import TextArea from '~/components/input/TextArea.vue'
+import Loading from '~/components/layout/Loading.vue'
 
 export default {
   components: {
     PageHeader,
     FormLabel,
     TextField,
-    TextArea
+    TextArea,
+    Loading
   },
   data() {
     return {
@@ -171,7 +175,8 @@ export default {
       price: '',
       tags: '',
       tagLists: [],
-      search: null
+      search: null,
+      loadShow: false
     }
   },
   computed: {
@@ -207,6 +212,7 @@ export default {
       this.image = e
     },
     async createItem() {
+      this.loadShow = true
       const data = new FormData()
       const config = {
         headers: {
@@ -224,6 +230,7 @@ export default {
       await this.$axios
         .post('api/v1/items', data, config)
         .then((response) => {
+          this.loadShow = false
           this.$router.push(`/item/${response.data.id}`)
           this.showMessage({
             text: '投稿に成功しました',
@@ -232,6 +239,7 @@ export default {
           })
         })
         .catch((error) => {
+          this.loadShow = false
           this.showMessage({
             text: '投稿に失敗しました',
             type: 'error',

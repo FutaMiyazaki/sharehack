@@ -9,7 +9,9 @@
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="font-weight-bold">
-          {{ userName }}
+          <span class="d-inline-block text-truncate">
+            {{ userName }}
+          </span>
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>

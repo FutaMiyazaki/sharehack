@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn
-      v-show="!isFollowed"
+      v-show="!isFollowed && !loadShow"
       block
       rounded
       outlined
@@ -15,7 +15,7 @@
     <v-dialog v-model="dialog" width="400">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          v-show="isFollowed"
+          v-show="isFollowed && !loadShow"
           block
           rounded
           v-bind="attrs"
@@ -57,13 +57,18 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <Loading v-show="loadShow" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Loading from '~/components/layout/Loading.vue'
 
 export default {
+  components: {
+    Loading
+  },
   props: {
     userId: {
       type: Number,
@@ -79,7 +84,8 @@ export default {
   data() {
     return {
       dialog: false,
-      userFollowers: this.followers
+      userFollowers: this.followers,
+      loadShow: false
     }
   },
   computed: {
@@ -105,6 +111,7 @@ export default {
   },
   methods: {
     async createFollow() {
+      this.loadShow = true
       await this.$axios
         .$post('/api/v1/relationships', {
           user_id: this.currentUser?.id,
@@ -112,13 +119,16 @@ export default {
           uid: localStorage.getItem('uid')
         })
         .then((response) => {
+          this.loadShow = false
           this.userFollowers = response.followers
         })
         .catch((error) => {
+          this.loadShow = false
           return error
         })
     },
     async deleteFollow() {
+      this.loadShow = true
       await this.$axios
         .$delete(`api/v1/relationships/${this.userId}`, {
           params: {
@@ -128,10 +138,12 @@ export default {
           }
         })
         .then((response) => {
+          this.loadShow = false
           this.userFollowers = response.followers
           this.dialog = false
         })
         .catch((error) => {
+          this.loadShow = false
           return error
         })
     }

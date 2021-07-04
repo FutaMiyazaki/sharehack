@@ -8,7 +8,9 @@
           <v-col cols="6" align="left">
             <p class="my-auto text-subtitle-2">
               <v-icon small>mdi-clock-outline</v-icon>
-              {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
+              <span class="text-caption">
+                {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
+              </span>
             </p>
           </v-col>
           <template v-if="currentUser && currentUser.id == item.user.id">
@@ -45,7 +47,7 @@
           <v-col cols="12" sm="6">
             <template v-if="isLoggedIn">
               <v-btn
-                v-show="!isLiked"
+                v-show="!isLiked && !likeLoadShow"
                 block
                 rounded
                 depressed
@@ -56,7 +58,7 @@
                 <span class="font-weight-bold">{{ likeCount }}</span>
               </v-btn>
               <v-btn
-                v-show="isLiked"
+                v-show="isLiked && !likeLoadShow"
                 block
                 rounded
                 outlined
@@ -67,6 +69,7 @@
                 <p class="my-auto mx-2">いいね!</p>
                 <span class="font-weight-bold">{{ likeCount }}</span>
               </v-btn>
+              <Loading v-show="likeLoadShow" />
             </template>
             <template v-if="!isLoggedIn">
               <v-dialog v-model="likeDialog" width="500">
@@ -140,29 +143,31 @@
           <v-col v-if="comments.length" cols="12">
             <div v-for="comment in comments" :key="comment.id" class="mb-5">
               <v-row>
-                <v-col cols="9">
+                <v-col cols="12" class="px-0 pb-0">
                   <UserInformation
                     :user-id="comment.user.id"
                     :user-avatar-url="comment.user.avatar_url"
                     :user-name="comment.user.name"
                   />
-                  <div class="text-caption">
-                    <v-icon small>mdi-clock-outline</v-icon>
-                    {{ $moment(comment.created_at).format('YYYY/MM/DD HH:mm') }}
-                  </div>
                 </v-col>
-                <v-col cols="3" align="right">
+                <v-col cols="6" align="left" class="pt-0">
+                  <span class="text-caption">
+                    {{ $moment(comment.created_at).format('YYYY/MM/DD HH:mm') }}
+                  </span>
+                </v-col>
+                <v-col cols="6" align="right" class="pt-0">
                   <v-dialog v-model="dialog" width="500">
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
                         v-if="currentUser && currentUser.id == comment.user.id"
-                        text
+                        bottom
+                        icon
                         rounded
                         color="warning"
                         v-bind="attrs"
                         v-on="on"
                       >
-                        削除する
+                        <v-icon color="warning">mdi-delete</v-icon>
                       </v-btn>
                     </template>
                     <v-card class="py-2">
@@ -236,6 +241,7 @@
                 <v-row justify="center">
                   <v-col cols="12" sm="6">
                     <v-btn
+                      v-if="!commentLoadShow"
                       block
                       rounded
                       color="primary"
@@ -245,6 +251,7 @@
                     >
                       コメントする
                     </v-btn>
+                    <Loading v-show="commentLoadShow" />
                   </v-col>
                 </v-row>
               </v-form>
@@ -261,12 +268,14 @@ import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import UserInformation from '~/components/user/UserInformation.vue'
 import FollowButton from '~/components/layout/FollowButton.vue'
+import Loading from '~/components/layout/Loading.vue'
 
 export default {
   components: {
     PageHeader,
     UserInformation,
-    FollowButton
+    FollowButton,
+    Loading
   },
   data() {
     return {
@@ -281,7 +290,9 @@ export default {
       likeList: [],
       followers: [],
       comments: [],
-      commentText: ''
+      commentText: '',
+      likeLoadShow: false,
+      commentLoadShow: false
     }
   },
   computed: {
@@ -336,6 +347,7 @@ export default {
       })
     },
     async likeItem() {
+      this.likeLoadShow = true
       await this.$axios
         .$post('/api/v1/item_likes', {
           user_id: this.currentUser.id,
@@ -343,13 +355,16 @@ export default {
           uid: localStorage.getItem('uid')
         })
         .then((response) => {
+          this.likeLoadShow = false
           this.likeList = response
         })
         .catch((error) => {
+          this.likeLoadShow = false
           return error
         })
     },
     async dislikeItem() {
+      this.likeLoadShow = true
       await this.$axios
         .delete('/api/v1/item_likes', {
           params: {
@@ -359,13 +374,16 @@ export default {
           }
         })
         .then((response) => {
+          this.likeLoadShow = false
           this.likeList = response.data
         })
         .catch((error) => {
+          this.likeLoadShow = false
           return error
         })
     },
     async createComment() {
+      this.commentLoadShow = true
       await this.$axios
         .post('/api/v1/item_comments', {
           content: this.commentText,
@@ -374,15 +392,18 @@ export default {
           uid: localStorage.getItem('uid')
         })
         .then((response) => {
+          this.commentLoadShow = false
           this.comments = response.data
           this.commentText = ''
           this.$refs.observer.reset()
         })
         .catch((error) => {
+          this.commentLoadShow = false
           return error
         })
     },
     async deleteComment(commentId) {
+      this.commentLoadShow = true
       await this.$axios
         .delete(`api/v1/item_comments/${commentId}`, {
           params: {
@@ -392,11 +413,13 @@ export default {
           }
         })
         .then((response) => {
+          this.commentLoadShow = false
           this.comments = response.data
           this.dialog = false
           this.$refs.observer.reset()
         })
         .catch((error) => {
+          this.commentLoadShow = false
           return error
         })
     }
