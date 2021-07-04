@@ -253,16 +253,12 @@ export default {
         this.item = response.data
         for (let i = 0; i < this.item.tags.length; i++) {
           this.tags += this.item.tags[i].name + ','
-          console.log(this.item.tags[i].name)
         }
         this.tags = this.tags.slice(0, -1)
         this.tags = this.tags.split(',')
-        console.log('アイテム情報の取得に成功')
-        console.log(response)
       })
       .catch((error) => {
-        console.log('アイテム情報の取得に失敗')
-        console.log(error)
+        return error
       })
     this.$axios
       .get('api/v1/tags')
@@ -301,7 +297,6 @@ export default {
       await this.$axios
         .patch(`api/v1/items/${this.$route.params.id}`, data, config)
         .then((response) => {
-          console.log(response)
           this.$router.push(`/item/${response.data.id}`)
           this.showMessage({
             text: '編集に成功しました',

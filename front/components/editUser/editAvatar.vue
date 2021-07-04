@@ -93,8 +93,6 @@ export default {
           config
         )
         .then((response) => {
-          console.log('画像の変更に成功')
-          console.log(response)
           this.$router.push(`/users/${response.data.id}`)
           this.showMessage({
             text: 'プロフィール画像を変更しました。',

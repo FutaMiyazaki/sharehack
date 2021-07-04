@@ -323,7 +323,6 @@ export default {
         this.followers = this.item.user.followers
         this.comments = this.item.item_comments
         this.text = this.item.name
-        console.log(response)
       })
       .catch((error) => {
         return error
@@ -345,7 +344,6 @@ export default {
         })
         .then((response) => {
           this.likeList = response
-          console.log(response)
         })
         .catch((error) => {
           return error
@@ -362,7 +360,6 @@ export default {
         })
         .then((response) => {
           this.likeList = response.data
-          console.log(response)
         })
         .catch((error) => {
           return error

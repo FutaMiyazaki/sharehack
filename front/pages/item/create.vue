@@ -224,7 +224,6 @@ export default {
       await this.$axios
         .post('api/v1/items', data, config)
         .then((response) => {
-          console.log(response)
           this.$router.push(`/item/${response.data.id}`)
           this.showMessage({
             text: '投稿に成功しました',

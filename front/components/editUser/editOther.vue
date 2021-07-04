@@ -81,15 +81,11 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response)
           this.$store.commit('authentication/setCurrentUser', {})
           this.$store.commit('authentication/setIsLoggedIn', false)
           this.$router.push('/')
-          console.log('アカウントの削除に成功')
         })
         .catch((error) => {
-          console.log('アカウントの削除に失敗')
-          console.log(error)
           return error
         })
     }

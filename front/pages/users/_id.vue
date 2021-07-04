@@ -233,8 +233,6 @@ export default {
         this.text = this.user.name + 'のマイページ'
         this.followings = this.user.followings
         this.followers = this.user.followers
-        console.log('成功')
-        console.log(response)
       })
       .catch((error) => {
         return error
