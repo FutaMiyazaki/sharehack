@@ -7,7 +7,12 @@
           <v-list>
             <v-list-item>
               <v-list-item-avatar class="mx-auto">
+                <v-icon v-if="!user.avatar_url" large color="primary">
+                  mdi-account-circle
+                </v-icon>
                 <v-img
+                  v-else
+                  alt="ユーザーのプロフィール画像"
                   max-height="auto"
                   max-width="100%"
                   :src="user.avatar_url"
