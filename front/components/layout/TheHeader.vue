@@ -55,13 +55,16 @@
       </template>
       <template v-if="!isLoggedIn">
         <v-btn
-          text
+          rounded
+          depressed
           class="hidden-sm-and-down font-weight-bold mr-3"
           to="/users/login"
         >
           <span>ログイン</span>
         </v-btn>
         <v-btn
+          rounded
+          depressed
           color="primary"
           class="hidden-sm-and-down font-weight-bold white--text"
           to="/users/signup"
