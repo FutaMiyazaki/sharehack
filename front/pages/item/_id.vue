@@ -247,7 +247,7 @@
                       color="primary"
                       class="white--text font-weight-bold d-block mx-auto"
                       :disabled="invalid"
-                      @click="createComment"
+                      @click="sendComment"
                     >
                       コメントする
                     </v-btn>
@@ -382,7 +382,7 @@ export default {
           return error
         })
     },
-    async createComment() {
+    async sendComment() {
       this.commentLoadShow = true
       await this.$axios
         .post('/api/v1/item_comments', {

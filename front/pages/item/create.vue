@@ -137,7 +137,7 @@
               color="primary"
               class="white--text font-weight-bold d-block mx-auto"
               :disabled="invalid"
-              @click="createItem"
+              @click="sendItem"
             >
               アイテムを投稿する
             </v-btn>
@@ -211,7 +211,7 @@ export default {
     setImage(e) {
       this.image = e
     },
-    async createItem() {
+    async sendItem() {
       this.loadShow = true
       const data = new FormData()
       const config = {

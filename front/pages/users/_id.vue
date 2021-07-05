@@ -56,7 +56,7 @@
                       outlined
                       color="primary"
                       class="font-weight-bold"
-                      @click="createFollow"
+                      @click="sendFollow"
                     >
                       <v-icon>mdi-account-plus</v-icon>
                       <p class="my-auto mx-2">フォローする</p>
@@ -107,7 +107,7 @@
                             color="primary"
                             class="white--text font-weight-bold"
                             width="35%"
-                            @click="deleteFollow"
+                            @click="sendUnfollow"
                           >
                             フォロー解除
                           </v-btn>
@@ -244,7 +244,7 @@ export default {
       })
   },
   methods: {
-    async createFollow() {
+    async sendFollow() {
       await this.$axios
         .$post('/api/v1/relationships', {
           user_id: this.currentUser?.id,
@@ -258,7 +258,7 @@ export default {
           return error
         })
     },
-    async deleteFollow() {
+    async sendUnfollow() {
       await this.$axios
         .$delete(`api/v1/relationships/${this.user.id}`, {
           params: {
