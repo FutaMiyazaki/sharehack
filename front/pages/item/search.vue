@@ -60,7 +60,6 @@ export default {
         .then((response) => {
           this.totalCount = response.data.length
           this.totalPages = Math.ceil(this.totalCount / 12)
-          console.log(this.totalCount)
         })
         .catch((error) => {
           return error
@@ -90,7 +89,6 @@ export default {
       .then((response) => {
         this.totalCount = response.data.length
         this.totalPages = Math.ceil(this.totalCount / 12)
-        console.log(this.totalCount)
       })
       .catch((error) => {
         return error
@@ -104,7 +102,6 @@ export default {
       })
       .then((response) => {
         this.items = response.data
-        console.log(response)
       })
       .catch((error) => {
         return error

@@ -28,7 +28,6 @@ export default {
     this.$axios
       .get(`api/v1/users/${this.$route.params.id}/show_followings`)
       .then((response) => {
-        console.log(response)
         this.followings = response.data.followings
       })
       .catch((error) => {

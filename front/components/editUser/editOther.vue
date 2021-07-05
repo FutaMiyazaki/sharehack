@@ -28,7 +28,7 @@
             <v-btn icon absolute right @click="dialog = false">
               ✕
             </v-btn>
-            <v-card-title class="mt-2 justify-center font-weight-bold ">
+            <v-card-title class="mt-2 justify-center font-weight-bold">
               本当にアカウントを削除しますか？
             </v-card-title>
             <v-divider class="mb-5" />
@@ -40,7 +40,7 @@
                 rounded
                 depressed
                 class="font-weight-bold"
-                width="30%"
+                width="35%"
                 @click="dialog = false"
               >
                 キャンセル
@@ -49,6 +49,7 @@
                 rounded
                 color="warning"
                 class="white--text font-weight-bold"
+                width="35%"
                 @click="deleteUser"
               >
                 OK
@@ -81,15 +82,11 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response)
           this.$store.commit('authentication/setCurrentUser', {})
           this.$store.commit('authentication/setIsLoggedIn', false)
           this.$router.push('/')
-          console.log('アカウントの削除に成功')
         })
         .catch((error) => {
-          console.log('アカウントの削除に失敗')
-          console.log(error)
           return error
         })
     }

@@ -42,7 +42,6 @@ export default {
       .then((response) => {
         this.totalCount = response.data.length
         this.totalPages = Math.ceil(this.totalCount / 12)
-        console.log(this.totalCount)
       })
       .catch((error) => {
         return error
@@ -56,11 +55,8 @@ export default {
       })
       .then((response) => {
         this.items = response.data
-        console.log('取得成功!!!!!!!!!!')
-        console.log(response)
       })
       .catch((error) => {
-        console.log('取得失敗!!!!!!!!!!')
         return error
       })
   },
@@ -75,11 +71,8 @@ export default {
         })
         .then((response) => {
           this.items = response.data
-          console.log('取得成功!!!!!!!!!!')
-          console.log(response)
         })
         .catch((error) => {
-          console.log('取得失敗!!!!!!!!!!')
           return error
         })
     }

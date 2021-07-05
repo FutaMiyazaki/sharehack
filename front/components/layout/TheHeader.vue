@@ -13,13 +13,19 @@
         <ToItemCreateButton />
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              v-bind="attrs"
-              class="hidden-sm-and-down"
-              v-on="on"
-            >
-              <v-icon>mdi-account-circle</v-icon><v-icon>mdi-menu-down</v-icon>
+            <v-btn icon v-bind="attrs" class="hidden-sm-and-down" v-on="on">
+              <v-list-item dense>
+                <v-list-item-avatar class="mx-auto">
+                  <v-icon v-if="!currentUserAvatar" large color="primary">
+                    mdi-account-circle
+                  </v-icon>
+                  <v-img
+                    v-else
+                    alt="ユーザーのプロフィール画像"
+                    :src="currentUserAvatar"
+                  />
+                </v-list-item-avatar>
+              </v-list-item>
             </v-btn>
           </template>
           <v-list>
@@ -49,13 +55,16 @@
       </template>
       <template v-if="!isLoggedIn">
         <v-btn
-          text
+          rounded
+          depressed
           class="hidden-sm-and-down font-weight-bold mr-3"
           to="/users/login"
         >
           <span>ログイン</span>
         </v-btn>
         <v-btn
+          rounded
+          depressed
           color="primary"
           class="hidden-sm-and-down font-weight-bold white--text"
           to="/users/signup"
@@ -63,10 +72,7 @@
           新規登録
         </v-btn>
       </template>
-      <v-app-bar-nav-icon
-        class="hidden-md-and-up"
-        @click="drawer = true"
-      ></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = true" />
     </v-app-bar>
 
     <v-navigation-drawer
@@ -193,7 +199,8 @@ export default {
   computed: {
     ...mapGetters({
       isLoggedIn: 'authentication/isLoggedIn',
-      currentUser: 'authentication/currentUser'
+      currentUser: 'authentication/currentUser',
+      currentUserAvatar: 'authentication/currentUserAvatar'
     })
   },
   methods: {

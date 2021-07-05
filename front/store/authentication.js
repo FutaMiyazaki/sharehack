@@ -1,12 +1,14 @@
 export const state = () => ({
   isLoggedIn: false,
   currentUser: null,
+  currentUserAvatar: null,
   isAdmin: false
 })
 
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
   currentUser: (state) => state.currentUser,
+  currentUserAvatar: (state) => state.currentUserAvatar,
   isAdmin: (state) => state.isAdmin
 }
 
@@ -16,6 +18,9 @@ export const mutations = {
   },
   setCurrentUser(state, user) {
     state.currentUser = user
+  },
+  setCurrentUserAvatar(state, avatar) {
+    state.currentUserAvatar = avatar
   },
   setIsAdmin(state, bool) {
     state.isAdmin = bool
@@ -93,11 +98,23 @@ export const actions = {
         return error
       })
   },
+  async getAvatar({ commit }, userId) {
+    await this.$axios
+      .$get(`api/v1/users/${userId}`)
+      .then((response) => {
+        commit('setCurrentUserAvatar', response.avatar_url)
+        return response
+      })
+      .catch((error) => {
+        return error
+      })
+  },
   async logout({ commit }) {
     await this.$axios
       .$delete('/api/v1/auth/sign_out')
       .then((response) => {
         commit('setCurrentUser', null)
+        commit('setCurrentUserAvatar', null)
         commit('setIsLoggedIn', false)
         this.$router.push('/')
         commit('flashMessage/setText', 'ログアウトしました', {

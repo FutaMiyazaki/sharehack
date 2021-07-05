@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import ItemCard from '~/components/item/ItemCard.vue'
 
@@ -50,29 +51,38 @@ export default {
       tags: []
     }
   },
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'authentication/isLoggedIn',
+      currentUser: 'authentication/currentUser',
+      currentUserAvatar: 'authentication/currentUserAvatar'
+    })
+  },
   created() {
     this.$axios
       .get('api/v1/items/top')
       .then((response) => {
         this.items = response.data
-        console.log('取得成功!!!!!!!!!!')
-        console.log(response)
       })
       .catch((error) => {
-        console.log('取得失敗!!!!!!!!!!')
         return error
       })
     this.$axios
       .get('api/v1/tags')
       .then((response) => {
         this.tags = response.data
-        console.log(response)
       })
       .catch((error) => {
         return error
       })
+    if (this.isLoggedIn && !this.currentUserAvatar) {
+      this.getAvatar(this.currentUser?.id)
+    }
   },
   methods: {
+    ...mapActions({
+      getAvatar: 'authentication/getAvatar'
+    }),
     toTagItems(tagId) {
       this.$router.push({
         path: `/tag/${tagId}`,

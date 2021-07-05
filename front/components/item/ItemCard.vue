@@ -4,7 +4,7 @@
       <v-card-actions class="pa-0">
         <v-list-item dense nuxt :to="'/users/' + item.user.id">
           <v-list-item-avatar>
-            <v-icon v-if="!item.user.avatar_url" large>
+            <v-icon v-if="!item.user.avatar_url" large color="primary">
               mdi-account-circle
             </v-icon>
             <v-img
