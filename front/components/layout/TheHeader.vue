@@ -72,10 +72,7 @@
           新規登録
         </v-btn>
       </template>
-      <v-app-bar-nav-icon
-        class="hidden-md-and-up"
-        @click="drawer = true"
-      ></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = true" />
     </v-app-bar>
 
     <v-navigation-drawer
