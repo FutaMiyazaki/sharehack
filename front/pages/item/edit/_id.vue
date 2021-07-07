@@ -4,39 +4,35 @@
     <ValidationObserver v-slot="{ invalid }">
       <v-form ref="form" lazy-validation class="mt-5">
         <v-row>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="4" class="pb-0">
             <FormLabel label-title="アイテム名を記入" />
           </v-col>
-          <v-col cols="12" sm="8">
+          <v-col cols="12" sm="8" class="pb-0">
             <TextField
               v-model="item.name"
               rules="required|max:30"
-              icon="mdi-pencil"
               label="アイテム名"
             />
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="4" class="pb-0">
             <FormLabel
               label-title="画像をアップロードする"
               label-text="画像形式：JPEG/PNG"
               label-sub-text="容量：5MB以内"
             />
           </v-col>
-          <v-col cols="12" sm="8">
-            <ValidationProvider
-              v-slot="{ errors, validate }"
-              rules="required|size:5000"
-            >
+          <v-col cols="12" sm="8" class="pb-0">
+            <ValidationProvider v-slot="{ errors, validate }" rules="size:5000">
               <v-file-input
+                prepend-icon=""
                 outlined
                 rows="1"
                 background-color="secondary"
                 :value="item.image"
                 accept="image/*"
                 truncate-length="25"
-                prepend-icon="mdi-camera"
                 label="画像をアップロードする"
                 :error-messages="errors"
                 show-size
@@ -47,50 +43,43 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="4" class="pb-0">
             <FormLabel label-title="説明を記入する" label-text="300文字以内" />
           </v-col>
-          <v-col cols="12" sm="8">
+          <v-col cols="12" sm="8" class="pb-0">
             <TextArea
               v-model="item.description"
               rules="required|max:300"
-              icon="mdi-text-box"
               label="説明"
             />
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="4" class="pb-0">
             <FormLabel label-title="商品URLを追加する" :display="false" />
           </v-col>
-          <v-col cols="12" sm="8">
-            <TextField
-              v-model.trim="item.link"
-              type="url"
-              icon="mdi-link"
-              label="商品URL"
-            />
+          <v-col cols="12" sm="8" class="pb-0">
+            <TextField v-model.trim="item.link" type="url" label="商品URL" />
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="4"
-            ><FormLabel label-title="参考価格を追加する" :display="false"
-          /></v-col>
-          <v-col cols="12" sm="8">
+          <v-col cols="12" sm="4" class="pb-0">
+            <FormLabel label-title="参考価格を追加する" :display="false" />
+          </v-col>
+          <v-col cols="12" sm="8" class="pb-0">
             <TextField
               v-model.number="item.price"
               type="number"
               rules="integer"
-              icon="mdi-currency-usd"
               label="参考価格"
             />
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="4" class="pb-0">
             <FormLabel label-title="タグ" label-text="5つまで追加できます" />
           </v-col>
-          <v-col cols="12" sm="8">
+          <v-col cols="12" sm="8" class="pb-0">
             <validation-provider
               v-slot="{ errors }"
               rules="required"
@@ -108,7 +97,6 @@
                 chips
                 deletable-chips
                 item-color="primary"
-                prepend-icon="mdi-tag"
                 multiple
                 persistent-hint
                 small-chips
@@ -131,6 +119,7 @@
         <v-row justify="center">
           <v-col cols="12" sm="4">
             <v-btn
+              v-if="!loadShow"
               block
               rounded
               color="primary"
@@ -140,6 +129,7 @@
             >
               変更を保存する
             </v-btn>
+            <Loading v-show="loadShow" />
           </v-col>
         </v-row>
       </v-form>
@@ -178,6 +168,7 @@
               キャンセル
             </v-btn>
             <v-btn
+              v-if="!loadShow"
               rounded
               color="red"
               class="white--text font-weight-bold"
@@ -186,6 +177,7 @@
             >
               削除する
             </v-btn>
+            <Loading v-show="loadShow" />
           </template>
           <template v-else>
             <v-btn
@@ -209,13 +201,15 @@ import PageHeader from '~/components/layout/PageHeader.vue'
 import FormLabel from '~/components/layout/FormLabel.vue'
 import TextField from '~/components/input/TextField.vue'
 import TextArea from '~/components/input/TextArea.vue'
+import Loading from '~/components/layout/Loading.vue'
 
 export default {
   components: {
     PageHeader,
     FormLabel,
     TextField,
-    TextArea
+    TextArea,
+    Loading
   },
   data() {
     return {
@@ -231,7 +225,8 @@ export default {
       },
       tags: '',
       tagLists: [],
-      search: null
+      search: null,
+      loadShow: false
     }
   },
   computed: {
@@ -280,6 +275,7 @@ export default {
       this.item.image = e
     },
     async updateItem() {
+      this.loadShow = true
       const data = new FormData()
       const config = {
         headers: {
@@ -287,16 +283,19 @@ export default {
         }
       }
       data.append('item[name]', this.item.name)
-      data.append('item[image]', this.item.image)
       data.append('item[description]', this.item.description)
       data.append('item[link]', this.item.link)
       data.append('item[price]', this.item.price)
       data.append('item[tags]', this.tags)
       data.append('item[user_id]', this.currentUser.id)
       data.append('item[uid]', localStorage.getItem('uid'))
+      if (this.item.image) {
+        data.append('item[image]', this.item.image)
+      }
       await this.$axios
         .patch(`api/v1/items/${this.$route.params.id}`, data, config)
         .then((response) => {
+          this.loadShow = false
           this.$router.push(`/item/${response.data.id}`)
           this.showMessage({
             text: '編集に成功しました',
@@ -305,6 +304,7 @@ export default {
           })
         })
         .catch((error) => {
+          this.loadShow = false
           this.showMessage({
             text: '編集に失敗しました',
             type: 'error',
@@ -314,6 +314,7 @@ export default {
         })
     },
     async deleteItem() {
+      this.loadShow = true
       await this.$axios
         .delete(`api/v1/items/${this.$route.params.id}`, {
           params: {
@@ -322,6 +323,7 @@ export default {
           }
         })
         .then((response) => {
+          this.loadShow = false
           this.$router.push(`/users/${this.currentUser.id}`)
           this.showMessage({
             text: '投稿を削除しました',
@@ -330,6 +332,7 @@ export default {
           })
         })
         .catch((error) => {
+          this.loadShow = false
           this.showMessage({
             text: '削除に失敗しました',
             type: 'error',

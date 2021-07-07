@@ -74,7 +74,10 @@ export default {
     locales: ['ja']
   },
   axios: {
-    baseURL: process.env.NODE_ENV === 'production' ? 'https://share-hack-api.com' : 'http://localhost:3000'
+    baseURL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://share-hack-api.com'
+        : 'http://localhost:3000'
   },
   auth: {
     redirect: {

@@ -33,14 +33,13 @@
               :user-name="item.user.name"
             />
           </v-col>
-          <v-col cols="12" sm="6" align="right">
-            <template
-              v-if="
-                isLoggedIn && currentUser && currentUser.id !== item.user.id
-              "
-            >
-              <FollowButton :followers="followers" :user-id="item.user.id" />
-            </template>
+          <v-col
+            v-if="isLoggedIn && currentUser && currentUser.id !== item.user.id"
+            cols="12"
+            sm="6"
+            align="right"
+          >
+            <FollowButton :followers="followers" :user-id="item.user.id" />
           </v-col>
         </v-row>
         <v-row>
@@ -85,7 +84,7 @@
                     ✕
                   </v-btn>
                   <v-card-title
-                    class="mt-2 px-0 pt-5 justify-center font-weight-bold "
+                    class="mt-2 pt-5 justify-center text-subtitle-1"
                   >
                     いいね!には、ログインが必要です
                   </v-card-title>
@@ -137,9 +136,6 @@
     <v-row>
       <v-col cols="12" sm="7">
         <v-row>
-          <v-col cols="12">
-            <p v-if="!comments.length">この投稿にコメントはありません</p>
-          </v-col>
           <v-col v-if="comments.length" cols="12">
             <div v-for="comment in comments" :key="comment.id" class="mb-5">
               <v-row>
@@ -233,7 +229,6 @@
                     outlined
                     rows="1"
                     background-color="secondary"
-                    prepend-icon="mdi-text-box"
                     label="コメントを入力する"
                     :error-messages="errors"
                   />

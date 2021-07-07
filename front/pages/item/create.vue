@@ -4,39 +4,38 @@
     <validation-observer v-slot="{ invalid }">
       <v-form ref="form" lazy-validation class="mt-5">
         <v-row>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="4" class="pb-0">
             <FormLabel label-title="アイテム名を記入" />
           </v-col>
-          <v-col cols="12" sm="8">
+          <v-col cols="12" sm="8" class="pb-0">
             <TextField
               v-model="name"
               rules="required|max:20"
-              icon="mdi-pencil"
               label="アイテム名"
             />
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="4" class="pb-0">
             <FormLabel
               label-title="画像をアップロードする"
               label-text="画像形式：JPEG/PNG"
               label-sub-text="容量：5MB以内"
             />
           </v-col>
-          <v-col cols="12" sm="8">
+          <v-col cols="12" sm="8" class="pb-0">
             <validation-provider
               v-slot="{ errors, validate }"
               rules="required|size:5000"
             >
               <v-file-input
+                prepend-icon=""
                 outlined
                 rows="1"
                 background-color="secondary"
                 :value="image"
                 accept="image/*"
                 truncate-length="25"
-                prepend-icon="mdi-camera"
                 label="画像をアップロードする"
                 :error-messages="errors"
                 show-size
@@ -47,50 +46,43 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="4" class="pb-0">
             <FormLabel label-title="説明を記入する" label-text="300文字以内" />
           </v-col>
-          <v-col cols="12" sm="8">
+          <v-col cols="12" sm="8" class="pb-0">
             <TextArea
               v-model="description"
               rules="required|max:300"
-              icon="mdi-text-box"
               label="説明"
             />
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="4" class="pb-0">
             <FormLabel label-title="商品URLを追加する" :display="false" />
           </v-col>
-          <v-col cols="12" sm="8">
-            <TextField
-              v-model.trim="link"
-              type="url"
-              icon="mdi-link"
-              label="商品URL"
-            />
+          <v-col cols="12" sm="8" class="pb-0">
+            <TextField v-model.trim="link" type="url" label="商品URL" />
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="4"
-            ><FormLabel label-title="参考価格を追加する" :display="false"
-          /></v-col>
-          <v-col cols="12" sm="8">
+          <v-col cols="12" sm="4" class="pb-0">
+            <FormLabel label-title="参考価格を追加する" :display="false" />
+          </v-col>
+          <v-col cols="12" sm="8" class="pb-0">
             <TextField
               v-model.number="price"
               type="number"
               rules="integer"
-              icon="mdi-currency-usd"
               label="参考価格"
             />
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="4" class="pb-0">
             <FormLabel label-title="タグ" label-text="5つまで追加できます" />
           </v-col>
-          <v-col cols="12" sm="8">
+          <v-col cols="12" sm="8" class="pb-0">
             <validation-provider
               v-slot="{ errors }"
               rules="required"
@@ -108,7 +100,6 @@
                 chips
                 deletable-chips
                 item-color="primary"
-                prepend-icon="mdi-tag"
                 multiple
                 persistent-hint
                 small-chips
