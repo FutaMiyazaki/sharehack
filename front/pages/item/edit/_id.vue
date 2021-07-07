@@ -25,10 +25,7 @@
             />
           </v-col>
           <v-col cols="12" sm="8">
-            <ValidationProvider
-              v-slot="{ errors, validate }"
-              rules="required|size:5000"
-            >
+            <ValidationProvider v-slot="{ errors, validate }" rules="size:5000">
               <v-file-input
                 outlined
                 rows="1"
@@ -131,6 +128,7 @@
         <v-row justify="center">
           <v-col cols="12" sm="4">
             <v-btn
+              v-if="!loadShow"
               block
               rounded
               color="primary"
@@ -140,6 +138,7 @@
             >
               変更を保存する
             </v-btn>
+            <Loading v-show="loadShow" />
           </v-col>
         </v-row>
       </v-form>
@@ -178,6 +177,7 @@
               キャンセル
             </v-btn>
             <v-btn
+              v-if="!loadShow"
               rounded
               color="red"
               class="white--text font-weight-bold"
@@ -186,6 +186,7 @@
             >
               削除する
             </v-btn>
+            <Loading v-show="loadShow" />
           </template>
           <template v-else>
             <v-btn
@@ -209,13 +210,15 @@ import PageHeader from '~/components/layout/PageHeader.vue'
 import FormLabel from '~/components/layout/FormLabel.vue'
 import TextField from '~/components/input/TextField.vue'
 import TextArea from '~/components/input/TextArea.vue'
+import Loading from '~/components/layout/Loading.vue'
 
 export default {
   components: {
     PageHeader,
     FormLabel,
     TextField,
-    TextArea
+    TextArea,
+    Loading
   },
   data() {
     return {
@@ -231,7 +234,8 @@ export default {
       },
       tags: '',
       tagLists: [],
-      search: null
+      search: null,
+      loadShow: false
     }
   },
   computed: {
@@ -280,6 +284,7 @@ export default {
       this.item.image = e
     },
     async updateItem() {
+      this.loadShow = true
       const data = new FormData()
       const config = {
         headers: {
@@ -287,16 +292,19 @@ export default {
         }
       }
       data.append('item[name]', this.item.name)
-      data.append('item[image]', this.item.image)
       data.append('item[description]', this.item.description)
       data.append('item[link]', this.item.link)
       data.append('item[price]', this.item.price)
       data.append('item[tags]', this.tags)
       data.append('item[user_id]', this.currentUser.id)
       data.append('item[uid]', localStorage.getItem('uid'))
+      if (this.item.image) {
+        data.append('item[image]', this.item.image)
+      }
       await this.$axios
         .patch(`api/v1/items/${this.$route.params.id}`, data, config)
         .then((response) => {
+          this.loadShow = false
           this.$router.push(`/item/${response.data.id}`)
           this.showMessage({
             text: '編集に成功しました',
@@ -305,6 +313,7 @@ export default {
           })
         })
         .catch((error) => {
+          this.loadShow = false
           this.showMessage({
             text: '編集に失敗しました',
             type: 'error',
@@ -314,6 +323,7 @@ export default {
         })
     },
     async deleteItem() {
+      this.loadShow = true
       await this.$axios
         .delete(`api/v1/items/${this.$route.params.id}`, {
           params: {
@@ -322,6 +332,7 @@ export default {
           }
         })
         .then((response) => {
+          this.loadShow = false
           this.$router.push(`/users/${this.currentUser.id}`)
           this.showMessage({
             text: '投稿を削除しました',
@@ -330,6 +341,7 @@ export default {
           })
         })
         .catch((error) => {
+          this.loadShow = false
           this.showMessage({
             text: '削除に失敗しました',
             type: 'error',
