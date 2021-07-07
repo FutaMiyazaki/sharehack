@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card flat>
     <v-card-text>
       <v-card-actions class="justify-center">
         <v-dialog v-model="dialog" width="500">
