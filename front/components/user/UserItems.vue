@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col v-for="item in items" :key="item.id" :cols="6">
+    <v-col v-for="item in items" :key="item.id" cols="12" sm="6">
       <v-hover v-slot="{ hover }">
         <v-card
           outlined

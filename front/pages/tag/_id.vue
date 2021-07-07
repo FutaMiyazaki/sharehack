@@ -2,7 +2,15 @@
   <v-container class="pt-0">
     <PageHeader :text="'タグ「' + text + '」の投稿一覧'" icon="mdi-tag" />
     <v-row>
-      <v-col v-for="item in items" :key="item.id" cols="12" sm="4">
+      <v-col
+        v-for="item in items"
+        :key="item.id"
+        cols="12"
+        lg="3"
+        md="4"
+        sm="6"
+        xs="12"
+      >
         <ItemCard :item="item" />
       </v-col>
     </v-row>

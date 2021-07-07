@@ -59,7 +59,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def top
-    items = Item.all.limit(6)
+    items = Item.all.limit(8)
     render json: items.as_json(include: [{user: {only: [:id, :name],
                                                  methods: :avatar_url}},
                                          {tags: {only: [:id, :name]}},

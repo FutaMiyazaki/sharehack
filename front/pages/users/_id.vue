@@ -2,7 +2,7 @@
   <v-container class="pt-0">
     <PageHeader :text="text" />
     <v-row class="mt-5">
-      <v-col cols="12" sm="4">
+      <v-col cols="12" md="4">
         <v-card class="mx-auto" flat>
           <v-list>
             <v-list-item>
@@ -168,7 +168,7 @@
           </v-list>
         </v-card>
       </v-col>
-      <v-col cols="12" sm="8">
+      <v-col cols="12" lg="8" md="8">
         <component :is="currentComponent" />
       </v-col>
     </v-row>
