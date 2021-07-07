@@ -3,7 +3,7 @@
     <h4 class="mb-2">{{ labelTitle }}</h4>
     <p v-if="display" class="mb-2 red--text text-caption">※必須</p>
     <p class="mb-0 text--secondary text-caption">{{ labelText }}</p>
-    <p class="text--secondary text-caption">{{ labelSubText }}</p>
+    <p class="mb-0 text--secondary text-caption">{{ labelSubText }}</p>
   </div>
 </template>
 
