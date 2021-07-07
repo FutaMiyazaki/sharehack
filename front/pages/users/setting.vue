@@ -2,32 +2,59 @@
   <v-app>
     <v-container class="pt-0">
       <PageHeader text="アカウント設定" />
-      <v-card flat class="mx-auto">
-        <v-tabs v-model="tab" show-arrows left>
-          <v-tab>ユーザー名 </v-tab>
-          <v-tab>プロフィール画像 </v-tab>
-          <v-tab>メールアドレス </v-tab>
-          <v-tab>パスワード </v-tab>
-          <v-tab>その他の設定 </v-tab>
-        </v-tabs>
-        <v-tabs-items v-model="tab">
-          <v-tab-item>
-            <EditProfile />
-          </v-tab-item>
-          <v-tab-item>
-            <EditAvatar />
-          </v-tab-item>
-          <v-tab-item>
-            <EditEmail />
-          </v-tab-item>
-          <v-tab-item>
-            <EditPassword />
-          </v-tab-item>
-          <v-tab-item>
-            <EditOther />
-          </v-tab-item>
-        </v-tabs-items>
-      </v-card>
+      <v-row class="mt-5">
+        <v-col cols="12" md="4">
+          <v-card flat class="mx-auto">
+            <v-list nav dense rounded>
+              <v-list-item-group v-model="selectedItem" color="primary">
+                <v-list-item @click="currentComponent = 'EditProfile'">
+                  <v-list-item-icon>
+                    <v-icon>mdi-account-edit</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>プロフィール名</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click="currentComponent = 'EditAvatar'">
+                  <v-list-item-icon>
+                    <v-icon>mdi-image-edit</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>プロフィール画像</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click="currentComponent = 'EditEmail'">
+                  <v-list-item-icon>
+                    <v-icon>mdi-email-edit</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>メールアドレス</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click="currentComponent = 'EditPassword'">
+                  <v-list-item-icon>
+                    <v-icon>mdi-lock</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>パスワード</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click="currentComponent = 'EditOther'">
+                  <v-list-item-icon>
+                    <v-icon>mdi-alert-circle</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>その他の設定</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-card>
+        </v-col>
+        <v-col cols="12" lg="8" md="8">
+          <component :is="currentComponent" />
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
@@ -51,7 +78,7 @@ export default {
   },
   data() {
     return {
-      tab: null
+      currentComponent: 'EditProfile'
     }
   },
   head() {
