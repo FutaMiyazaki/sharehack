@@ -34,11 +34,11 @@
 
 <script>
 import PageHeader from '~/components/layout/PageHeader.vue'
-import EditProfile from '~/components/editUser/EditProfile.vue'
-import EditAvatar from '~/components/editUser/EditAvatar.vue'
-import EditEmail from '~/components/editUser/EditEmail.vue'
-import EditPassword from '~/components/editUser/EditPassword.vue'
-import EditOther from '~/components/editUser/EditOther.vue'
+import EditProfile from '~/components/setting/EditProfile.vue'
+import EditAvatar from '~/components/setting/EditAvatar.vue'
+import EditEmail from '~/components/setting/EditEmail.vue'
+import EditPassword from '~/components/setting/EditPassword.vue'
+import EditOther from '~/components/setting/EditOther.vue'
 
 export default {
   components: {
