@@ -1,6 +1,6 @@
 <template>
   <v-container class="pt-0">
-    <PageHeader text="最新の投稿" icon="mdi-rss" />
+    <PageHeader text="最新の投稿" />
     <v-row>
       <v-col
         v-for="item in items"

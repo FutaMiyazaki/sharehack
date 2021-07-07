@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-card-text class="mt-5">
+    <v-card-text>
       <validation-observer v-slot="{ invalid }">
         <v-form ref="form" lazy-validation>
           <PasswordField v-model="password" label="新しいパスワード" />
