@@ -25,7 +25,7 @@
           </validation-provider>
           <v-card-actions>
             <v-row justify="center">
-              <v-col cols="12" sm="4">
+              <v-col cols="12" sm="6">
                 <v-btn
                   v-if="currentUser.email != guest"
                   block

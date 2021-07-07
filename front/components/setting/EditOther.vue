@@ -5,7 +5,7 @@
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
             <v-row justify="center">
-              <v-col cols="12" sm="4">
+              <v-col cols="12" sm="6">
                 <v-btn
                   v-if="userEmail != guest"
                   text
