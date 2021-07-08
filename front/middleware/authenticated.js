@@ -5,6 +5,7 @@ export default function({ store, route, redirect }) {
     route.fullPath !== '/' &&
     route.fullPath !== '/users/login' &&
     route.fullPath !== '/users/signup' &&
+    route.fullPath !== '/tag/search' &&
     route.fullPath !== `/users/${route.params.id}` &&
     route.fullPath !== `/mylike/${route.params.id}` &&
     route.fullPath !== `/item/${route.params.id}` &&

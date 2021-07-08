@@ -28,16 +28,31 @@
     </v-row>
     <PageHeader text="タグから探す" icon="mdi-tag-multiple" class="mt-6" />
     <v-row>
-      <v-chip
-        v-for="tag in tags"
-        :key="`tag-${tag.id}`"
-        label
-        outlined
-        class="ma-2"
-        @click="toTagItems(tag.id)"
-      >
-        <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
-      </v-chip>
+      <v-col cols="12" lg="3" md="4" sm="6">
+        <v-chip
+          v-for="tag in tags"
+          :key="`tag-${tag.id}`"
+          label
+          outlined
+          class="ma-2"
+          @click="toTagItems(tag.id)"
+        >
+          <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
+        </v-chip>
+      </v-col>
+    </v-row>
+    <v-row justify="center" class="mt-5">
+      <v-col cols="12" sm="4">
+        <v-btn
+          block
+          large
+          rounded
+          color="primary"
+          to="/tag/search"
+          class="font-weight-bold"
+          >タグを探す
+        </v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -75,7 +90,7 @@ export default {
         return error
       })
     this.$axios
-      .get('api/v1/tags')
+      .get('api/v1/tags/top')
       .then((response) => {
         this.tags = response.data
       })
