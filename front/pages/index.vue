@@ -15,15 +15,11 @@
     </v-row>
     <v-row justify="center" class="mt-5">
       <v-col cols="12" sm="4">
-        <v-btn
-          block
-          large
-          rounded
-          color="primary"
-          to="/item/latest?page=1"
-          class="font-weight-bold"
-          >もっと見る
-        </v-btn>
+        <link-button
+          link="/item/latest?page=1"
+          text="もっと見る"
+          icon="chevron-right"
+        />
       </v-col>
     </v-row>
     <PageHeader text="タグから探す" icon="mdi-tag-multiple" class="mt-6" />
@@ -43,15 +39,11 @@
     </v-row>
     <v-row justify="center" class="mt-5">
       <v-col cols="12" sm="4">
-        <v-btn
-          block
-          large
-          rounded
-          color="primary"
-          to="/tag/search"
-          class="font-weight-bold"
-          >タグを探す
-        </v-btn>
+        <link-button
+          link="/tag/search"
+          text="タグを探す"
+          icon="chevron-right"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -60,11 +52,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
+import LinkButton from '~/components/layout/LinkButton.vue'
 import ItemCard from '~/components/item/ItemCard.vue'
 
 export default {
   components: {
     PageHeader,
+    LinkButton,
     ItemCard
   },
   data() {
