@@ -15,7 +15,6 @@
               rows="1"
               background-color="secondary"
               :type="showConfirmPassword ? 'text' : 'password'"
-              prepend-icon="mdi-lock"
               :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
               label="新しいパスワード(確認用)"
               :error-messages="errors"

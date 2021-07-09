@@ -6,7 +6,6 @@
           <TextField
             v-model="name"
             rules="required|max:30"
-            icon="mdi-account"
             label="ユーザー名"
           />
           <PasswordField v-model="password" label="パスワード" />

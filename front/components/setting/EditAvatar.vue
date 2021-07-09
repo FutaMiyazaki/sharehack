@@ -15,7 +15,6 @@
               :value="image"
               accept="image/*"
               truncate-length="25"
-              prepend-icon="mdi-image"
               label="画像をアップロードする"
               :error-messages="errors"
               show-size

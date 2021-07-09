@@ -1,7 +1,6 @@
 <template>
   <v-container class="pt-0">
     <PageHeader :text="text" icon="mdi-magnify" />
-
     <ValidationObserver v-slot="{ invalid }">
       <v-form lazy-validation @submit.prevent="searchTag">
         <ValidationProvider

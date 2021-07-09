@@ -6,7 +6,6 @@
           <TextField
             v-model="email"
             rules="required|email|max:256"
-            icon="mdi-email-edit"
             label="新しいメールアドレス"
           />
           <PasswordField v-model="password" label="パスワード" />
