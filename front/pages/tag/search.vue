@@ -1,8 +1,8 @@
 <template>
   <v-container class="pt-0">
-    <PageHeader :text="text" icon="mdi-magnify" />
+    <PageHeader :text="text" />
     <ValidationObserver v-slot="{ invalid }">
-      <v-form lazy-validation @submit.prevent="searchTag">
+      <v-form lazy-validation class="mb-5" @submit.prevent="searchTag">
         <ValidationProvider
           v-slot="{ errors }"
           rules="required|max:30"
@@ -35,7 +35,6 @@
         </ValidationProvider>
       </v-form>
     </ValidationObserver>
-
     <template v-if="!tags.length && afterSearch">
       <v-row justify="center" align-content="center">
         <v-icon large class="d-block mb-3">mdi-emoticon-sad-outline</v-icon>
@@ -55,7 +54,7 @@
           md="4"
           sm="6"
         >
-          <v-card flat @click="toTagItems(tag.id)">{{ tag.name }}</v-card>
+          <TagLinkCard :tag-id="tag.id" :tag-name="tag.name" />
         </v-col>
       </v-row>
     </template>
@@ -65,11 +64,13 @@
 <script>
 import PageHeader from '~/components/layout/PageHeader.vue'
 import Loading from '~/components/layout/Loading.vue'
+import TagLinkCard from '~/components/tag/TagLinkCard.vue'
 
 export default {
   components: {
     PageHeader,
-    Loading
+    Loading,
+    TagLinkCard
   },
   data() {
     return {
@@ -80,11 +81,6 @@ export default {
       afterSearch: false
     }
   },
-  // computed: {
-  //   text() {
-  //     return this.keyword + 'の検索結果：' + this.tagsCount + '件'
-  //   }
-  // },
   methods: {
     async searchTag() {
       if (!this.keyword) {
