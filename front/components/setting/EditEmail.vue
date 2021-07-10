@@ -9,11 +9,10 @@
             label="新しいメールアドレス"
           />
           <PasswordField v-model="password" label="パスワード" />
-          <v-card-actions>
-            <v-row justify="center">
-              <v-col cols="12" sm="6">
+          <v-card-actions class="justify-center">
+            <v-row v-if="currentUser.email != guest" justify="center">
+              <v-col cols="12" sm="4">
                 <v-btn
-                  v-if="currentUser.email != guest"
                   block
                   rounded
                   color="primary"
@@ -21,19 +20,13 @@
                   :disabled="invalid"
                   @click="editEmail"
                 >
-                  メールアドレスを変更する
-                </v-btn>
-                <v-btn
-                  v-else
-                  block
-                  rounded
-                  disabled
-                  class="white--text font-weight-bold d-block mx-auto"
-                >
-                  ゲストユーザーのため変更できません
+                  メールアドレスを変更
                 </v-btn>
               </v-col>
             </v-row>
+            <p v-if="currentUser.email == guest" class="font-weight-bold">
+              ゲストユーザーのため変更できません
+            </p>
           </v-card-actions>
         </v-form>
       </validation-observer>

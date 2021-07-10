@@ -40,7 +40,7 @@
             rounded
             depressed
             class="font-weight-bold"
-            width="35%"
+            width="45%"
             @click="dialog = false"
           >
             キャンセル
@@ -49,7 +49,7 @@
             rounded
             color="primary"
             class="white--text font-weight-bold"
-            width="35%"
+            width="45%"
             @click="deleteFollow"
           >
             フォロー解除

@@ -1,7 +1,7 @@
 <template>
   <div class="page-header py-4 mb-5">
     <v-icon class="pb-1">{{ icon }}</v-icon>
-    <h4 class="d-inline-block font-weight-bold">{{ text }}</h4>
+    <span class="d-inline font-weight-bold">{{ text }}</span>
   </div>
 </template>
 

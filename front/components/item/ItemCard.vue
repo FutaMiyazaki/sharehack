@@ -43,7 +43,7 @@
         </v-row>
       </v-card-actions>
       <v-card-text class="pa-0">
-        <v-list-item dense class="pr-1 pl-2">
+        <v-list-item dense class="px-1">
           <v-list-item-content class="text-caption text-no-wrap">
             {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
           </v-list-item-content>
@@ -54,7 +54,7 @@
           <v-icon class="mr-1">
             mdi-comment-outline
           </v-icon>
-          <span class="subheading mr-2">{{ item.item_comments.length }}</span>
+          <span class="subheading">{{ item.item_comments.length }}</span>
         </v-list-item>
       </v-card-text>
     </v-card>

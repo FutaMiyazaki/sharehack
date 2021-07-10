@@ -4,10 +4,9 @@
       <v-card-actions class="justify-center">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
-            <v-row justify="center">
+            <v-row v-if="currentUser.email != guest" justify="center">
               <v-col cols="12" sm="6">
                 <v-btn
-                  v-if="userEmail != guest"
                   text
                   block
                   rounded
@@ -17,13 +16,9 @@
                 >
                   アカウントを削除する
                 </v-btn>
-                <v-btn v-else text block rounded color="warning">
-                  ゲストユーザーはアカウントを削除できません
-                </v-btn>
               </v-col>
             </v-row>
           </template>
-
           <v-card>
             <v-btn icon absolute right @click="dialog = false">
               ✕
@@ -40,7 +35,7 @@
                 rounded
                 depressed
                 class="font-weight-bold"
-                width="35%"
+                width="45%"
                 @click="dialog = false"
               >
                 キャンセル
@@ -49,7 +44,7 @@
                 rounded
                 color="warning"
                 class="white--text font-weight-bold"
-                width="35%"
+                width="45%"
                 @click="deleteUser"
               >
                 OK
@@ -57,19 +52,28 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <p v-if="currentUser.email == guest" class="font-weight-bold">
+          ゲストユーザーのため変更できません
+        </p>
       </v-card-actions>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
       dialog: false,
-      userEmail: this.$store.getters['authentication/currentUser'].uid,
       guest: 'guest@sharehack.com'
     }
+  },
+  computed: {
+    ...mapGetters({
+      currentUser: 'authentication/currentUser'
+    })
   },
   methods: {
     async deleteUser() {
