@@ -1,12 +1,19 @@
 <template>
-  <v-card outlined flat @click="toTagItems(tagId)">
-    <v-card-subtitle>
-      <v-icon left small>
-        mdi-tag
-      </v-icon>
-      {{ tagName }}
-    </v-card-subtitle>
-  </v-card>
+  <v-hover v-slot="{ hover }">
+    <v-card
+      outlined
+      :elevation="hover ? 16 : 0"
+      :class="{ 'on-hover': hover }"
+      @click="toTagItems(tagId)"
+    >
+      <v-card-subtitle>
+        <v-icon left small>
+          mdi-tag
+        </v-icon>
+        {{ tagName }}
+      </v-card-subtitle>
+    </v-card>
+  </v-hover>
 </template>
 
 <script>

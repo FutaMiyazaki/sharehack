@@ -121,16 +121,17 @@
         <div class="my-5 pa-3 rounded-lg secondary">
           <p style="white-space:pre-wrap;" v-text="item.description"></p>
         </div>
-        <v-chip
-          v-for="tag in tags"
-          :key="tag.id"
-          class="ma-2"
-          label
-          outlined
-          @click="toTagItems(tag.id)"
-        >
-          <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
-        </v-chip>
+        <v-row>
+          <v-col
+            v-for="tag in tags"
+            :key="`tag-${tag.id}`"
+            cols="12"
+            md="6"
+            class="pa-1"
+          >
+            <TagLinkCard :tag-id="tag.id" :tag-name="tag.name" />
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
     <v-row>
@@ -263,6 +264,7 @@ import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import UserInformation from '~/components/user/UserInformation.vue'
 import FollowButton from '~/components/layout/FollowButton.vue'
+import TagLinkCard from '~/components/tag/TagLinkCard.vue'
 import Loading from '~/components/layout/Loading.vue'
 
 export default {
@@ -270,6 +272,7 @@ export default {
     PageHeader,
     UserInformation,
     FollowButton,
+    TagLinkCard,
     Loading
   },
   data() {
