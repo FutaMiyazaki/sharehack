@@ -2,7 +2,7 @@
   <v-hover v-slot="{ hover }">
     <v-card outlined :elevation="hover ? 16 : 0" :class="{ 'on-hover': hover }">
       <v-card-actions class="pa-0">
-        <v-list-item dense nuxt :to="'/users/' + item.user.id">
+        <v-list-item dense nuxt :to="'/users/' + item.user.id" class="px-2">
           <v-list-item-avatar>
             <v-icon v-if="!item.user.avatar_url" large color="primary">
               mdi-account-circle
@@ -16,16 +16,6 @@
           <v-list-item-content>
             <v-list-item-title>{{ item.user.name }}</v-list-item-title>
           </v-list-item-content>
-          <v-row justify="end">
-            <v-icon color="red darken-3" class="mr-1">
-              mdi-heart
-            </v-icon>
-            <span class="subheading mr-2">{{ item.item_likes.length }}</span>
-            <v-icon class="mr-1">
-              mdi-comment-outline
-            </v-icon>
-            <span class="subheading mr-2">{{ item.item_comments.length }}</span>
-          </v-row>
         </v-list-item>
       </v-card-actions>
       <nuxt-link
@@ -52,9 +42,20 @@
           </v-chip>
         </v-row>
       </v-card-actions>
-      <v-card-text class="pt-0 py-1">
-        <v-icon small>mdi-clock-outline</v-icon>
-        {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
+      <v-card-text class="pa-0">
+        <v-list-item dense class="px-1">
+          <v-list-item-content class="text-caption text-no-wrap">
+            {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
+          </v-list-item-content>
+          <v-icon color="red darken-3" class="mr-1">
+            mdi-heart
+          </v-icon>
+          <span class="subheading mr-2">{{ item.item_likes.length }}</span>
+          <v-icon class="mr-1">
+            mdi-comment-outline
+          </v-icon>
+          <span class="subheading">{{ item.item_comments.length }}</span>
+        </v-list-item>
       </v-card-text>
     </v-card>
   </v-hover>

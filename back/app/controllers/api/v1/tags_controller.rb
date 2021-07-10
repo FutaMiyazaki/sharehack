@@ -20,11 +20,15 @@ class Api::V1::TagsController < ApplicationController
     end
   end
 
-  def top_index
-    tags = Tag.all.limit(20)
+  def top
+    tags = Tag.all.limit(12)
     render json: tags.as_json(only: [:id, :name])
   end
 
   def search
+    if params[:keyword]
+      tags = Tag.search(params[:keyword])
+      render json: tags.as_json(only: [:id, :name])
+    end
   end
 end

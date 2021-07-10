@@ -5,7 +5,7 @@
       <v-form ref="form" lazy-validation class="mt-5">
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="アイテム名を記入" />
+            <FormLabel label-title="アイテム名を入力" />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <TextField
@@ -18,7 +18,7 @@
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
             <FormLabel
-              label-title="画像をアップロードする"
+              label-title="画像をアップロード"
               label-text="画像形式：JPEG/PNG"
               label-sub-text="容量：5MB以内"
             />
@@ -36,7 +36,7 @@
                 :value="image"
                 accept="image/*"
                 truncate-length="25"
-                label="画像をアップロードする"
+                label="画像をアップロード"
                 :error-messages="errors"
                 show-size
                 @input="validate($event)"
@@ -47,19 +47,19 @@
         </v-row>
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="説明を記入する" label-text="300文字以内" />
+            <FormLabel label-title="コメントを入力" label-text="300文字以内" />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <TextArea
               v-model="description"
               rules="required|max:300"
-              label="説明"
+              label="コメント"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="商品URLを追加する" :display="false" />
+            <FormLabel label-title="商品URLを入力" :display="false" />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <TextField v-model.trim="link" type="url" label="商品URL" />
@@ -67,20 +67,23 @@
         </v-row>
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="参考価格を追加する" :display="false" />
+            <FormLabel label-title="購入価格を入力" :display="false" />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <TextField
               v-model.number="price"
               type="number"
               rules="integer"
-              label="参考価格"
+              label="¥購入価格"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="タグ" label-text="5つまで追加できます" />
+            <FormLabel
+              label-title="タグを入力"
+              label-text="5つまで追加できます"
+            />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <validation-provider
@@ -94,7 +97,7 @@
                 :search-input.sync="search"
                 hide-selected
                 hint="自身でタグを作成することもできます"
-                label="タグを追加する"
+                label="タグ"
                 auto-grow
                 outlined
                 chips
@@ -225,7 +228,6 @@ export default {
           this.$router.push(`/item/${response.data.id}`)
           this.showMessage({
             text: '投稿に成功しました',
-            type: 'success',
             status: true
           })
         })
@@ -233,7 +235,6 @@ export default {
           this.loadShow = false
           this.showMessage({
             text: '投稿に失敗しました',
-            type: 'error',
             status: true
           })
           return error

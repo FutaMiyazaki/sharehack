@@ -6,7 +6,7 @@
       rows="1"
       background-color="secondary"
       :type="showPassword ? 'text' : 'password'"
-      prepend-icon="mdi-lock"
+      prepend-icon=""
       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
       :label="label"
       :error-messages="errors"

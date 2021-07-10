@@ -20,6 +20,9 @@ Rails.application.routes.draw do
       end
       resource :item_likes, only: %i[create destroy]
       resources :item_comments, only: %i[create destroy]
+      namespace :tags do
+        get :top
+      end
       resources :tags, only: %i[index show] do
         get :search, on: :collection
       end

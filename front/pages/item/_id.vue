@@ -5,16 +5,15 @@
       <v-col cols="12" sm="7">
         <v-img aspect-ratio="1" :src="item.image_url" />
         <v-row class="my-1">
-          <v-col cols="6" align="left">
+          <v-col cols="7" align="left">
             <p class="my-auto text-subtitle-2">
-              <v-icon small>mdi-clock-outline</v-icon>
               <span class="text-caption">
                 {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
               </span>
             </p>
           </v-col>
           <template v-if="currentUser && currentUser.id == item.user.id">
-            <v-col cols="6" align="right">
+            <v-col cols="5" align="right">
               <nuxt-link
                 :to="{ name: 'item-edit-id', params: { id: item.id } }"
               >
@@ -113,24 +112,28 @@
             >
               <v-btn outlined block color="primary">
                 <v-icon class="mr-3">mdi-open-in-new</v-icon>
-                <p class="my-auto">販売サイトへ</p>
+                <span class="my-auto">販売サイトへ</span>
               </v-btn>
             </a>
+            <p class="text-caption text-center mt-1">
+              ※外部サイトへ移動します
+            </p>
           </v-col>
         </v-row>
         <div class="my-5 pa-3 rounded-lg secondary">
           <p style="white-space:pre-wrap;" v-text="item.description"></p>
         </div>
-        <v-chip
-          v-for="tag in tags"
-          :key="tag.id"
-          class="ma-2"
-          label
-          outlined
-          @click="toTagItems(tag.id)"
-        >
-          <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
-        </v-chip>
+        <v-row>
+          <v-col
+            v-for="tag in tags"
+            :key="`tag-${tag.id}`"
+            cols="12"
+            md="6"
+            class="py-1"
+          >
+            <TagLinkCard :tag-id="tag.id" :tag-name="tag.name" />
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
     <v-row>
@@ -166,7 +169,7 @@
                         <v-icon color="warning">mdi-delete</v-icon>
                       </v-btn>
                     </template>
-                    <v-card class="py-2">
+                    <v-card class="pa-2">
                       <v-btn
                         icon
                         absolute
@@ -185,12 +188,12 @@
                       <v-card-text class="justify-center text-center">
                         ※この操作は取り消せません
                       </v-card-text>
-                      <v-card-actions class="justify-center">
+                      <v-card-actions class="justify-center px-0">
                         <v-btn
                           rounded
                           depressed
                           class="font-weight-bold"
-                          width="100px"
+                          width="45%"
                           @click="dialog = false"
                         >
                           キャンセル
@@ -199,7 +202,7 @@
                           rounded
                           color="warning"
                           class="white--text font-weight-bold"
-                          width="100px"
+                          width="45%"
                           @click="deleteComment(comment.id)"
                         >
                           OK
@@ -263,6 +266,7 @@ import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import UserInformation from '~/components/user/UserInformation.vue'
 import FollowButton from '~/components/layout/FollowButton.vue'
+import TagLinkCard from '~/components/tag/TagLinkCard.vue'
 import Loading from '~/components/layout/Loading.vue'
 
 export default {
@@ -270,6 +274,7 @@ export default {
     PageHeader,
     UserInformation,
     FollowButton,
+    TagLinkCard,
     Loading
   },
   data() {

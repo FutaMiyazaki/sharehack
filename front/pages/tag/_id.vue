@@ -1,8 +1,16 @@
 <template>
   <v-container class="pt-0">
-    <PageHeader :text="'タグ「' + text + '」の投稿一覧'" icon="mdi-tag" />
+    <PageHeader :text="tagName" icon="mdi-tag" />
     <v-row>
-      <v-col v-for="item in items" :key="item.id" cols="12" sm="4">
+      <v-col
+        v-for="item in items"
+        :key="item.id"
+        cols="12"
+        lg="3"
+        md="4"
+        sm="6"
+        xs="12"
+      >
         <ItemCard :item="item" />
       </v-col>
     </v-row>
@@ -28,7 +36,7 @@ export default {
   },
   data() {
     return {
-      text: '',
+      tagName: '',
       items: [],
       showPages: 1,
       totalPages: 0,
@@ -40,7 +48,7 @@ export default {
     this.$axios
       .get(`api/v1/tags/${this.$route.params.id}`)
       .then((response) => {
-        this.text = response.data.name
+        this.tagName = response.data.name
         this.totalCount = response.data.items.length
         this.totalPages = Math.ceil(this.totalCount / 12)
       })

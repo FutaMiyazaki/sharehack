@@ -1,6 +1,6 @@
 <template>
   <header>
-    <v-app-bar color="#fbfbfb" app fixed>
+    <v-app-bar color="#fbfbfb" app flat fixed>
       <v-toolbar-title class="mr-2 header-title">
         <nuxt-link to="/" class="black--text font-weight-bold">
           Sharehack
