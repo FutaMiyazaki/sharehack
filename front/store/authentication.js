@@ -41,7 +41,6 @@ export const actions = {
         commit('setIsLoggedIn', true)
         this.$router.push('/')
         commit('flashMessage/setText', '新規登録が完了しました', { root: true })
-        commit('flashMessage/setType', 'success', { root: true })
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
@@ -56,7 +55,6 @@ export const actions = {
             root: true
           }
         )
-        commit('flashMessage/setType', 'error', { root: true })
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
@@ -75,7 +73,6 @@ export const actions = {
         commit('setIsLoggedIn', true)
         this.$router.push('/')
         commit('flashMessage/setText', 'ログインしました', { root: true })
-        commit('flashMessage/setType', 'success', { root: true })
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
@@ -90,7 +87,6 @@ export const actions = {
             root: true
           }
         )
-        commit('flashMessage/setType', 'error', { root: true })
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })
@@ -120,7 +116,6 @@ export const actions = {
         commit('flashMessage/setText', 'ログアウトしました', {
           root: true
         })
-        commit('flashMessage/setType', 'success', { root: true })
         commit('flashMessage/setStatus', true, { root: true })
         setTimeout(() => {
           commit('flashMessage/setStatus', false, { root: true })

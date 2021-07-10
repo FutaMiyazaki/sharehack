@@ -1,5 +1,12 @@
 <template>
-  <v-alert v-model="status" border="left" :type="type">
+  <v-alert
+    v-model="status"
+    border="left"
+    color="primary"
+    tile
+    dark
+    class="mb-0 font-weight-bold"
+  >
     {{ text }}
   </v-alert>
 </template>
@@ -10,7 +17,6 @@ export default {
   computed: {
     ...mapGetters({
       text: 'flashMessage/text',
-      type: 'flashMessage/type',
       status: 'flashMessage/status'
     })
   }

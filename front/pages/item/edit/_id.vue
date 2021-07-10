@@ -327,7 +327,6 @@ export default {
           this.$router.push(`/users/${this.currentUser.id}`)
           this.showMessage({
             text: '投稿を削除しました',
-            type: 'success',
             status: true
           })
         })
@@ -335,7 +334,6 @@ export default {
           this.loadShow = false
           this.showMessage({
             text: '削除に失敗しました',
-            type: 'error',
             status: true
           })
           return error

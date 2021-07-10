@@ -112,9 +112,12 @@
             >
               <v-btn outlined block color="primary">
                 <v-icon class="mr-3">mdi-open-in-new</v-icon>
-                <p class="my-auto">販売サイトへ</p>
+                <span class="my-auto">販売サイトへ</span>
               </v-btn>
             </a>
+            <p class="text-caption text-center mt-1">
+              ※外部サイトへ移動します
+            </p>
           </v-col>
         </v-row>
         <div class="my-5 pa-3 rounded-lg secondary">
@@ -126,7 +129,7 @@
             :key="`tag-${tag.id}`"
             cols="12"
             md="6"
-            class="pa-1"
+            class="py-1"
           >
             <TagLinkCard :tag-id="tag.id" :tag-name="tag.name" />
           </v-col>
