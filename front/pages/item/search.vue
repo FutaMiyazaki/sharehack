@@ -11,49 +11,55 @@
         />
       </v-col>
     </v-row>
-    <template v-if="!items.length">
-      <v-row justify="center" align-content="center">
-        <v-icon large class="d-block mb-3">mdi-emoticon-sad-outline</v-icon>
+    <Loading v-show="loadShow" />
+    <template v-if="!loadShow">
+      <template v-if="!items.length">
+        <v-row justify="center" align-content="center">
+          <v-icon large class="d-block mb-3">mdi-emoticon-sad-outline</v-icon>
+        </v-row>
+        <p class="text-center subtitle-2 pb-2">
+          一致する検索結果はありませんでした。<br />
+          キーワードを変えて検索してみてください。
+        </p>
+      </template>
+      <v-row>
+        <v-col
+          v-for="item in items"
+          :key="`item-${item.id}`"
+          cols="12"
+          lg="3"
+          md="4"
+          sm="6"
+        >
+          <ItemCard :item="item" />
+        </v-col>
       </v-row>
-      <p class="text-center subtitle-2 pb-2">
-        一致する検索結果はありませんでした。<br />
-        キーワードを変えて検索してみてください。
-      </p>
+      <v-pagination
+        v-if="totalPages != 1"
+        v-model="showPages"
+        :length="totalPages"
+        circle
+        class="my-5"
+        @input="pageChange"
+      />
     </template>
-    <v-row>
-      <v-col
-        v-for="item in items"
-        :key="`item-${item.id}`"
-        cols="12"
-        lg="3"
-        md="4"
-        sm="6"
-      >
-        <ItemCard :item="item" />
-      </v-col>
-    </v-row>
-    <v-pagination
-      v-if="totalPages != 1"
-      v-model="showPages"
-      :length="totalPages"
-      circle
-      class="my-5"
-      @input="pageChange"
-    />
   </v-container>
 </template>
 
 <script>
 import PageHeader from '~/components/layout/PageHeader.vue'
+import Loading from '~/components/layout/Loading.vue'
 import ItemCard from '~/components/item/ItemCard.vue'
 
 export default {
   components: {
     PageHeader,
+    Loading,
     ItemCard
   },
   data() {
     return {
+      loadShow: true,
       items: [],
       keyword: '',
       showPages: 1,
@@ -70,6 +76,7 @@ export default {
   },
   watch: {
     $route(to, from) {
+      this.loadShow = true
       this.$axios
         .get('api/v1/items/search', {
           params: {
@@ -91,9 +98,13 @@ export default {
           }
         })
         .then((response) => {
+          this.loadShow = false
+          this.selectedSortType = '新着'
           this.items = response.data
         })
         .catch((error) => {
+          this.loadShow = false
+          this.selectedSortType = '新着'
           return error
         })
     }
@@ -120,9 +131,11 @@ export default {
         }
       })
       .then((response) => {
+        this.loadShow = false
         this.items = response.data
       })
       .catch((error) => {
+        this.loadShow = false
         return error
       })
   },
@@ -138,6 +151,7 @@ export default {
         path: '/item/search',
         query: { keyword: this.$route.query.keyword, page: 1 }
       })
+      this.loadShow = true
       await this.$axios
         .get('api/v1/items/search_ranking', {
           params: {
@@ -146,10 +160,12 @@ export default {
           }
         })
         .then((response) => {
+          this.loadShow = false
           this.items = response.data
           this.showPages = 1
         })
         .catch((error) => {
+          this.loadShow = false
           return error
         })
     },
@@ -158,6 +174,7 @@ export default {
         path: '/item/search',
         query: { keyword: this.$route.query.keyword, page: 1 }
       })
+      this.loadShow = true
       await this.$axios
         .get('api/v1/items/search', {
           params: {
@@ -166,10 +183,12 @@ export default {
           }
         })
         .then((response) => {
+          this.loadShow = false
           this.items = response.data
           this.showPages = 1
         })
         .catch((error) => {
+          this.loadShow = false
           return error
         })
     },
