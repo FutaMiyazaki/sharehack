@@ -1,6 +1,16 @@
 <template>
   <v-container class="pt-0">
     <PageHeader :text="text" icon="mdi-magnify" />
+    <v-row>
+      <v-col cols="12" sm="3" class="pb-0">
+        <v-select
+          v-model="selectedSortType"
+          :items="sortType"
+          label="並び替え順"
+          @change="fetchItems"
+        />
+      </v-col>
+    </v-row>
     <template v-if="!items.length">
       <v-row justify="center" align-content="center">
         <v-icon large class="d-block mb-3">mdi-emoticon-sad-outline</v-icon>
@@ -48,7 +58,9 @@ export default {
       keyword: '',
       showPages: 1,
       totalPages: 0,
-      totalCount: ''
+      totalCount: '',
+      selectedSortType: '新着',
+      sortType: ['新着', '人気']
     }
   },
   computed: {
@@ -120,6 +132,56 @@ export default {
         path: '/item/search',
         query: { keyword: this.$route.query.keyword, page: number }
       })
+    },
+    async fetchItemsByPopular() {
+      this.$router.push({
+        path: '/item/search',
+        query: { keyword: this.$route.query.keyword, page: 1 }
+      })
+      await this.$axios
+        .get('api/v1/items/search_ranking', {
+          params: {
+            keyword: this.$route.query.keyword,
+            page: 1
+          }
+        })
+        .then((response) => {
+          this.items = response.data
+          this.showPages = 1
+        })
+        .catch((error) => {
+          return error
+        })
+    },
+    async fetchItemsByNew() {
+      this.$router.push({
+        path: '/item/search',
+        query: { keyword: this.$route.query.keyword, page: 1 }
+      })
+      await this.$axios
+        .get('api/v1/items/search', {
+          params: {
+            keyword: this.$route.query.keyword,
+            page: 1
+          }
+        })
+        .then((response) => {
+          this.items = response.data
+          this.showPages = 1
+        })
+        .catch((error) => {
+          return error
+        })
+    },
+    fetchItems(event) {
+      switch (event) {
+        case '新着':
+          this.fetchItemsByNew()
+          break
+        case '人気':
+          this.fetchItemsByPopular()
+          break
+      }
     }
   },
   head() {

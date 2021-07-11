@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       end
       resources :items, only: %i[index show create update destroy] do
         get :search, on: :collection
+        get :search_ranking, on: :collection
       end
       resource :item_likes, only: %i[create destroy]
       resources :item_comments, only: %i[create destroy]
