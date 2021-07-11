@@ -139,6 +139,9 @@
     <v-row>
       <v-col cols="12" sm="7">
         <v-row>
+          <v-col cols="12">
+            <v-banner icon="mdi-comment-multiple-outline">コメント</v-banner>
+          </v-col>
           <v-col v-if="comments.length" cols="12">
             <div v-for="comment in comments" :key="comment.id" class="mb-5">
               <v-row>

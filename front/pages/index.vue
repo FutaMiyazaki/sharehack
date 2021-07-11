@@ -1,42 +1,88 @@
 <template>
   <v-container class="pt-0">
-    <PageHeader text="最新の投稿" />
-    <v-row>
-      <v-col
-        v-for="item in items"
-        :key="`item-${item.id}`"
-        cols="12"
-        lg="3"
-        md="4"
-        sm="6"
-      >
-        <ItemCard :item="item" />
+    <v-row class="mt-3">
+      <v-col cols="12" md="4">
+        <v-banner>探す</v-banner>
+        <v-list nav dense rounded>
+          <v-list-item-group v-model="selectedItem" color="primary">
+            <v-list-item @click="currentComponent = 'LatestItems'">
+              <v-list-item-icon>
+                <v-icon>mdi-rss</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>最新の投稿</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="currentComponent = 'RankingItems'">
+              <v-list-item-icon>
+                <v-icon>mdi-trending-up</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>人気の投稿</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <!-- <v-list-item @click="currentComponent = 'EditEmail'">
+              <v-list-item-icon>
+                <v-icon>mdi-email-edit</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>タイムライン</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item> -->
+          </v-list-item-group>
+        </v-list>
+        <v-row class="mt-4 hidden-sm-and-down">
+          <v-col cols="12">
+            <v-banner>タグ</v-banner>
+            <v-list dense>
+              <v-list-item-group color="primary">
+                <v-list-item
+                  v-for="tag in tags"
+                  :key="tag.id"
+                  @click="toTagItems(tag.id)"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title v-text="tag.name"></v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-col>
+        </v-row>
+        <v-row justify="center" class="mb-5 hidden-sm-and-down">
+          <v-col cols="12">
+            <LinkButton
+              link="/tag/search"
+              text="タグを探す"
+              icon="chevron-right"
+            />
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col cols="12" lg="8" md="8">
+        <component :is="currentComponent" />
       </v-col>
     </v-row>
-    <v-row justify="center" class="mt-5">
-      <v-col cols="12" sm="4">
-        <LinkButton
-          link="/item/latest?page=1"
-          text="もっと見る"
-          icon="chevron-right"
-        />
+    <v-row class="mt-4 hidden-md-and-up">
+      <v-col cols="12">
+        <v-banner>タグ</v-banner>
+        <v-list dense>
+          <v-list-item-group color="primary">
+            <v-list-item
+              v-for="tag in tags"
+              :key="tag.id"
+              @click="toTagItems(tag.id)"
+            >
+              <v-list-item-content>
+                <v-list-item-title v-text="tag.name"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
       </v-col>
     </v-row>
-    <PageHeader text="タグから探す" icon="mdi-tag-multiple" class="mt-6" />
-    <v-row>
-      <v-col
-        v-for="tag in tags"
-        :key="`tag-${tag.id}`"
-        cols="12"
-        lg="3"
-        md="4"
-        sm="6"
-      >
-        <TagLinkCard :tag-id="tag.id" :tag-name="tag.name" />
-      </v-col>
-    </v-row>
-    <v-row justify="center" class="mt-5">
-      <v-col cols="12" sm="4">
+    <v-row justify="center" class="mb-5 hidden-md-and-up">
+      <v-col cols="12">
         <LinkButton link="/tag/search" text="タグを探す" icon="chevron-right" />
       </v-col>
     </v-row>
@@ -45,21 +91,22 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import PageHeader from '~/components/layout/PageHeader.vue'
-import LinkButton from '~/components/layout/LinkButton.vue'
-import ItemCard from '~/components/item/ItemCard.vue'
+import LatestItems from '~/components/index/LatestItems.vue'
+import RankingItems from '~/components/index/RankingItems.vue'
 import TagLinkCard from '~/components/tag/TagLinkCard.vue'
+import LinkButton from '~/components/layout/LinkButton.vue'
 
 export default {
   components: {
-    PageHeader,
-    LinkButton,
-    ItemCard,
-    TagLinkCard
+    LatestItems,
+    RankingItems,
+    TagLinkCard,
+    LinkButton
   },
   data() {
     return {
-      items: [],
+      selectedItem: 0,
+      currentComponent: 'LatestItems',
       tags: []
     }
   },
@@ -71,14 +118,6 @@ export default {
     })
   },
   created() {
-    this.$axios
-      .get('api/v1/items/top')
-      .then((response) => {
-        this.items = response.data
-      })
-      .catch((error) => {
-        return error
-      })
     this.$axios
       .get('api/v1/tags/top')
       .then((response) => {
