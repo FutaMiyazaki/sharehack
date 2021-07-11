@@ -22,6 +22,15 @@
         />
       </v-col>
     </v-row>
+    <v-row justify="center" class="mt-5">
+      <v-col cols="12" sm="4">
+        <LinkButton
+          link="/item/ranking?page=1"
+          text="人気投稿を見る"
+          icon="chevron-right"
+        />
+      </v-col>
+    </v-row>
     <PageHeader text="タグから探す" icon="mdi-tag-multiple" class="mt-6" />
     <v-row>
       <v-col

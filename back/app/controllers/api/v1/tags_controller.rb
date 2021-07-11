@@ -31,4 +31,16 @@ class Api::V1::TagsController < ApplicationController
       render json: tags.as_json(only: [:id, :name])
     end
   end
+
+  def ranking
+    tag = Tag.find(params[:id])
+    items = tag.items.includes(:item_likes).sort {|a,b| b.item_likes.size <=> a.item_likes.size}
+    @items = Kaminari.paginate_array(items).page(params[:page]).per(12)
+    render json: @items.as_json(include: [{user: {only: [:id, :name],
+                                                  methods: :avatar_url}},
+                                          {tags: {only: [:id, :name]}},
+                                          {item_likes: {only: :id}},
+                                          {item_comments: {only: :id}}],
+                                methods: :image_url)
+  end
 end

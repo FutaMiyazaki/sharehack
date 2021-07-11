@@ -2,6 +2,16 @@
   <v-container class="pt-0">
     <PageHeader :text="tagName" icon="mdi-tag" />
     <v-row>
+      <v-col cols="12" sm="3" class="pb-0">
+        <v-select
+          v-model="selectedSortType"
+          :items="sortType"
+          label="並び替え順"
+          @change="fetchItems"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col
         v-for="item in items"
         :key="item.id"
@@ -40,7 +50,9 @@ export default {
       items: [],
       showPages: 1,
       totalPages: 0,
-      totalCount: ''
+      totalCount: '',
+      selectedSortType: '新着',
+      sortType: ['新着', '人気']
     }
   },
   computed: {},
@@ -87,11 +99,65 @@ export default {
         .catch((error) => {
           return error
         })
+    },
+    async fetchItemsByPopular() {
+      this.$router.push({
+        path: `/tag/${this.$route.params.id}`,
+        query: { page: 1 }
+      })
+      await this.$axios
+        .get(`api/v1/tags/${this.$route.params.id}/ranking`, {
+          params: {
+            page: 1
+          }
+        })
+        .then((response) => {
+          console.log('取得成功')
+          console.log(response)
+          this.items = response.data
+          this.showPages = 1
+        })
+        .catch((error) => {
+          return error
+        })
+    },
+    async fetchItemsByNew() {
+      this.$router.push({
+        path: `/tag/${this.$route.params.id}`,
+        query: { page: 1 }
+      })
+      await this.$axios
+        .get(`api/v1/tags/${this.$route.params.id}`, {
+          params: {
+            page: 1
+          }
+        })
+        .then((response) => {
+          console.log('取得成功')
+          console.log(response)
+          this.items = response.data
+          this.showPages = 1
+        })
+        .catch((error) => {
+          return error
+        })
+    },
+    fetchItems(event) {
+      switch (event) {
+        case '新着':
+          console.log('新着を選んだ')
+          this.fetchItemsByNew()
+          break
+        case '人気':
+          console.log('人気を選んだ')
+          this.fetchItemsByPopular()
+          break
+      }
     }
   },
   head() {
     return {
-      title: `${this.text}の投稿一覧`
+      title: `${this.tagName}の投稿一覧`
     }
   }
 }

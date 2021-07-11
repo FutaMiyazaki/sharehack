@@ -82,6 +82,20 @@ class Api::V1::ItemsController < ApplicationController
     end
   end
 
+  def ranking
+    if params[:page]
+      items = Item.includes(:item_likes).sort {|a,b| b.item_likes.size <=> a.item_likes.size}
+
+      @items = Kaminari.paginate_array(items).page(params[:page]).per(12)
+      render json: @items.as_json(include: [{user: {only: [:id, :name],
+                                                    methods: :avatar_url}},
+                                            {tags: {only: [:id, :name]}},
+                                            {item_likes: {only: :id}},
+                                            {item_comments: {only: :id}}],
+                                  methods: :image_url)
+    end
+  end
+
   private
     def item_params
       params.require(:item).permit(:name, :description, :link, :price, :user_id, :image, :uid)

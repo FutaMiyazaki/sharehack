@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       end
       namespace :items do
         get :top
+        get :ranking
       end
       resources :items, only: %i[index show create update destroy] do
         get :search, on: :collection
@@ -25,6 +26,9 @@ Rails.application.routes.draw do
       end
       resources :tags, only: %i[index show] do
         get :search, on: :collection
+        member do
+          get :ranking
+        end
       end
       resources :relationships, only: [:create, :destroy]
     end
