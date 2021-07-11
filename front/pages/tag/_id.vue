@@ -112,8 +112,6 @@ export default {
           }
         })
         .then((response) => {
-          console.log('取得成功')
-          console.log(response)
           this.items = response.data
           this.showPages = 1
         })
@@ -133,8 +131,6 @@ export default {
           }
         })
         .then((response) => {
-          console.log('取得成功')
-          console.log(response)
           this.items = response.data
           this.showPages = 1
         })
@@ -145,11 +141,9 @@ export default {
     fetchItems(event) {
       switch (event) {
         case '新着':
-          console.log('新着を選んだ')
           this.fetchItemsByNew()
           break
         case '人気':
-          console.log('人気を選んだ')
           this.fetchItemsByPopular()
           break
       }
