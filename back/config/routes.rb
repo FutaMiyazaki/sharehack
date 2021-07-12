@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       namespace :items do
         get :top
         get :ranking
+        get :timeline
       end
       resources :items, only: %i[index show create update destroy] do
         get :search, on: :collection

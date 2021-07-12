@@ -21,14 +21,17 @@
                 <v-list-item-title>人気の投稿</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <!-- <v-list-item @click="currentComponent = 'EditEmail'">
+            <v-list-item
+              v-if="isLoggedIn"
+              @click="currentComponent = 'TimeLine'"
+            >
               <v-list-item-icon>
-                <v-icon>mdi-email-edit</v-icon>
+                <v-icon>mdi-clock-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>タイムライン</v-list-item-title>
               </v-list-item-content>
-            </v-list-item> -->
+            </v-list-item>
           </v-list-item-group>
         </v-list>
         <v-row class="mt-4 hidden-sm-and-down">
@@ -93,6 +96,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import LatestItems from '~/components/index/LatestItems.vue'
 import RankingItems from '~/components/index/RankingItems.vue'
+import TimeLine from '~/components/index/TimeLine.vue'
 import TagLinkCard from '~/components/tag/TagLinkCard.vue'
 import LinkButton from '~/components/layout/LinkButton.vue'
 
@@ -100,6 +104,7 @@ export default {
   components: {
     LatestItems,
     RankingItems,
+    TimeLine,
     TagLinkCard,
     LinkButton
   },
