@@ -12,7 +12,12 @@
               </span>
             </p>
           </v-col>
-          <template v-if="currentUser && currentUser.id == item.user.id">
+          <template
+            v-if="
+              currentUser.id == item.user.id ||
+                currentUser.email == adminUserEmail
+            "
+          >
             <v-col cols="5" align="right">
               <nuxt-link
                 :to="{ name: 'item-edit-id', params: { id: item.id } }"
@@ -295,7 +300,8 @@ export default {
       comments: [],
       commentText: '',
       likeLoadShow: false,
-      commentLoadShow: false
+      commentLoadShow: false,
+      adminUserEmail: 'xa56ua5vc444@sharehack.com'
     }
   },
   computed: {

@@ -157,7 +157,7 @@
           ※この操作は取り消せません
         </v-card-text>
         <v-card-actions class="justify-center pb-5">
-          <template v-if="currentUser && currentUser.id != guestUserId">
+          <template v-if="currentUser && currentUser.email != guestUserEmail">
             <v-btn
               rounded
               depressed
@@ -215,7 +215,7 @@ export default {
     return {
       text: 'アイテム編集',
       dialog: false,
-      guestUserId: '19',
+      guestUserEmail: 'guest@sharehack.com',
       item: {
         name: '',
         image: null,

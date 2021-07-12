@@ -39,6 +39,11 @@
               icon="mdi-account"
               text="マイページ"
             />
+            <NavigationItem
+              link="/tag/search"
+              icon="mdi-magnify"
+              text="タグから探す"
+            />
             <NavigationItem link="/users/setting" icon="mdi-cog" text="設定" />
             <v-list-item @click="logoutUser">
               <v-list-item-icon>
@@ -154,6 +159,12 @@
               icon="mdi-account-outline"
               list-item-title-class="font-weight-bold"
               text="マイページ"
+            />
+            <NavigationItem
+              link="/tag/search"
+              icon="mdi-magnify"
+              list-item-title-class="font-weight-bold"
+              text="タグから探す"
             />
             <NavigationItem
               link="/users/setting"
