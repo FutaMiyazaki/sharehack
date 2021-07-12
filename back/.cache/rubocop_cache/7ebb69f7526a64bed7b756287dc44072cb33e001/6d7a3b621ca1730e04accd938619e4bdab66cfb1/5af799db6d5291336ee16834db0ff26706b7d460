@@ -1,0 +1,1 @@
+[{"severity":"convention","location":{"begin_pos":24,"end_pos":817},"message":"Metrics/BlockLength: Block has too many lines. [30/25]","cop_name":"Metrics/BlockLength","status":"unsupported"},{"severity":"convention","location":{"begin_pos":49,"end_pos":54},"message":"Style/HashSyntax: Use hash rockets syntax.","cop_name":"Style/HashSyntax","status":"uncorrected"}]
