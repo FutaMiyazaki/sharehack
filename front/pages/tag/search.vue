@@ -36,13 +36,10 @@
       </v-form>
     </ValidationObserver>
     <template v-if="!tags.length && afterSearch">
-      <v-row justify="center" align-content="center">
-        <v-icon large class="d-block mb-3">mdi-emoticon-sad-outline</v-icon>
-      </v-row>
-      <p class="text-center subtitle-2 pb-2">
-        一致する検索結果はありませんでした。<br />
-        キーワードを変えて検索してみてください。
-      </p>
+      <NoContentDisplay
+        icon="mdi-emoticon-sad-outline"
+        text="一致する検索結果はありませんでした。キーワードを変えて検索してみてください。"
+      />
     </template>
     <template v-if="tags.length && afterSearch">
       <v-row>
@@ -65,12 +62,14 @@
 import PageHeader from '~/components/layout/PageHeader.vue'
 import Loading from '~/components/layout/Loading.vue'
 import TagLinkCard from '~/components/tag/TagLinkCard.vue'
+import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 
 export default {
   components: {
     PageHeader,
     Loading,
-    TagLinkCard
+    TagLinkCard,
+    NoContentDisplay
   },
   data() {
     return {
