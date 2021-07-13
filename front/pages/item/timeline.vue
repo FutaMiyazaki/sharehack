@@ -2,33 +2,35 @@
   <v-container class="pt-0">
     <PageHeader :text="pageHeaderText" />
     <Loading v-show="loadShow" />
-    <template v-if="items.length">
-      <v-row>
-        <v-col
-          v-for="item in items"
-          :key="item.id"
-          cols="12"
-          lg="3"
-          md="4"
-          sm="6"
-        >
-          <ItemCard :item="item" />
-        </v-col>
-      </v-row>
-      <v-pagination
-        v-if="totalPages != 1"
-        v-model="showPages"
-        :length="totalPages"
-        circle
-        class="my-5"
-        @input="pageChange"
-      />
-    </template>
-    <template v-if="!items.length && afterSearch">
-      <NoContentDisplay
-        icon="mdi-emoticon-sad-outline"
-        text="表示する投稿がありません。"
-      />
+    <template v-if="!loadShow">
+      <template v-if="items.length">
+        <v-row>
+          <v-col
+            v-for="item in items"
+            :key="item.id"
+            cols="12"
+            lg="3"
+            md="4"
+            sm="6"
+          >
+            <ItemCard :item="item" />
+          </v-col>
+        </v-row>
+        <v-pagination
+          v-if="totalPages != 1"
+          v-model="showPages"
+          :length="totalPages"
+          circle
+          class="my-5"
+          @input="pageChange"
+        />
+      </template>
+      <template v-if="!items.length && afterSearch">
+        <NoContentDisplay
+          icon="mdi-emoticon-sad-outline"
+          text="表示する投稿がありません。"
+        />
+      </template>
     </template>
   </v-container>
 </template>
@@ -103,6 +105,7 @@ export default {
         top: 0,
         behavior: 'instant'
       })
+      this.loadShow = true
       await this.$axios
         .get('/api/v1/items/timeline', {
           params: {
@@ -111,9 +114,11 @@ export default {
           }
         })
         .then((response) => {
+          this.loadShow = false
           this.items = response.data
         })
         .catch((error) => {
+          this.loadShow = false
           return error
         })
     }
