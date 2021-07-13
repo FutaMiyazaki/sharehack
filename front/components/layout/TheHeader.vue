@@ -40,6 +40,11 @@
               text="マイページ"
             />
             <NavigationItem
+              link="/item/timeline?page=1"
+              icon="mdi-clock-outline"
+              text="タイムライン"
+            />
+            <NavigationItem
               link="/tag/search"
               icon="mdi-magnify"
               text="タグから探す"
@@ -159,6 +164,12 @@
               icon="mdi-account-outline"
               list-item-title-class="font-weight-bold"
               text="マイページ"
+            />
+            <NavigationItem
+              link="/item/timeline?page=1"
+              icon="mdi-clock-outline"
+              list-item-title-class="font-weight-bold"
+              text="タイムライン"
             />
             <NavigationItem
               link="/tag/search"
