@@ -1,7 +1,7 @@
 <template>
   <v-container class="pt-0">
     <PageHeader :text="text" icon="mdi-magnify" />
-    <v-row>
+    <v-row v-if="items.length">
       <v-col cols="12" sm="3" class="pb-0">
         <v-select
           v-model="selectedSortType"
@@ -13,35 +13,34 @@
     </v-row>
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
-      <template v-if="!items.length">
-        <v-row justify="center" align-content="center">
-          <v-icon large class="d-block mb-3">mdi-emoticon-sad-outline</v-icon>
+      <template v-if="items.length">
+        <v-row>
+          <v-col
+            v-for="item in items"
+            :key="`item-${item.id}`"
+            cols="12"
+            lg="3"
+            md="4"
+            sm="6"
+          >
+            <ItemCard :item="item" />
+          </v-col>
         </v-row>
-        <p class="text-center subtitle-2 pb-2">
-          一致する検索結果はありませんでした。<br />
-          キーワードを変えて検索してみてください。
-        </p>
+        <v-pagination
+          v-if="totalPages != 1"
+          v-model="showPages"
+          :length="totalPages"
+          circle
+          class="my-5"
+          @input="pageChange"
+        />
       </template>
-      <v-row>
-        <v-col
-          v-for="item in items"
-          :key="`item-${item.id}`"
-          cols="12"
-          lg="3"
-          md="4"
-          sm="6"
-        >
-          <ItemCard :item="item" />
-        </v-col>
-      </v-row>
-      <v-pagination
-        v-if="totalPages != 1"
-        v-model="showPages"
-        :length="totalPages"
-        circle
-        class="my-5"
-        @input="pageChange"
-      />
+      <template v-else>
+        <NoContentDisplay
+          icon="mdi-emoticon-sad-outline"
+          text="一致する検索結果はありませんでした。キーワードを変えて検索してみてください。"
+        />
+      </template>
     </template>
   </v-container>
 </template>
@@ -50,12 +49,14 @@
 import PageHeader from '~/components/layout/PageHeader.vue'
 import Loading from '~/components/layout/Loading.vue'
 import ItemCard from '~/components/item/ItemCard.vue'
+import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 
 export default {
   components: {
     PageHeader,
     Loading,
-    ItemCard
+    ItemCard,
+    NoContentDisplay
   },
   data() {
     return {
@@ -144,6 +145,10 @@ export default {
       this.$router.push({
         path: '/item/search',
         query: { keyword: this.$route.query.keyword, page: number }
+      })
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
       })
     },
     async fetchItemsByPopular() {

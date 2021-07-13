@@ -68,6 +68,33 @@ class Api::V1::ItemsController < ApplicationController
                                methods: :image_url)
   end
 
+  def timeline
+    user = User.find(params[:user_id])
+    following = user.followings.includes(:items)
+    items = []
+    following.each do |f|
+      f.items.each do |i|
+        items.push(i)
+      end
+    end
+
+    items.sort! do |a, b|
+      b[:created_at] <=> a[:created_at]
+    end
+
+    if params[:page]
+      @items = Kaminari.paginate_array(items).page(params[:page]).per(12)
+      render json: @items.as_json(include: [{user: {only: [:id, :name],
+                                                    methods: :avatar_url}},
+                                            {tags: {only: [:id, :name]}},
+                                            {item_likes: {only: :id}},
+                                            {item_comments: {only: :id}}],
+                                  methods: :image_url)
+    else
+      render json: items.as_json(only: :id)
+    end
+  end
+
   def search
     if params[:keyword] && params[:page]
       items = Item.search(params[:keyword]).page(params[:page]).per(12)
