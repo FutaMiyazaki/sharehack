@@ -72,6 +72,10 @@ export default {
   methods: {
     async pageChange(number) {
       this.$router.push({ path: '/item/ranking', query: { page: number } })
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      })
       await this.$axios
         .get('/api/v1/items/ranking', {
           params: {

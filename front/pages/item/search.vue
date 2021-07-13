@@ -146,6 +146,10 @@ export default {
         path: '/item/search',
         query: { keyword: this.$route.query.keyword, page: number }
       })
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      })
     },
     async fetchItemsByPopular() {
       this.$router.push({

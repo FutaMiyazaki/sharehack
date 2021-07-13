@@ -87,6 +87,10 @@ export default {
         path: `/tag/${this.$route.params.id}`,
         query: { page: number }
       })
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      })
       await this.$axios
         .get(`api/v1/tags/${this.$route.params.id}`, {
           params: {
