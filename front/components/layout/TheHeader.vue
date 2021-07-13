@@ -144,14 +144,19 @@
               list-item-title-class="font-weight-bold"
               text="新規登録"
             />
+            <NavigationItem
+              link="/item/ranking?page=1"
+              icon="mdi-trending-up"
+              list-item-title-class="font-weight-bold"
+              text="人気の投稿"
+            />
+            <NavigationItem
+              link="/tag/search"
+              icon="mdi-magnify"
+              list-item-title-class="font-weight-bold"
+              text="タグから探す"
+            />
           </template>
-          <NavigationItem
-            v-if="!isLoggedIn"
-            link="/"
-            icon="mdi-home-outline"
-            list-item-title-class="font-weight-bold"
-            text="トップページ"
-          />
           <template v-if="isLoggedIn">
             <NavigationItem
               link="/item/create"
@@ -170,6 +175,12 @@
               icon="mdi-clock-outline"
               list-item-title-class="font-weight-bold"
               text="タイムライン"
+            />
+            <NavigationItem
+              link="/item/ranking?page=1"
+              icon="mdi-trending-up"
+              list-item-title-class="font-weight-bold"
+              text="人気の投稿"
             />
             <NavigationItem
               link="/tag/search"
