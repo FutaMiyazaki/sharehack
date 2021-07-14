@@ -64,6 +64,7 @@ export default {
     TextField,
     PasswordField
   },
+  middleware: 'authenticated',
   data() {
     return {
       user: {

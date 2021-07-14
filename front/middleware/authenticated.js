@@ -1,8 +1,5 @@
-export default function({ store, route, redirect }) {
-  if (
-    store.getters['authentication/isLoggedIn'] &&
-    (route.fullPath === '/item/signup' || route.fullPath === '/users/login')
-  ) {
+export default function({ store, redirect }) {
+  if (store.getters['authentication/isLoggedIn']) {
     return redirect('/')
   }
 }

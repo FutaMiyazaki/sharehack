@@ -1,10 +1,5 @@
-export default function({ store, route, redirect }) {
-  if (
-    !store.getters['authentication/isLoggedIn'] &&
-    (route.fullPath === '/item/create' ||
-      route.fullPath === '/users/setting' ||
-      route.fullPath === `/item/edit/${route.params.id}`)
-  ) {
+export default function({ store, redirect }) {
+  if (!store.getters['authentication/isLoggedIn']) {
     return redirect('/users/login')
   }
 }
