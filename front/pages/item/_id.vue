@@ -12,12 +12,7 @@
               </span>
             </p>
           </v-col>
-          <template
-            v-if="
-              currentUser.id == item.user.id ||
-                currentUser.email == adminUserEmail
-            "
-          >
+          <template v-if="isLoggedIn && currentUser.id == item.user.id">
             <v-col cols="5" align="right">
               <nuxt-link
                 :to="{ name: 'item-edit-id', params: { id: item.id } }"
@@ -38,7 +33,7 @@
             />
           </v-col>
           <v-col
-            v-if="isLoggedIn && currentUser && currentUser.id !== item.user.id"
+            v-if="isLoggedIn && currentUser.id !== item.user.id"
             cols="12"
             sm="6"
             align="right"
@@ -166,7 +161,7 @@
                   <v-dialog v-model="dialog" width="500">
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
-                        v-if="currentUser && currentUser.id == comment.user.id"
+                        v-if="isLoggedIn && currentUser.id == comment.user.id"
                         bottom
                         icon
                         rounded
@@ -300,8 +295,7 @@ export default {
       comments: [],
       commentText: '',
       likeLoadShow: false,
-      commentLoadShow: false,
-      adminUserEmail: 'xa56ua5vc444@sharehack.com'
+      commentLoadShow: false
     }
   },
   computed: {
