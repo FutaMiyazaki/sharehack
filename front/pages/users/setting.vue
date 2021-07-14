@@ -3,6 +3,7 @@
     <PageHeader text="アカウント設定" />
     <v-row class="mt-5">
       <v-col cols="12" md="4">
+        <v-banner>設定</v-banner>
         <v-card flat>
           <v-list nav dense rounded>
             <v-list-item-group v-model="selectedItem" color="primary">

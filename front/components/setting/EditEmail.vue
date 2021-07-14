@@ -1,37 +1,44 @@
 <template>
-  <v-card flat>
-    <v-card-text>
-      <validation-observer v-slot="{ invalid }">
-        <v-form ref="form" lazy-validation>
-          <TextField
-            v-model="email"
-            rules="required|email|max:256"
-            label="新しいメールアドレス"
-          />
-          <PasswordField v-model="password" label="パスワード" />
-          <v-card-actions class="justify-center">
-            <v-row v-if="currentUser.email != guest" justify="center">
-              <v-col cols="12" sm="4">
-                <v-btn
-                  block
-                  rounded
-                  color="primary"
-                  class="white--text font-weight-bold d-block mx-auto"
-                  :disabled="invalid"
-                  @click="editEmail"
-                >
-                  メールアドレスを変更
-                </v-btn>
-              </v-col>
-            </v-row>
-            <p v-if="currentUser.email == guest" class="font-weight-bold">
-              ゲストユーザーのため変更できません
-            </p>
-          </v-card-actions>
-        </v-form>
-      </validation-observer>
-    </v-card-text>
-  </v-card>
+  <v-row>
+    <v-col cols="12" class="pb-0">
+      <v-banner>メールアドレス</v-banner>
+    </v-col>
+    <v-col cols="12" class="pt-0">
+      <v-card flat>
+        <v-card-text class="pt-8">
+          <validation-observer v-slot="{ invalid }">
+            <v-form ref="form" lazy-validation>
+              <TextField
+                v-model="email"
+                rules="required|email|max:256"
+                label="新しいメールアドレス"
+              />
+              <PasswordField v-model="password" label="パスワード" />
+              <v-card-actions class="justify-center">
+                <v-row v-if="currentUser.email != guest" justify="center">
+                  <v-col cols="12" sm="4">
+                    <v-btn
+                      block
+                      rounded
+                      color="primary"
+                      class="white--text font-weight-bold d-block mx-auto"
+                      :disabled="invalid"
+                      @click="editEmail"
+                    >
+                      メールアドレスを変更
+                    </v-btn>
+                  </v-col>
+                </v-row>
+                <p v-if="currentUser.email == guest" class="font-weight-bold">
+                  ゲストユーザーのため変更できません
+                </p>
+              </v-card-actions>
+            </v-form>
+          </validation-observer>
+        </v-card-text>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
