@@ -1,5 +1,8 @@
 <template>
   <v-row>
+    <v-col cols="12">
+      <v-banner>すべての投稿</v-banner>
+    </v-col>
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
       <v-col v-for="item in items" :key="item.id" cols="12" sm="6">
