@@ -142,6 +142,9 @@
           <v-col cols="12">
             <v-banner icon="mdi-comment-multiple-outline">コメント</v-banner>
           </v-col>
+          <template v-if="!comments.length">
+            <NoContentDisplay icon="" text="まだコメントがありません。" />
+          </template>
           <v-col v-if="comments.length" cols="12">
             <div v-for="comment in comments" :key="comment.id" class="mb-5">
               <v-row>
@@ -271,6 +274,7 @@ import UserInformation from '~/components/user/UserInformation.vue'
 import FollowButton from '~/components/layout/FollowButton.vue'
 import TagLinkCard from '~/components/tag/TagLinkCard.vue'
 import Loading from '~/components/layout/Loading.vue'
+import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 
 export default {
   components: {
@@ -278,7 +282,8 @@ export default {
     UserInformation,
     FollowButton,
     TagLinkCard,
-    Loading
+    Loading,
+    NoContentDisplay
   },
   data() {
     return {
