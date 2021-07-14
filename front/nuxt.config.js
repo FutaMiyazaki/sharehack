@@ -109,8 +109,5 @@ export default {
      */
     extend(config, ctx) {},
     transpile: ['vee-validate/dist/rules']
-  },
-  router: {
-    middleware: 'authenticated'
   }
 }

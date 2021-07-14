@@ -75,6 +75,7 @@ export default {
     EditPassword,
     EditOther
   },
+  middleware: 'unAuthenticated',
   data() {
     return {
       selectedItem: 0,

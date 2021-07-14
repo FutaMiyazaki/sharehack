@@ -211,6 +211,7 @@ export default {
     TextArea,
     Loading
   },
+  middleware: 'unAuthenticated',
   data() {
     return {
       text: 'アイテム編集',

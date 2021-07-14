@@ -159,6 +159,7 @@ export default {
     TextArea,
     Loading
   },
+  middleware: 'unAuthenticated',
   data() {
     return {
       text: 'アイテムを投稿する',
