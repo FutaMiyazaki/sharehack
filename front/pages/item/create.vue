@@ -82,7 +82,7 @@
           <v-col cols="12" sm="4" class="pb-0">
             <FormLabel
               label-title="タグを入力"
-              label-text="5つまで追加できます"
+              label-text="6つまで追加できます"
             />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
@@ -181,7 +181,7 @@ export default {
   },
   watch: {
     tags(val) {
-      if (val.length > 5) {
+      if (val.length > 6) {
         this.$nextTick(() => this.tags.pop())
       }
     }

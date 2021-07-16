@@ -77,7 +77,7 @@
         </v-row>
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="タグ" label-text="5つまで追加できます" />
+            <FormLabel label-title="タグ" label-text="6つまで追加できます" />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <validation-provider
@@ -237,7 +237,7 @@ export default {
   },
   watch: {
     tags(val) {
-      if (val.length > 5) {
+      if (val.length > 6) {
         this.$nextTick(() => this.tags.pop())
       }
     }
