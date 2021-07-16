@@ -56,23 +56,14 @@
         </v-row>
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="商品URLを追加する" :display="false" />
+            <FormLabel
+              label-title="商品URLを追加する"
+              :display="false"
+              label-text="Amazonなどの商品URLを入力できます"
+            />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <TextField v-model.trim="item.link" type="url" label="商品URL" />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="参考価格を追加する" :display="false" />
-          </v-col>
-          <v-col cols="12" sm="8" class="pb-0">
-            <TextField
-              v-model.number="item.price"
-              type="number"
-              rules="integer"
-              label="参考価格"
-            />
           </v-col>
         </v-row>
         <v-row>
@@ -221,8 +212,7 @@ export default {
         name: '',
         image: null,
         description: '',
-        link: '',
-        price: ''
+        link: ''
       },
       tags: '',
       tagLists: [],
@@ -286,7 +276,6 @@ export default {
       data.append('item[name]', this.item.name)
       data.append('item[description]', this.item.description)
       data.append('item[link]', this.item.link)
-      data.append('item[price]', this.item.price)
       data.append('item[tags]', this.tags)
       data.append('item[user_id]', this.currentUser.id)
       data.append('item[uid]', localStorage.getItem('uid'))
