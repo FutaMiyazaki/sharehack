@@ -30,7 +30,7 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :amazon
-  Rails.application.routes.default_url_options[:host] = "share-hack.com"
+  Rails.application.routes.default_url_options[:host] = "share-hack-api.com"
   Rails.application.routes.default_url_options[:port] = 3000
   Rails.application.routes.default_url_options[:protocol] = 'https'
 
