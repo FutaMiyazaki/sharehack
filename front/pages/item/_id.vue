@@ -104,20 +104,7 @@
             </template>
           </v-col>
           <v-col v-if="item.link != ''" cols="12" sm="6">
-            <a
-              :href="item.link"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-decoration-none"
-            >
-              <v-btn outlined block color="primary">
-                <v-icon class="mr-3">mdi-open-in-new</v-icon>
-                <span class="my-auto">販売サイトへ</span>
-              </v-btn>
-            </a>
-            <p class="text-caption text-center mt-1">
-              ※外部サイトへ移動します
-            </p>
+            <ItemLinkButton :item-link="item.link" />
           </v-col>
         </v-row>
         <div class="my-5 pa-3 rounded-lg secondary">
@@ -275,6 +262,7 @@ import FollowButton from '~/components/layout/FollowButton.vue'
 import TagLinkCard from '~/components/tag/TagLinkCard.vue'
 import Loading from '~/components/layout/Loading.vue'
 import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
+import ItemLinkButton from '~/components/item/ItemLinkButton.vue'
 
 export default {
   components: {
@@ -283,7 +271,8 @@ export default {
     FollowButton,
     TagLinkCard,
     Loading,
-    NoContentDisplay
+    NoContentDisplay,
+    ItemLinkButton
   },
   data() {
     return {
