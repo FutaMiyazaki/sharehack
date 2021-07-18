@@ -66,7 +66,21 @@
             />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
-            <TextField v-model.trim="link" type="url" label="商品URL" />
+            <validation-provider
+              v-slot="{ errors }"
+              :rules="{ regex: /https?:\/\/[\w/:%#\$&\?\(\)~\.=\+\-]+/ }"
+              mode="lazy"
+            >
+              <v-text-field
+                v-model="link"
+                type="url"
+                outlined
+                rows="1"
+                background-color="secondary"
+                label="商品URL"
+                :error-messages="errors"
+              />
+            </validation-provider>
           </v-col>
         </v-row>
         <v-row>

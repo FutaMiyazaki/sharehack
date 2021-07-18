@@ -5,7 +5,7 @@
       <v-form ref="form" lazy-validation class="mt-5">
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="アイテム名を記入" />
+            <FormLabel label-title="アイテム名を変更" />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <TextField
@@ -18,12 +18,15 @@
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
             <FormLabel
-              label-title="画像をアップロードする"
+              label-title="画像を変更"
               label-text="画像形式：JPEG/PNG"
               label-sub-text="容量：5MB以内"
             />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
+            <p class="mb-3 text-caption red--text">
+              ※新たに画像をアップロードしない場合は変更されません
+            </p>
             <ValidationProvider v-slot="{ errors, validate }" rules="size:5000">
               <v-file-input
                 prepend-icon=""
@@ -44,7 +47,7 @@
         </v-row>
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="説明を記入する" label-text="300文字以内" />
+            <FormLabel label-title="説明を変更" label-text="300文字以内" />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <TextArea
@@ -57,13 +60,27 @@
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
             <FormLabel
-              label-title="商品URLを追加する"
+              label-title="商品URLを変更"
               :display="false"
               label-text="Amazonなどの商品URLを入力できます"
             />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
-            <TextField v-model.trim="item.link" type="url" label="商品URL" />
+            <validation-provider
+              v-slot="{ errors }"
+              :rules="{ regex: /https?:\/\/[\w/:%#\$&\?\(\)~\.=\+\-]+/ }"
+              mode="lazy"
+            >
+              <v-text-field
+                v-model="item.link"
+                type="url"
+                outlined
+                rows="1"
+                background-color="secondary"
+                label="商品URL"
+                :error-messages="errors"
+              />
+            </validation-provider>
           </v-col>
         </v-row>
         <v-row>
