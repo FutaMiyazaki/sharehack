@@ -1,5 +1,8 @@
 <template>
   <v-row>
+    <v-col cols="12">
+      <v-banner>いいねした投稿</v-banner>
+    </v-col>
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
       <v-col v-for="itemLike in itemLikes" :key="itemLike.id" cols="12" sm="6">

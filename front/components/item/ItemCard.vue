@@ -28,7 +28,7 @@
         </v-card-title>
       </nuxt-link>
       <v-card-actions>
-        <v-row class="px-1 py-2">
+        <v-row class="pa-2">
           <v-chip
             v-for="tag in item.tags"
             :key="`item-${item.id}-tag-${tag.id}`"
@@ -38,11 +38,11 @@
             class="ma-1"
             @click="toTagItems(tag.id)"
           >
-            <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
+            {{ tag.name }}
           </v-chip>
         </v-row>
       </v-card-actions>
-      <v-card-text class="pa-0">
+      <v-card-text class="px-2 py-0">
         <v-list-item dense class="px-1">
           <v-list-item-content class="text-caption text-no-wrap">
             {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}

@@ -2,7 +2,7 @@
   <v-container class="pt-0">
     <PageHeader :text="text" />
     <v-row>
-      <v-col cols="12" sm="7">
+      <v-col cols="12" md="7">
         <v-img aspect-ratio="1" :src="item.image_url" />
         <v-row class="my-1">
           <v-col cols="7" align="left">
@@ -12,12 +12,7 @@
               </span>
             </p>
           </v-col>
-          <template
-            v-if="
-              currentUser.id == item.user.id ||
-                currentUser.email == adminUserEmail
-            "
-          >
+          <template v-if="isLoggedIn && currentUser.id == item.user.id">
             <v-col cols="5" align="right">
               <nuxt-link
                 :to="{ name: 'item-edit-id', params: { id: item.id } }"
@@ -28,22 +23,26 @@
           </template>
         </v-row>
       </v-col>
-      <v-col cols="12" sm="5">
+      <v-col cols="12" md="5">
         <v-row>
-          <v-col cols="12" sm="6" align="left">
+          <v-col cols="12" sm="7" align="left">
             <UserInformation
               :user-id="item.user.id"
               :user-avatar-url="item.user.avatar_url"
               :user-name="item.user.name"
             />
           </v-col>
-          <v-col
-            v-if="isLoggedIn && currentUser && currentUser.id !== item.user.id"
-            cols="12"
-            sm="6"
-            align="right"
-          >
-            <FollowButton :followers="followers" :user-id="item.user.id" />
+          <v-col cols="12" sm="5" align="right">
+            <template v-if="isLoggedIn && currentUser.id !== item.user.id">
+              <FollowButton :followers="followers" :user-id="item.user.id" />
+            </template>
+            <template v-if="!isLoggedIn">
+              <PleaseLoginDialog
+                btn-color="primary"
+                btn-icon="mdi-account-plus"
+                btn-text="フォローする"
+              />
+            </template>
           </v-col>
         </v-row>
         <v-row>
@@ -75,54 +74,16 @@
               <Loading v-show="likeLoadShow" />
             </template>
             <template v-if="!isLoggedIn">
-              <v-dialog v-model="likeDialog" width="500">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn block rounded depressed v-bind="attrs" v-on="on">
-                    <v-icon color="red darken-3">mdi-heart</v-icon>
-                    <p class="my-auto mx-2">いいね!</p>
-                    <span class="font-weight-bold">{{ likeCount }}</span>
-                  </v-btn>
-                </template>
-                <v-card class="py-2">
-                  <v-btn icon absolute right @click="likeDialog = false">
-                    ✕
-                  </v-btn>
-                  <v-card-title
-                    class="mt-2 pt-5 justify-center text-subtitle-1"
-                  >
-                    いいね!には、ログインが必要です
-                  </v-card-title>
-                  <v-divider class="mb-5" />
-                  <v-card-actions class="justify-center">
-                    <v-btn
-                      block
-                      rounded
-                      color="accent"
-                      class="white--text font-weight-bold"
-                      to="/users/login"
-                    >
-                      ログイン
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
+              <PleaseLoginDialog
+                btn-icon-color="red darken-3"
+                btn-icon="mdi-heart"
+                btn-text="いいね!"
+                :like-count="likeCount"
+              />
             </template>
           </v-col>
           <v-col v-if="item.link != ''" cols="12" sm="6">
-            <a
-              :href="item.link"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-decoration-none"
-            >
-              <v-btn outlined block color="primary">
-                <v-icon class="mr-3">mdi-open-in-new</v-icon>
-                <span class="my-auto">販売サイトへ</span>
-              </v-btn>
-            </a>
-            <p class="text-caption text-center mt-1">
-              ※外部サイトへ移動します
-            </p>
+            <ItemLinkButton :item-link="item.link" />
           </v-col>
         </v-row>
         <div class="my-5 pa-3 rounded-lg secondary">
@@ -142,11 +103,14 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" sm="7">
+      <v-col cols="12" md="7">
         <v-row>
           <v-col cols="12">
             <v-banner icon="mdi-comment-multiple-outline">コメント</v-banner>
           </v-col>
+          <template v-if="!comments.length">
+            <NoContentDisplay icon="" text="まだコメントがありません。" />
+          </template>
           <v-col v-if="comments.length" cols="12">
             <div v-for="comment in comments" :key="comment.id" class="mb-5">
               <v-row>
@@ -166,7 +130,7 @@
                   <v-dialog v-model="dialog" width="500">
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
-                        v-if="currentUser && currentUser.id == comment.user.id"
+                        v-if="isLoggedIn && currentUser.id == comment.user.id"
                         bottom
                         icon
                         rounded
@@ -178,22 +142,18 @@
                       </v-btn>
                     </template>
                     <v-card class="pa-2">
-                      <v-btn
-                        icon
-                        absolute
-                        right
-                        class="d-block"
-                        @click="dialog = false"
-                      >
-                        ✕
-                      </v-btn>
+                      <v-card-actions class="px-2 py-0">
+                        <v-icon class="ml-auto" @click="dialog = false">
+                          mdi-close
+                        </v-icon>
+                      </v-card-actions>
                       <v-card-title
-                        class="mt-2 px-0 justify-center font-weight-bold "
+                        class="pt-1 justify-center text-subtitle-1 "
                       >
                         本当にコメントを削除しますか？
                       </v-card-title>
                       <v-divider class="mb-5" />
-                      <v-card-text class="justify-center text-center">
+                      <v-card-text class="text-center text-subtitle-2">
                         ※この操作は取り消せません
                       </v-card-text>
                       <v-card-actions class="justify-center px-0">
@@ -276,6 +236,9 @@ import UserInformation from '~/components/user/UserInformation.vue'
 import FollowButton from '~/components/layout/FollowButton.vue'
 import TagLinkCard from '~/components/tag/TagLinkCard.vue'
 import Loading from '~/components/layout/Loading.vue'
+import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
+import ItemLinkButton from '~/components/item/ItemLinkButton.vue'
+import PleaseLoginDialog from '~/components/layout/PleaseLoginDialog.vue'
 
 export default {
   components: {
@@ -283,12 +246,14 @@ export default {
     UserInformation,
     FollowButton,
     TagLinkCard,
-    Loading
+    Loading,
+    NoContentDisplay,
+    ItemLinkButton,
+    PleaseLoginDialog
   },
   data() {
     return {
       dialog: false,
-      likeDialog: false,
       text: '',
       item: {
         user: {}
@@ -300,8 +265,7 @@ export default {
       comments: [],
       commentText: '',
       likeLoadShow: false,
-      commentLoadShow: false,
-      adminUserEmail: 'xa56ua5vc444@sharehack.com'
+      commentLoadShow: false
     }
   },
   computed: {

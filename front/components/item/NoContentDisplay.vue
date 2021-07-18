@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <v-row justify="center" class="mt-3">
     <v-col cols="12" lg="6" md="5">
       <v-row justify="center">
         <v-col v-if="icon" cols="12" class="py-0 text-center">

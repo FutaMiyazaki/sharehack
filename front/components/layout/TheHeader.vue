@@ -93,14 +93,10 @@
       width="80%"
       class="hidden-md-and-up"
     >
-      <v-list nav dense>
+      <v-list nav dense class="py-0">
         <v-toolbar flat>
-          <v-spacer />
-          <v-btn icon right @click="drawer = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
+          <v-icon class="ml-auto" @click="drawer = false">mdi-close</v-icon>
         </v-toolbar>
-
         <ValidationObserver ref="observer" v-slot="{ invalid }">
           <v-form class="mx-2 mb-2" @submit.prevent="search">
             <ValidationProvider rules="required|max:50" mode="aggressive">

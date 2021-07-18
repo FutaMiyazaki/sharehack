@@ -28,10 +28,12 @@
         </v-btn>
       </template>
       <v-card class="py-2">
-        <v-btn icon absolute right class="d-block" @click="dialog = false">
-          ✕
-        </v-btn>
-        <v-card-title class="mt-2 justify-center font-weight-bold ">
+        <v-card-actions class="px-2 py-0">
+          <v-icon class="ml-auto" @click="dialog = false">
+            mdi-close
+          </v-icon>
+        </v-card-actions>
+        <v-card-title class="pt-1 justify-center text-subtitle-1">
           フォロー解除しますか？
         </v-card-title>
         <v-divider class="mb-5" />

@@ -5,7 +5,7 @@
       <v-form ref="form" lazy-validation class="mt-5">
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="アイテム名を記入" />
+            <FormLabel label-title="アイテム名を変更" />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <TextField
@@ -18,12 +18,15 @@
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
             <FormLabel
-              label-title="画像をアップロードする"
+              label-title="画像を変更"
               label-text="画像形式：JPEG/PNG"
               label-sub-text="容量：5MB以内"
             />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
+            <p class="mb-3 text-caption red--text">
+              ※新たに画像をアップロードしない場合は変更されません
+            </p>
             <ValidationProvider v-slot="{ errors, validate }" rules="size:5000">
               <v-file-input
                 prepend-icon=""
@@ -44,7 +47,7 @@
         </v-row>
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="説明を記入する" label-text="300文字以内" />
+            <FormLabel label-title="説明を変更" label-text="300文字以内" />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <TextArea
@@ -56,28 +59,33 @@
         </v-row>
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="商品URLを追加する" :display="false" />
-          </v-col>
-          <v-col cols="12" sm="8" class="pb-0">
-            <TextField v-model.trim="item.link" type="url" label="商品URL" />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="参考価格を追加する" :display="false" />
-          </v-col>
-          <v-col cols="12" sm="8" class="pb-0">
-            <TextField
-              v-model.number="item.price"
-              type="number"
-              rules="integer"
-              label="参考価格"
+            <FormLabel
+              label-title="商品URLを変更"
+              :display="false"
+              label-text="Amazonなどの商品URLを入力できます"
             />
           </v-col>
+          <v-col cols="12" sm="8" class="pb-0">
+            <validation-provider
+              v-slot="{ errors }"
+              :rules="{ regex: /https?:\/\/[\w/:%#\$&\?\(\)~\.=\+\-]+/ }"
+              mode="lazy"
+            >
+              <v-text-field
+                v-model="item.link"
+                type="url"
+                outlined
+                rows="1"
+                background-color="secondary"
+                label="商品URL"
+                :error-messages="errors"
+              />
+            </validation-provider>
+          </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="タグ" label-text="5つまで追加できます" />
+            <FormLabel label-title="タグ" label-text="6つまで追加できます" />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <validation-provider
@@ -146,14 +154,16 @@
         </v-row>
       </template>
       <v-card class="py-2">
-        <v-btn icon absolute right @click="dialog = false">
-          ✕
-        </v-btn>
-        <v-card-title class="mt-2 justify-center font-weight-bold ">
+        <v-card-actions class="px-2 py-0">
+          <v-icon class="ml-auto" @click="dialog = false">
+            mdi-close
+          </v-icon>
+        </v-card-actions>
+        <v-card-title class="pt-1 justify-center text-subtitle-1">
           本当にこの投稿を削除しますか？
         </v-card-title>
         <v-divider class="mb-5" />
-        <v-card-text class="justify-center font-weight-bold text-center">
+        <v-card-text class="text-center text-subtitle-2">
           ※この操作は取り消せません
         </v-card-text>
         <v-card-actions class="justify-center pb-5">
@@ -180,14 +190,13 @@
             <Loading v-show="loadShow" />
           </template>
           <template v-else>
-            <v-btn
-              rounded
-              color="red"
-              class="white--text font-weight-bold"
+            <p
+              color="warning"
+              class="text-center red--text text-decoration-underline"
               @click="dialog = false"
             >
-              ゲストユーザーは投稿を削除できません
-            </v-btn>
+              ゲストユーザーのため削除できません
+            </p>
           </template>
         </v-card-actions>
       </v-card>
@@ -211,6 +220,7 @@ export default {
     TextArea,
     Loading
   },
+  middleware: 'unAuthenticated',
   data() {
     return {
       text: 'アイテム編集',
@@ -220,8 +230,7 @@ export default {
         name: '',
         image: null,
         description: '',
-        link: '',
-        price: ''
+        link: ''
       },
       tags: '',
       tagLists: [],
@@ -236,7 +245,7 @@ export default {
   },
   watch: {
     tags(val) {
-      if (val.length > 5) {
+      if (val.length > 6) {
         this.$nextTick(() => this.tags.pop())
       }
     }
@@ -285,7 +294,6 @@ export default {
       data.append('item[name]', this.item.name)
       data.append('item[description]', this.item.description)
       data.append('item[link]', this.item.link)
-      data.append('item[price]', this.item.price)
       data.append('item[tags]', this.tags)
       data.append('item[user_id]', this.currentUser.id)
       data.append('item[uid]', localStorage.getItem('uid'))

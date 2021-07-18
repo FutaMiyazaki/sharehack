@@ -77,17 +77,13 @@
                         </v-btn>
                       </template>
                       <v-card class="py-2">
-                        <v-btn
-                          icon
-                          absolute
-                          right
-                          class="d-block"
-                          @click="dialog = false"
-                        >
-                          ✕
-                        </v-btn>
+                        <v-card-actions class="px-2 py-0">
+                          <v-icon class="ml-auto" @click="dialog = false">
+                            mdi-close
+                          </v-icon>
+                        </v-card-actions>
                         <v-card-title
-                          class="mt-2 justify-center font-weight-bold "
+                          class="pt-1 justify-center text-subtitle-1"
                         >
                           フォロー解除しますか？
                         </v-card-title>
@@ -97,7 +93,7 @@
                             rounded
                             depressed
                             class="font-weight-bold"
-                            width="35%"
+                            width="45%"
                             @click="dialog = false"
                           >
                             キャンセル
@@ -106,7 +102,7 @@
                             rounded
                             color="primary"
                             class="white--text font-weight-bold"
-                            width="35%"
+                            width="45%"
                             @click="sendUnfollow"
                           >
                             フォロー解除
@@ -114,6 +110,13 @@
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
+                  </template>
+                  <template v-if="!isLoggedIn">
+                    <PleaseLoginDialog
+                      btn-color="primary"
+                      btn-icon="mdi-account-plus"
+                      btn-text="フォローする"
+                    />
                   </template>
                   <v-btn
                     v-show="currentUser && currentUser.id == user.id"
@@ -182,6 +185,7 @@ import UserItems from '~/components/user/UserItems.vue'
 import UserLikes from '~/components/user/UserLikes.vue'
 import FollowingList from '~/components/user/FollowingList.vue'
 import FollowerList from '~/components/user/FollowerList.vue'
+import PleaseLoginDialog from '~/components/layout/PleaseLoginDialog.vue'
 
 export default {
   components: {
@@ -189,7 +193,8 @@ export default {
     UserItems,
     UserLikes,
     FollowingList,
-    FollowerList
+    FollowerList,
+    PleaseLoginDialog
   },
   data() {
     return {
