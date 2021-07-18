@@ -2,7 +2,7 @@
   <v-container class="pt-0">
     <PageHeader :text="text" />
     <v-row>
-      <v-col cols="12" sm="7">
+      <v-col cols="12" md="7">
         <v-img aspect-ratio="1" :src="item.image_url" />
         <v-row class="my-1">
           <v-col cols="7" align="left">
@@ -23,16 +23,16 @@
           </template>
         </v-row>
       </v-col>
-      <v-col cols="12" sm="5">
+      <v-col cols="12" md="5">
         <v-row>
-          <v-col cols="12" sm="6" align="left">
+          <v-col cols="12" sm="7" align="left">
             <UserInformation
               :user-id="item.user.id"
               :user-avatar-url="item.user.avatar_url"
               :user-name="item.user.name"
             />
           </v-col>
-          <v-col cols="12" sm="6" align="right">
+          <v-col cols="12" sm="5" align="right">
             <template v-if="isLoggedIn && currentUser.id !== item.user.id">
               <FollowButton :followers="followers" :user-id="item.user.id" />
             </template>
@@ -103,7 +103,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" sm="7">
+      <v-col cols="12" md="7">
         <v-row>
           <v-col cols="12">
             <v-banner icon="mdi-comment-multiple-outline">コメント</v-banner>
