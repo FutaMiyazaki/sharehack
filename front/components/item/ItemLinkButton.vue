@@ -1,16 +1,16 @@
 <template>
-  <v-dialog v-model="linkDialog" width="500">
+  <v-dialog v-model="dialog" width="500">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn outlined block color="primary" v-bind="attrs" v-on="on">
+      <v-btn block rounded outlined color="primary" v-bind="attrs" v-on="on">
         <v-icon class="mr-3">mdi-open-in-new</v-icon>
         <span class="my-auto">販売サイトへ</span>
       </v-btn>
     </template>
     <v-card class="py-2">
-      <v-btn icon absolute right @click="linkDialog = false">
-        ✕
-      </v-btn>
-      <v-card-title class="mt-2 pt-5 justify-center text-subtitle-1">
+      <v-card-actions class="px-2 py-0">
+        <v-icon class="ml-auto" @click="dialog = false">mdi-close</v-icon>
+      </v-card-actions>
+      <v-card-title class="pt-1 justify-center text-subtitle-1">
         下記URLの外部サイトへ移動します
       </v-card-title>
       <v-divider class="mb-5" />
@@ -24,14 +24,7 @@
           rel="noopener noreferrer"
           class="text-decoration-none"
         >
-          <v-btn
-            outlined
-            block
-            color="primary"
-            v-bind="attrs"
-            v-on="on"
-            @click="linkDialog = false"
-          >
+          <v-btn block rounded outlined color="primary" @click="dialog = false">
             <v-icon class="mr-3">mdi-open-in-new</v-icon>
             <span class="my-auto">移動する</span>
           </v-btn>
@@ -51,7 +44,7 @@ export default {
   },
   data() {
     return {
-      linkDialog: false
+      dialog: false
     }
   }
 }
