@@ -142,22 +142,18 @@
                       </v-btn>
                     </template>
                     <v-card class="pa-2">
-                      <v-btn
-                        icon
-                        absolute
-                        right
-                        class="d-block"
-                        @click="dialog = false"
-                      >
-                        ✕
-                      </v-btn>
+                      <v-card-actions class="px-2 py-0">
+                        <v-icon class="ml-auto" @click="dialog = false">
+                          mdi-close
+                        </v-icon>
+                      </v-card-actions>
                       <v-card-title
-                        class="mt-2 px-0 justify-center font-weight-bold "
+                        class="pt-1 justify-center text-subtitle-1 "
                       >
                         本当にコメントを削除しますか？
                       </v-card-title>
                       <v-divider class="mb-5" />
-                      <v-card-text class="justify-center text-center">
+                      <v-card-text class="text-center text-subtitle-2">
                         ※この操作は取り消せません
                       </v-card-text>
                       <v-card-actions class="justify-center px-0">
@@ -258,7 +254,6 @@ export default {
   data() {
     return {
       dialog: false,
-      likeDialog: false,
       text: '',
       item: {
         user: {}

@@ -19,7 +19,7 @@
         ユーザー登録して、もっと便利に使ってみませんか。
       </v-card-title>
       <v-divider class="mb-5" />
-      <v-card-text class="justify-center text-subtitle-2">
+      <v-card-text class="text-center text-subtitle-2">
         この機能を利用するにはログインまたはアカウント作成が必要です。
       </v-card-text>
       <v-card-actions class="justify-center">

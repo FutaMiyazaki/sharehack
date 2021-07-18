@@ -137,14 +137,16 @@
         </v-row>
       </template>
       <v-card class="py-2">
-        <v-btn icon absolute right @click="dialog = false">
-          ✕
-        </v-btn>
-        <v-card-title class="mt-2 justify-center font-weight-bold ">
+        <v-card-actions class="px-2 py-0">
+          <v-icon class="ml-auto" @click="dialog = false">
+            mdi-close
+          </v-icon>
+        </v-card-actions>
+        <v-card-title class="pt-1 justify-center text-subtitle-1">
           本当にこの投稿を削除しますか？
         </v-card-title>
         <v-divider class="mb-5" />
-        <v-card-text class="justify-center font-weight-bold text-center">
+        <v-card-text class="text-center text-subtitle-2">
           ※この操作は取り消せません
         </v-card-text>
         <v-card-actions class="justify-center pb-5">
@@ -171,14 +173,13 @@
             <Loading v-show="loadShow" />
           </template>
           <template v-else>
-            <v-btn
-              rounded
-              color="red"
-              class="white--text font-weight-bold"
+            <p
+              color="warning"
+              class="text-center red--text text-decoration-underline"
               @click="dialog = false"
             >
-              ゲストユーザーは投稿を削除できません
-            </v-btn>
+              ゲストユーザーのため削除できません
+            </p>
           </template>
         </v-card-actions>
       </v-card>
