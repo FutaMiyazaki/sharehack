@@ -32,13 +32,17 @@
               :user-name="item.user.name"
             />
           </v-col>
-          <v-col
-            v-if="isLoggedIn && currentUser.id !== item.user.id"
-            cols="12"
-            sm="6"
-            align="right"
-          >
-            <FollowButton :followers="followers" :user-id="item.user.id" />
+          <v-col cols="12" sm="6" align="right">
+            <template v-if="isLoggedIn && currentUser.id !== item.user.id">
+              <FollowButton :followers="followers" :user-id="item.user.id" />
+            </template>
+            <template v-if="!isLoggedIn">
+              <PleaseLoginDialog
+                btn-color="primary"
+                btn-icon="mdi-account-plus"
+                btn-text="フォローする"
+              />
+            </template>
           </v-col>
         </v-row>
         <v-row>
@@ -70,37 +74,12 @@
               <Loading v-show="likeLoadShow" />
             </template>
             <template v-if="!isLoggedIn">
-              <v-dialog v-model="likeDialog" width="500">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn block rounded depressed v-bind="attrs" v-on="on">
-                    <v-icon color="red darken-3">mdi-heart</v-icon>
-                    <p class="my-auto mx-2">いいね!</p>
-                    <span class="font-weight-bold">{{ likeCount }}</span>
-                  </v-btn>
-                </template>
-                <v-card class="py-2">
-                  <v-btn icon absolute right @click="likeDialog = false">
-                    ✕
-                  </v-btn>
-                  <v-card-title
-                    class="mt-2 pt-5 justify-center text-subtitle-1"
-                  >
-                    いいね!には、ログインが必要です
-                  </v-card-title>
-                  <v-divider class="mb-5" />
-                  <v-card-actions class="justify-center">
-                    <v-btn
-                      block
-                      rounded
-                      color="accent"
-                      class="white--text font-weight-bold"
-                      to="/users/login"
-                    >
-                      ログイン
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
+              <PleaseLoginDialog
+                btn-icon-color="red darken-3"
+                btn-icon="mdi-heart"
+                btn-text="いいね!"
+                :like-count="likeCount"
+              />
             </template>
           </v-col>
           <v-col v-if="item.link != ''" cols="12" sm="6">
@@ -263,6 +242,7 @@ import TagLinkCard from '~/components/tag/TagLinkCard.vue'
 import Loading from '~/components/layout/Loading.vue'
 import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 import ItemLinkButton from '~/components/item/ItemLinkButton.vue'
+import PleaseLoginDialog from '~/components/layout/PleaseLoginDialog.vue'
 
 export default {
   components: {
@@ -272,7 +252,8 @@ export default {
     TagLinkCard,
     Loading,
     NoContentDisplay,
-    ItemLinkButton
+    ItemLinkButton,
+    PleaseLoginDialog
   },
   data() {
     return {
