@@ -1,40 +1,44 @@
 <template>
   <v-container class="pt-0">
     <PageHeader :text="text" />
-    <ValidationObserver v-slot="{ invalid }">
-      <v-form lazy-validation class="mb-5" @submit.prevent="searchTag">
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required|max:30"
-          mode="lazy"
-        >
-          <v-text-field
-            v-model.trim="keyword"
-            flat
-            solo
-            rounded
-            outlined
-            hide-details
-            background-color="secondary"
-            label="キーワード検索"
-            :error-messages="errors"
-          >
-            <template v-slot:append-outer>
-              <v-btn
-                v-if="!loadShow"
-                icon
-                large
-                :disabled="invalid"
-                @click="searchTag"
+    <v-row justify="center">
+      <v-col cols="12" md="8">
+        <ValidationObserver v-slot="{ invalid }">
+          <v-form lazy-validation class="mb-5" @submit.prevent="searchTag">
+            <ValidationProvider
+              v-slot="{ errors }"
+              rules="required|max:30"
+              mode="lazy"
+            >
+              <v-text-field
+                v-model.trim="keyword"
+                flat
+                solo
+                rounded
+                outlined
+                hide-details
+                background-color="secondary"
+                label="キーワード検索"
+                :error-messages="errors"
               >
-                <v-icon>mdi-magnify</v-icon>
-              </v-btn>
-              <Loading v-show="loadShow" />
-            </template>
-          </v-text-field>
-        </ValidationProvider>
-      </v-form>
-    </ValidationObserver>
+                <template v-slot:append-outer>
+                  <v-btn
+                    v-if="!loadShow"
+                    icon
+                    large
+                    :disabled="invalid"
+                    @click="searchTag"
+                  >
+                    <v-icon>mdi-magnify</v-icon>
+                  </v-btn>
+                  <Loading v-show="loadShow" />
+                </template>
+              </v-text-field>
+            </ValidationProvider>
+          </v-form>
+        </ValidationObserver>
+      </v-col>
+    </v-row>
     <template v-if="!tags.length && afterSearch">
       <NoContentDisplay
         icon="mdi-emoticon-sad-outline"
