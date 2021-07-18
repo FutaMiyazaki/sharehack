@@ -111,6 +111,13 @@
                       </v-card>
                     </v-dialog>
                   </template>
+                  <template v-if="!isLoggedIn">
+                    <PleaseLoginDialog
+                      btn-color="primary"
+                      btn-icon="mdi-account-plus"
+                      btn-text="フォローする"
+                    />
+                  </template>
                   <v-btn
                     v-show="currentUser && currentUser.id == user.id"
                     block
@@ -178,6 +185,7 @@ import UserItems from '~/components/user/UserItems.vue'
 import UserLikes from '~/components/user/UserLikes.vue'
 import FollowingList from '~/components/user/FollowingList.vue'
 import FollowerList from '~/components/user/FollowerList.vue'
+import PleaseLoginDialog from '~/components/layout/PleaseLoginDialog.vue'
 
 export default {
   components: {
@@ -185,7 +193,8 @@ export default {
     UserItems,
     UserLikes,
     FollowingList,
-    FollowerList
+    FollowerList,
+    PleaseLoginDialog
   },
   data() {
     return {

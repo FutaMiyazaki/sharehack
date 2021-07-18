@@ -1,7 +1,15 @@
 <template>
   <v-dialog v-model="dialog" width="500">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn block rounded depressed :color="btnColor" v-bind="attrs" v-on="on">
+      <v-btn
+        block
+        rounded
+        depressed
+        :color="btnColor"
+        v-bind="attrs"
+        class="font-weight-bold"
+        v-on="on"
+      >
         <v-icon :color="btnIconColor">{{ btnIcon }}</v-icon>
         <p class="my-auto mx-2">{{ btnText }}</p>
         <template v-if="btnText == 'いいね!'">
