@@ -11,7 +11,7 @@
         <v-icon class="ml-auto" @click="dialog = false">mdi-close</v-icon>
       </v-card-actions>
       <v-card-title class="pt-1 justify-center text-subtitle-1">
-        下記URLの外部サイトへ移動します
+        下記URLの外部サイトへ移動します。当サイトが運営するページではありませんのでご注意ください。
       </v-card-title>
       <v-divider class="mb-5" />
       <v-card-title class="justify-center text-subtitle-1">
