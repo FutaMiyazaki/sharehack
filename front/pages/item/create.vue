@@ -101,7 +101,7 @@
           <v-col cols="12" sm="8" class="pb-0">
             <validation-provider
               v-slot="{ errors }"
-              rules="required"
+              rules="required|max:15"
               mode="lazy"
             >
               <v-combobox
