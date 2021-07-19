@@ -29,6 +29,7 @@
             </p>
             <ValidationProvider v-slot="{ errors, validate }" rules="size:5000">
               <v-file-input
+                v-model="previewImage"
                 prepend-icon=""
                 outlined
                 rows="1"
@@ -43,6 +44,13 @@
                 @change="setImage"
               />
             </ValidationProvider>
+            <v-img
+              v-if="previewImageUrl"
+              aspect-ratio="1"
+              alt="投稿画像のプレビュー表示"
+              :src="previewImageUrl"
+              class="mb-5"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -232,6 +240,7 @@ export default {
         description: '',
         link: ''
       },
+      previewImage: null,
       tags: '',
       tagLists: [],
       search: null,
@@ -241,7 +250,14 @@ export default {
   computed: {
     ...mapGetters({
       currentUser: 'authentication/currentUser'
-    })
+    }),
+    previewImageUrl() {
+      if (this.previewImage === null) {
+        return false
+      } else {
+        return URL.createObjectURL(this.previewImage)
+      }
+    }
   },
   watch: {
     tags(val) {
