@@ -141,6 +141,12 @@
               text="新規登録"
             />
             <NavigationItem
+              link="/"
+              icon="mdi-home"
+              list-item-title-class="font-weight-bold"
+              text="トップページ"
+            />
+            <NavigationItem
               link="/item/ranking?page=1"
               icon="mdi-trending-up"
               list-item-title-class="font-weight-bold"
