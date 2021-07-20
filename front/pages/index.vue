@@ -67,7 +67,7 @@
       </v-col>
     </v-row>
     <v-row class="mt-4 hidden-md-and-up">
-      <v-col cols="12" class="text-center">
+      <v-col cols="12">
         <v-banner>タグ</v-banner>
         <v-list dense>
           <v-list-item-group color="primary">
