@@ -6,6 +6,9 @@
     <v-col cols="12" class="pt-0">
       <v-card flat>
         <v-card-text class="pt-8">
+          <p class="mb-3 text-caption red--text">
+            ※新たに画像をアップロードしない場合は変更されません
+          </p>
           <validation-observer v-slot="{ invalid }">
             <v-form ref="form" lazy-validation>
               <validation-provider
@@ -13,6 +16,7 @@
                 rules="required|size:5000"
               >
                 <v-file-input
+                  v-model="previewImage"
                   counter
                   outlined
                   rows="1"
@@ -27,6 +31,13 @@
                   @change="setImage"
                 />
               </validation-provider>
+              <v-img
+                v-if="previewImageUrl"
+                aspect-ratio="1"
+                alt="プロフィール画像のプレビュー表示"
+                :src="previewImageUrl"
+                class="mb-5"
+              />
               <v-card-actions class="justify-center">
                 <v-row v-if="currentUser.email != guest" justify="center">
                   <v-col cols="12" sm="4">
@@ -61,13 +72,21 @@ export default {
   data() {
     return {
       image: null,
+      previewImage: null,
       guest: 'guest@sharehack.com'
     }
   },
   computed: {
     ...mapGetters({
       currentUser: 'authentication/currentUser'
-    })
+    }),
+    previewImageUrl() {
+      if (this.previewImage === null) {
+        return false
+      } else {
+        return URL.createObjectURL(this.previewImage)
+      }
+    }
   },
   methods: {
     ...mapActions({

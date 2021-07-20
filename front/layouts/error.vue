@@ -44,8 +44,8 @@ export default {
   },
   data() {
     return {
-      pageNotFound: 'The page you requested was not found',
-      otherError: 'An error occurred'
+      pageNotFound: '見つかりませんでした',
+      otherError: 'エラーが発生しました'
     }
   },
   head() {

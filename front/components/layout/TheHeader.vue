@@ -1,6 +1,6 @@
 <template>
   <header>
-    <v-app-bar color="#fbfbfb" app flat fixed>
+    <v-app-bar color="#ffffff" app flat fixed>
       <v-toolbar-title class="mr-2 header-title">
         <nuxt-link to="/" class="black--text font-weight-bold">
           Sharehack
@@ -139,6 +139,12 @@
               icon="mdi-account-plus-outline"
               list-item-title-class="font-weight-bold"
               text="新規登録"
+            />
+            <NavigationItem
+              link="/"
+              icon="mdi-home"
+              list-item-title-class="font-weight-bold"
+              text="トップページ"
             />
             <NavigationItem
               link="/item/ranking?page=1"

@@ -16,6 +16,7 @@
                 solo
                 rounded
                 outlined
+                autofocus
                 hide-details
                 background-color="secondary"
                 label="キーワード検索"

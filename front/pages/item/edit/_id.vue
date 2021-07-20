@@ -29,6 +29,7 @@
             </p>
             <ValidationProvider v-slot="{ errors, validate }" rules="size:5000">
               <v-file-input
+                v-model="previewImage"
                 prepend-icon=""
                 outlined
                 rows="1"
@@ -43,6 +44,13 @@
                 @change="setImage"
               />
             </ValidationProvider>
+            <v-img
+              v-if="previewImageUrl"
+              aspect-ratio="1"
+              alt="投稿画像のプレビュー表示"
+              :src="previewImageUrl"
+              class="mb-5"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -90,7 +98,7 @@
           <v-col cols="12" sm="8" class="pb-0">
             <validation-provider
               v-slot="{ errors }"
-              rules="required"
+              rules="required|max:15"
               mode="lazy"
             >
               <v-combobox
@@ -146,8 +154,8 @@
     <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
         <v-row justify="center">
-          <v-col cols="12" sm="4">
-            <v-btn text block rounded color="warning" v-bind="attrs" v-on="on">
+          <v-col cols="12" sm="4" class="text-center">
+            <v-btn text rounded color="warning" v-bind="attrs" v-on="on">
               投稿を削除する
             </v-btn>
           </v-col>
@@ -201,6 +209,15 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-row justify="center">
+      <v-col cols="12" sm="4" class="text-center">
+        <LinkButton
+          :link="'/item/' + item.id"
+          text="投稿ページに戻る"
+          icon="chevron-right"
+        />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -211,6 +228,7 @@ import FormLabel from '~/components/layout/FormLabel.vue'
 import TextField from '~/components/input/TextField.vue'
 import TextArea from '~/components/input/TextArea.vue'
 import Loading from '~/components/layout/Loading.vue'
+import LinkButton from '~/components/layout/LinkButton.vue'
 
 export default {
   components: {
@@ -218,7 +236,8 @@ export default {
     FormLabel,
     TextField,
     TextArea,
-    Loading
+    Loading,
+    LinkButton
   },
   middleware: 'unAuthenticated',
   data() {
@@ -232,6 +251,7 @@ export default {
         description: '',
         link: ''
       },
+      previewImage: null,
       tags: '',
       tagLists: [],
       search: null,
@@ -241,7 +261,14 @@ export default {
   computed: {
     ...mapGetters({
       currentUser: 'authentication/currentUser'
-    })
+    }),
+    previewImageUrl() {
+      if (this.previewImage === null) {
+        return false
+      } else {
+        return URL.createObjectURL(this.previewImage)
+      }
+    }
   },
   watch: {
     tags(val) {

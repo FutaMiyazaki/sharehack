@@ -1,6 +1,6 @@
 <template>
   <v-container class="pt-0">
-    <PageHeader :text="pageHeaderText" />
+    <PageHeader :text="pageHeaderText" icon="mdi-clock-outline" />
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
       <template v-if="items.length">

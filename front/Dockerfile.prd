@@ -1,10 +1,6 @@
 FROM node:12.5.0-alpine
 
-ARG WORKDIR
-ARG CONTAINER_PORT
-ARG API_URL
-
-ENV HOME=/${WORKDIR} \
+ENV HOME="/sharehack/front" \
   LANG=C.UTF-8 \
   TZ=Asia/Tokyo \
   HOST=0.0.0.0 \
@@ -15,10 +11,15 @@ WORKDIR ${HOME}
 COPY package.json .
 COPY . .
 
+RUN apk update && \
+  apk upgrade && \
+  npm install -g n && \
+  rm -rf /var/cache/apk/*
+
 RUN yarn install
 
 RUN yarn run build
 
-EXPOSE ${CONTAINER_PORT}
+EXPOSE 8080
 
 CMD ["yarn", "start"]

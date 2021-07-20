@@ -10,10 +10,9 @@
             <v-dialog v-model="dialog" width="500">
               <template v-slot:activator="{ on, attrs }">
                 <v-row justify="center">
-                  <v-col cols="12" sm="6">
+                  <v-col cols="12" sm="6" class="text-center">
                     <v-btn
                       text
-                      block
                       rounded
                       color="warning"
                       v-bind="attrs"
