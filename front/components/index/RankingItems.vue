@@ -15,7 +15,7 @@
       >
         <ItemCard :item="item" />
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-col cols="12" sm="6" class="text-center">
         <LinkButton
           link="/item/ranking?page=1"
           text="もっと見る"

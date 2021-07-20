@@ -53,7 +53,7 @@
           </v-col>
         </v-row>
         <v-row justify="center" class="mb-5 hidden-sm-and-down">
-          <v-col cols="12">
+          <v-col cols="12" class="text-center">
             <LinkButton
               link="/tag/search"
               text="タグを探す"
@@ -67,7 +67,7 @@
       </v-col>
     </v-row>
     <v-row class="mt-4 hidden-md-and-up">
-      <v-col cols="12">
+      <v-col cols="12" class="text-center">
         <v-banner>タグ</v-banner>
         <v-list dense>
           <v-list-item-group color="primary">
@@ -85,7 +85,7 @@
       </v-col>
     </v-row>
     <v-row justify="center" class="mb-5 hidden-md-and-up">
-      <v-col cols="12">
+      <v-col cols="12" class="text-center">
         <LinkButton link="/tag/search" text="タグを探す" icon="chevron-right" />
       </v-col>
     </v-row>
