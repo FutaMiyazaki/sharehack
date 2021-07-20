@@ -29,17 +29,17 @@
                 </v-list-item-subtitle>
                 <v-divider class="my-5" />
                 <v-row>
-                  <v-col cols="4">
-                    {{ followings.length }}
-                    <span class=" mx-auto text-caption">フォロー</span>
+                  <v-col cols="4" class="text-center">
+                    <span class="d-block">{{ followings.length }}</span>
+                    <span class="text-caption">フォロー</span>
                   </v-col>
-                  <v-col cols="4">
-                    {{ followers.length }}
-                    <span class="mx-auto text-caption">フォロワー</span>
+                  <v-col cols="4" class="text-center">
+                    <span class="d-block">{{ followers.length }}</span>
+                    <span class="text-caption">フォロワー</span>
                   </v-col>
-                  <v-col cols="4">
-                    {{ likes.length }}
-                    <span class="mx-auto text-caption">いいね</span>
+                  <v-col cols="4" class="text-center">
+                    <span class="d-block">{{ likes.length }}</span>
+                    <span class="text-caption">いいね</span>
                   </v-col>
                 </v-row>
                 <div>
