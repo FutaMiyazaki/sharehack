@@ -154,8 +154,8 @@
     <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
         <v-row justify="center">
-          <v-col cols="12" sm="4">
-            <v-btn text block rounded color="warning" v-bind="attrs" v-on="on">
+          <v-col cols="12" sm="4" class="text-center">
+            <v-btn text rounded color="warning" v-bind="attrs" v-on="on">
               投稿を削除する
             </v-btn>
           </v-col>
@@ -209,6 +209,15 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-row justify="center">
+      <v-col cols="12" sm="4" class="text-center">
+        <LinkButton
+          :link="'/item/' + item.id"
+          text="投稿ページに戻る"
+          icon="chevron-right"
+        />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -219,6 +228,7 @@ import FormLabel from '~/components/layout/FormLabel.vue'
 import TextField from '~/components/input/TextField.vue'
 import TextArea from '~/components/input/TextArea.vue'
 import Loading from '~/components/layout/Loading.vue'
+import LinkButton from '~/components/layout/LinkButton.vue'
 
 export default {
   components: {
@@ -226,7 +236,8 @@ export default {
     FormLabel,
     TextField,
     TextArea,
-    Loading
+    Loading,
+    LinkButton
   },
   middleware: 'unAuthenticated',
   data() {
