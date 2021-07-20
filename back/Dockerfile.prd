@@ -1,7 +1,6 @@
 FROM ruby:2.7.2-alpine3.12
 
 ARG WORKDIR
-ARG CONTAINER_PORT
 ARG API_DOMAIN
 ARG DATABASE_USERNAME
 ARG DATABASE_PASSWORD
@@ -39,6 +38,6 @@ RUN apk add vim
 
 ADD . ${HOME}
 
-EXPOSE ${CONTAINER_PORT}
+EXPOSE 3000
 
 CMD ["bundle", "exec", "rails", "s", "puma", "-b", "0.0.0.0", "-p", "3000", "-e", "production"]
