@@ -10,6 +10,7 @@
       <SearchForm />
       <v-spacer />
       <template v-if="isLoggedIn">
+        <ToTopicCreateButton />
         <ToItemCreateButton />
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
@@ -218,12 +219,14 @@ import { mapGetters, mapActions } from 'vuex'
 import NavigationItem from '~/components/layout/NavigationItem.vue'
 import SearchForm from '~/components/layout/SearchForm.vue'
 import ToItemCreateButton from '~/components/layout/ToItemCreateButton.vue'
+import ToTopicCreateButton from '~/components/layout/ToTopicCreateButton.vue'
 
 export default {
   components: {
     NavigationItem,
     SearchForm,
-    ToItemCreateButton
+    ToItemCreateButton,
+    ToTopicCreateButton
   },
   data() {
     return {
