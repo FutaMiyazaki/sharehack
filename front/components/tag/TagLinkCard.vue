@@ -6,12 +6,12 @@
       :class="{ 'on-hover': hover }"
       @click="toTagItems(tagId)"
     >
-      <v-card-subtitle>
+      <v-card-title class="text-caption black--text">
         <v-icon left small>
           mdi-tag
         </v-icon>
         {{ tagName }}
-      </v-card-subtitle>
+      </v-card-title>
     </v-card>
   </v-hover>
 </template>

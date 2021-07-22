@@ -14,7 +14,7 @@
     >
       {{ topic.title }}
     </v-card-title>
-    <v-card-text class="text-caption black--text">
+    <v-card-text class="text-caption">
       <p
         style="white-space:pre-wrap;"
         class="mb-0"
