@@ -6,7 +6,7 @@
       <v-row justify="center">
         <v-col cols="12" md="7">
           <v-card flat>
-            <v-list two-line>
+            <v-list three-line>
               <v-list-item
                 v-for="topic in topics"
                 :key="topic.id"
@@ -24,12 +24,17 @@
                   />
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-subtitle class="mb-3">
-                    {{ topic.items.length }}件の投稿
+                  <v-list-item-subtitle class="text-caption black--text">
+                    作成者：{{ topic.user.name }}
                   </v-list-item-subtitle>
-                  <v-list-item-title class="blue--text text--lighten-2">
+                  <v-list-item-title
+                    class="text-subtitle-2 text-decoration-underline blue--text text--lighten-2"
+                  >
                     {{ topic.title }}
                   </v-list-item-title>
+                  <v-list-item-subtitle class="text-caption">
+                    {{ topic.items.length }}件の投稿
+                  </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
             </v-list>

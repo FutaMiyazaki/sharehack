@@ -10,12 +10,12 @@
       <SearchForm />
       <v-spacer />
       <template v-if="isLoggedIn">
-        <v-menu offset-y>
+        <v-menu offset-y rounded="lg">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               text
               v-bind="attrs"
-              class="hidden-sm-and-down"
+              class="hidden-sm-and-down font-weight-bold"
               color="primary"
               v-on="on"
             >
@@ -26,15 +26,11 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-item dense nuxt to="/item/new"
-              >アイテムを投稿する</v-list-item
-            >
-            <v-list-item dense nuxt to="/topic/new"
-              >トピックを投稿する</v-list-item
-            >
+            <v-list-item nuxt to="/item/new">アイテムを投稿する</v-list-item>
+            <v-list-item nuxt to="/topic/new">トピックを投稿する</v-list-item>
           </v-list>
         </v-menu>
-        <v-menu offset-y>
+        <v-menu offset-y rounded="lg">
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" class="hidden-sm-and-down" v-on="on">
               <v-list-item dense>
@@ -52,19 +48,19 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-item dense nuxt :to="'/users/' + currentUser.id">
+            <v-list-item nuxt :to="'/users/' + currentUser.id">
               マイページ
             </v-list-item>
-            <v-list-item dense nuxt to="/item/timeline?page=1">
+            <v-list-item nuxt to="/item/timeline?page=1">
               タイムライン
             </v-list-item>
-            <v-list-item dense nuxt to="/tag/search">
+            <v-list-item nuxt to="/tag/search">
               タグから探す
             </v-list-item>
-            <v-list-item dense nuxt to="/users/setting">
+            <v-list-item nuxt to="/users/setting">
               設定
             </v-list-item>
-            <v-list-item dense @click="logoutUser">
+            <v-list-item @click="logoutUser">
               ログアウト
             </v-list-item>
           </v-list>
@@ -100,7 +96,7 @@
       width="80%"
       class="hidden-md-and-up"
     >
-      <v-list nav dense class="py-0">
+      <v-list nav dense class="py-0 text-center">
         <v-toolbar flat>
           <v-icon class="ml-auto" @click="drawer = false">mdi-close</v-icon>
         </v-toolbar>
@@ -135,83 +131,31 @@
 
         <v-list-item-group>
           <template v-if="!isLoggedIn">
-            <NavigationItem
-              link="/users/login"
-              icon="mdi-login"
-              list-item-title-class="font-weight-bold"
-              text="ログイン"
-            />
-            <NavigationItem
-              link="/users/signup"
-              icon="mdi-account-plus-outline"
-              list-item-title-class="font-weight-bold"
-              text="新規登録"
-            />
-            <NavigationItem
-              link="/"
-              icon="mdi-home"
-              list-item-title-class="font-weight-bold"
-              text="トップページ"
-            />
-            <NavigationItem
-              link="/item/ranking?page=1"
-              icon="mdi-trending-up"
-              list-item-title-class="font-weight-bold"
-              text="人気の投稿"
-            />
-            <NavigationItem
-              link="/tag/search"
-              icon="mdi-magnify"
-              list-item-title-class="font-weight-bold"
-              text="タグから探す"
-            />
+            <NavigationItem link="/users/login" text="ログイン" />
+            <NavigationItem link="/users/signup" text="新規登録" />
+            <v-divider />
+            <NavigationItem link="/" text="トップページ" />
+            <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
+            <NavigationItem link="/tag/search" text="タグから探す" />
           </template>
           <template v-if="isLoggedIn">
-            <NavigationItem
-              link="/item/new"
-              icon="mdi-pencil-outline"
-              list-item-title-class="font-weight-bold"
-              text="投稿する"
-            />
+            <NavigationItem link="/item/new" text="アイテムを投稿する" />
+            <NavigationItem link="/topic/new" text="トピックを投稿する" />
+            <v-divider />
             <NavigationItem
               :link="'/users/' + currentUser.id"
-              icon="mdi-account-outline"
-              list-item-title-class="font-weight-bold"
               text="マイページ"
             />
-            <NavigationItem
-              link="/item/timeline?page=1"
-              icon="mdi-clock-outline"
-              list-item-title-class="font-weight-bold"
-              text="タイムライン"
-            />
-            <NavigationItem
-              link="/item/ranking?page=1"
-              icon="mdi-trending-up"
-              list-item-title-class="font-weight-bold"
-              text="人気の投稿"
-            />
-            <NavigationItem
-              link="/tag/search"
-              icon="mdi-magnify"
-              list-item-title-class="font-weight-bold"
-              text="タグから探す"
-            />
-            <NavigationItem
-              link="/users/setting"
-              icon="mdi-cog-outline"
-              list-item-title-class="font-weight-bold"
-              text="設定"
-            />
-            <v-list-item @click="logoutUser">
-              <v-list-item-icon>
-                <v-icon>mdi-logout</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title class="font-weight-bold">
-                  ログアウト
-                </v-list-item-title>
-              </v-list-item-content>
+            <v-divider />
+            <NavigationItem link="/item/timeline?page=1" text="タイムライン" />
+            <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
+            <NavigationItem link="/tag/search" text="タグから探す" />
+            <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
+            <v-divider />
+            <NavigationItem link="/users/setting" text="設定" />
+            <v-divider />
+            <v-list-item class="text-subtitle-2" @click="logoutUser">
+              ログアウト
             </v-list-item>
           </template>
         </v-list-item-group>
