@@ -6,7 +6,9 @@ class Api::V1::TopicsController < ApplicationController
                                                             {tags: {only: [:id, :name]}},
                                                             {item_likes: {only: :id}},
                                                             {item_comments: {only: :id}}],
-                                                  methods: :image_url}}])
+                                                  methods: :image_url}},
+                                         {user: {only: [:id, :name],
+                                                 methods: :avatar_url}}])
   end
 
   def index

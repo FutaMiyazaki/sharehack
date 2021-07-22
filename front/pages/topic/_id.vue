@@ -4,6 +4,11 @@
     <Loading v-show="loadShow" />
     <v-row justify="center">
       <v-col cols="12" md="4">
+        <UserInformation
+          :user-id="user.id"
+          :user-avatar-url="user.avatar_url"
+          :user-name="user.name"
+        />
         <div style="position: sticky; top: 70px">
           <v-card flat class="mb-5 rounded-lg" color="secondary">
             <v-card-text class="text-caption black--text">
@@ -61,13 +66,15 @@ import PageHeader from '~/components/layout/PageHeader.vue'
 import Loading from '~/components/layout/Loading.vue'
 import ItemCard from '~/components/item/ItemCard.vue'
 import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
+import UserInformation from '~/components/user/UserInformation.vue'
 
 export default {
   components: {
     PageHeader,
     Loading,
     ItemCard,
-    NoContentDisplay
+    NoContentDisplay,
+    UserInformation
   },
   data() {
     return {
@@ -75,6 +82,7 @@ export default {
       loadShow: true,
       afterSearch: false,
       topic: {},
+      user: {},
       items: []
     }
   },
@@ -87,11 +95,12 @@ export default {
     this.$axios
       .get(`api/v1/topics/${this.$route.params.id}`)
       .then((response) => {
-        console.log('取得成功!!!')
         console.log(response)
         this.loadShow = false
         this.afterSearch = true
         this.topic = response.data
+        this.user = response.data.user
+        console.log(this.user)
         this.items = this.topic.items
         this.pageHeadertext = this.topic.title
       })
