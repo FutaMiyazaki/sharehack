@@ -3,7 +3,7 @@ class Item < ApplicationRecord
 
   START_HTTPS_LINK = /\Ahttps:\/\/[^\n]+\Z/
   belongs_to :user
-  belongs_to :topic
+  belongs_to :topic, optional: true
   has_one_attached :image
   has_many :item_likes, dependent: :destroy
   has_many :item_comments, dependent: :destroy
