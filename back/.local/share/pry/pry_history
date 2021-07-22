@@ -34,3 +34,5 @@ Tag.create(name: 'バッグ・財布')
 Item.all
 AAA = Item.find_by(name: 'famas')
 AAA.destroy
+topics = Topic.all
+topics = Topic.first
