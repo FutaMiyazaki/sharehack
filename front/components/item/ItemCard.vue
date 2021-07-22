@@ -23,7 +23,7 @@
         class="text-decoration-none black--text"
       >
         <v-img aspect-ratio="1" :src="item.image_url" />
-        <v-card-title class="pt-1 pb-0">
+        <v-card-title class="pt-1 pb-0 text-subtitle-1">
           {{ item.name }}
         </v-card-title>
       </nuxt-link>
