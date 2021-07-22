@@ -46,6 +46,11 @@ class Api::V1::TopicsController < ApplicationController
     end
   end
 
+  def fetch
+    topic = Topic.find(params[:id])
+    render json: topic.as_json(only: [:id, :title, :description])
+  end
+
   private
     def topic_params
       params.require(:topic).permit(:title, :description, :user_id, :uid)

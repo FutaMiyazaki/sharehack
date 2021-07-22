@@ -33,7 +33,11 @@ Rails.application.routes.draw do
         end
       end
       resources :relationships, only: [:create, :destroy]
-      resources :topics, only: %i[index show create destroy update]
+      resources :topics, only: %i[index show create destroy update] do
+        member do
+          get :fetch
+        end
+      end
     end
   end
 end
