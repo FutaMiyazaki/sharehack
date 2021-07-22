@@ -57,6 +57,9 @@
             <v-list-item nuxt to="/tag/search">
               タグから探す
             </v-list-item>
+            <v-list-item nuxt to="/topic/list?page=1">
+              トピックを探す
+            </v-list-item>
             <v-list-item nuxt to="/users/setting">
               設定
             </v-list-item>
@@ -96,7 +99,7 @@
       width="80%"
       class="hidden-md-and-up"
     >
-      <v-list nav dense class="py-0 text-center">
+      <v-list nav class="py-0 text-center">
         <v-toolbar flat>
           <v-icon class="ml-auto" @click="drawer = false">mdi-close</v-icon>
         </v-toolbar>
@@ -133,7 +136,6 @@
           <template v-if="!isLoggedIn">
             <NavigationItem link="/users/login" text="ログイン" />
             <NavigationItem link="/users/signup" text="新規登録" />
-            <v-divider />
             <NavigationItem link="/" text="トップページ" />
             <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
             <NavigationItem link="/tag/search" text="タグから探す" />
@@ -141,19 +143,15 @@
           <template v-if="isLoggedIn">
             <NavigationItem link="/item/new" text="アイテムを投稿する" />
             <NavigationItem link="/topic/new" text="トピックを投稿する" />
-            <v-divider />
             <NavigationItem
               :link="'/users/' + currentUser.id"
               text="マイページ"
             />
-            <v-divider />
             <NavigationItem link="/item/timeline?page=1" text="タイムライン" />
             <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
             <NavigationItem link="/tag/search" text="タグから探す" />
             <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
-            <v-divider />
             <NavigationItem link="/users/setting" text="設定" />
-            <v-divider />
             <v-list-item class="text-subtitle-2" @click="logoutUser">
               ログアウト
             </v-list-item>
