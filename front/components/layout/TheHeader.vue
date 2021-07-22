@@ -10,8 +10,30 @@
       <SearchForm />
       <v-spacer />
       <template v-if="isLoggedIn">
-        <ToTopicCreateButton />
-        <ToItemCreateButton />
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              text
+              v-bind="attrs"
+              class="hidden-sm-and-down"
+              color="primary"
+              v-on="on"
+            >
+              <v-icon small class="mr-2">
+                mdi-pencil-box-multiple
+              </v-icon>
+              投稿する
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item dense nuxt to="/item/new"
+              >アイテムを投稿する</v-list-item
+            >
+            <v-list-item dense nuxt to="/topic/new"
+              >トピックを投稿する</v-list-item
+            >
+          </v-list>
+        </v-menu>
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" class="hidden-sm-and-down" v-on="on">
@@ -30,36 +52,20 @@
             </v-btn>
           </template>
           <v-list>
-            <NavigationItem
-              link="/item/create"
-              icon="mdi-pencil"
-              text="投稿する"
-            />
-            <NavigationItem
-              :link="'/users/' + currentUser.id"
-              icon="mdi-account"
-              text="マイページ"
-            />
-            <NavigationItem
-              link="/item/timeline?page=1"
-              icon="mdi-clock-outline"
-              text="タイムライン"
-            />
-            <NavigationItem
-              link="/tag/search"
-              icon="mdi-magnify"
-              text="タグから探す"
-            />
-            <NavigationItem link="/users/setting" icon="mdi-cog" text="設定" />
-            <v-list-item @click="logoutUser">
-              <v-list-item-icon>
-                <v-icon>mdi-logout</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>
-                  ログアウト
-                </v-list-item-title>
-              </v-list-item-content>
+            <v-list-item dense nuxt :to="'/users/' + currentUser.id">
+              マイページ
+            </v-list-item>
+            <v-list-item dense nuxt to="/item/timeline?page=1">
+              タイムライン
+            </v-list-item>
+            <v-list-item dense nuxt to="/tag/search">
+              タグから探す
+            </v-list-item>
+            <v-list-item dense nuxt to="/users/setting">
+              設定
+            </v-list-item>
+            <v-list-item dense @click="logoutUser">
+              ログアウト
             </v-list-item>
           </v-list>
         </v-menu>
@@ -162,7 +168,7 @@
           </template>
           <template v-if="isLoggedIn">
             <NavigationItem
-              link="/item/create"
+              link="/item/new"
               icon="mdi-pencil-outline"
               list-item-title-class="font-weight-bold"
               text="投稿する"
@@ -218,15 +224,11 @@
 import { mapGetters, mapActions } from 'vuex'
 import NavigationItem from '~/components/layout/NavigationItem.vue'
 import SearchForm from '~/components/layout/SearchForm.vue'
-import ToItemCreateButton from '~/components/layout/ToItemCreateButton.vue'
-import ToTopicCreateButton from '~/components/layout/ToTopicCreateButton.vue'
 
 export default {
   components: {
     NavigationItem,
-    SearchForm,
-    ToItemCreateButton,
-    ToTopicCreateButton
+    SearchForm
   },
   data() {
     return {
