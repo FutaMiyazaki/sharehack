@@ -8,7 +8,7 @@
         <v-img v-else alt="ユーザーのプロフィール画像" :src="userAvatarUrl" />
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class="font-weight-bold">
+        <v-list-item-title>
           <span class="d-inline-block text-truncate">
             {{ userName }}
           </span>
