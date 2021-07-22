@@ -20,6 +20,7 @@ class Api::V1::ItemsController < ApplicationController
                                                 only: [:id, :name],
                                                 methods: :avatar_url}},
                                         {tags: {only: [:id, :name]}},
+                                        {topic: {only: [:id, :title, :description]}},
                                         {item_likes: {except: [:created_at, :updated_at]}},
                                         item_comments: {include: {user: {only: [:id, :name],
                                                                          methods: :avatar_url}}}],
@@ -136,7 +137,7 @@ class Api::V1::ItemsController < ApplicationController
 
   private
     def item_params
-      params.require(:item).permit(:name, :description, :link, :price, :user_id, :image, :uid)
+      params.require(:item).permit(:name, :description, :link, :price, :user_id, :image, :uid, :topic_id)
     end
 
     def item_tags_params
