@@ -5,8 +5,8 @@
     <v-row justify="center">
       <v-col cols="12" md="4">
         <div style="position: sticky; top: 70px">
-          <v-card flat class="mb-5">
-            <v-card-text class="text-caption">
+          <v-card flat class="mb-5 rounded-lg" color="secondary">
+            <v-card-text class="text-caption black--text">
               <p
                 style="white-space:pre-wrap;"
                 class="mb-0"

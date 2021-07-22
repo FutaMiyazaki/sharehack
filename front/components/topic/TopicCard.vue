@@ -6,15 +6,15 @@
     class="mb-5 rounded-lg"
     color="secondary"
   >
-    <v-card-subtitle class="text-subtitle-2 pb-2"
+    <v-card-subtitle class="pb-1 text-subtitle-2 black--text"
       >所属トピック：</v-card-subtitle
     >
     <v-card-title
-      class="text-subtitle-1 text-decoration-underline blue--text text--lighten-2 pt-0 pb-2"
+      class="text-subtitle-1 text-decoration-underline blue--text text--lighten-2 pt-0 pb-3"
     >
       {{ topic.title }}
     </v-card-title>
-    <v-card-text class="text-caption">
+    <v-card-text class="text-caption black--text">
       <p
         style="white-space:pre-wrap;"
         class="mb-0"
