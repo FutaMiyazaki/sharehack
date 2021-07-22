@@ -1,16 +1,32 @@
 <template>
   <v-container class="pt-0">
-    <PageHeader :text="topic.title + 'に関する投稿一覧'" />
+    <PageHeader :text="pageHeadertext" />
     <Loading v-show="loadShow" />
     <v-row justify="center">
       <v-col cols="12" md="4">
-        <div style="position: sticky; top: 70px" class="hidden-sm-and-down">
-          <p style="white-space:pre-wrap;" v-text="topic.description"></p>
-          <LinkButton
-            link="/tag/search"
-            text="このトピックに関して投稿する"
-            icon="chevron-right"
-          />
+        <div style="position: sticky; top: 70px">
+          <v-card flat class="mb-5">
+            <v-card-text class="text-caption">
+              <p
+                style="white-space:pre-wrap;"
+                class="mb-0"
+                v-text="topic.description"
+              ></p>
+            </v-card-text>
+          </v-card>
+          <v-row justify="center">
+            <v-col cols="12" class="text-center">
+              <v-btn
+                block
+                rounded
+                color="primary"
+                :to="'/topic/new-item/' + this.$route.params.id"
+                class="text-center font-weight-bold"
+              >
+                投稿する<v-icon>mdi-chevron-right</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
         </div>
       </v-col>
       <template v-if="!loadShow">
@@ -43,7 +59,6 @@
 import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import Loading from '~/components/layout/Loading.vue'
-import LinkButton from '~/components/layout/LinkButton.vue'
 import ItemCard from '~/components/item/ItemCard.vue'
 import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 
@@ -51,12 +66,12 @@ export default {
   components: {
     PageHeader,
     Loading,
-    LinkButton,
     ItemCard,
     NoContentDisplay
   },
   data() {
     return {
+      pageHeadertext: '',
       loadShow: true,
       afterSearch: false,
       topic: {},
@@ -78,6 +93,7 @@ export default {
         this.afterSearch = true
         this.topic = response.data
         this.items = this.topic.items
+        this.pageHeadertext = this.topic.title
       })
       .catch((error) => {
         this.loadShow = false
