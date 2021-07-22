@@ -1,14 +1,8 @@
 <template>
-  <v-card
-    flat
-    nuxt
-    :to="'/topic/' + topic.id"
-    class="mb-5 rounded-lg"
-    color="secondary"
-  >
-    <v-card-subtitle class="pb-1 text-subtitle-2 black--text"
-      >所属トピック：</v-card-subtitle
-    >
+  <v-card flat nuxt :to="nuxtLink" class="mb-5 rounded-lg" color="secondary">
+    <v-card-subtitle class="pb-1 text-subtitle-2 black--text">
+      所属トピック：
+    </v-card-subtitle>
     <v-card-title
       class="text-subtitle-1 text-decoration-underline blue--text text--lighten-2 pt-0 pb-3"
     >
@@ -35,6 +29,21 @@ export default {
         title: '',
         description: ''
       })
+    },
+    link: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
+  },
+  computed: {
+    nuxtLink() {
+      if (this.link) {
+        const url = `/topic/${this.topic.id}`
+        return url
+      } else {
+        return false
+      }
     }
   }
 }
