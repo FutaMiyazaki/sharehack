@@ -89,6 +89,9 @@
         <div class="my-5 pa-3 rounded-lg secondary">
           <p style="white-space:pre-wrap;" v-text="item.description"></p>
         </div>
+        <template v-if="item.topic">
+          <TopicCard :topic="item.topic" />
+        </template>
         <v-row>
           <v-col
             v-for="tag in tags"
@@ -232,13 +235,14 @@
 <script>
 import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
-import UserInformation from '~/components/user/UserInformation.vue'
 import FollowButton from '~/components/layout/FollowButton.vue'
-import TagLinkCard from '~/components/tag/TagLinkCard.vue'
 import Loading from '~/components/layout/Loading.vue'
+import PleaseLoginDialog from '~/components/layout/PleaseLoginDialog.vue'
+import UserInformation from '~/components/user/UserInformation.vue'
 import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 import ItemLinkButton from '~/components/item/ItemLinkButton.vue'
-import PleaseLoginDialog from '~/components/layout/PleaseLoginDialog.vue'
+import TagLinkCard from '~/components/tag/TagLinkCard.vue'
+import TopicCard from '~/components/topic/TopicCard.vue'
 
 export default {
   components: {
@@ -249,7 +253,8 @@ export default {
     Loading,
     NoContentDisplay,
     ItemLinkButton,
-    PleaseLoginDialog
+    PleaseLoginDialog,
+    TopicCard
   },
   data() {
     return {
@@ -301,6 +306,7 @@ export default {
     this.$axios
       .get(`api/v1/items/${this.$route.params.id}`)
       .then((response) => {
+        console.log(response)
         this.item = response.data
         this.tags = this.item.tags
         this.likeList = this.item.item_likes
