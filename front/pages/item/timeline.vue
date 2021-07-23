@@ -28,7 +28,7 @@
       <template v-if="!items.length && afterSearch">
         <NoContentDisplay
           icon="mdi-emoticon-sad-outline"
-          text="表示する投稿がありません。"
+          text="表示する投稿がありません"
         />
       </template>
     </template>
