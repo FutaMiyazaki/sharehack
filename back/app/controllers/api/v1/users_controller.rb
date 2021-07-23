@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :show_followings, :show_followers, :like, :update_avatar]
+  before_action :set_user, only: [:show, :show_followings, :show_followers, :like, :topic, :update_avatar]
   def show
     render json: @user.as_json(include: [{items: {include: [:tags,
                                                            :item_likes,
@@ -33,6 +33,11 @@ class Api::V1::UsersController < ApplicationController
                                          {items: {only: :id}},
                                          {followings: {only: [:id, :name]}},
                                          {followers: {only: [:id, :name]}}],
+                               only: [:id, :name])
+  end
+
+  def topic
+    render json: @user.as_json(include: {topics: { include: {items: {only: :id} } } },
                                only: [:id, :name])
   end
 

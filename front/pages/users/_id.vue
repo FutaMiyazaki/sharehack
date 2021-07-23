@@ -151,6 +151,14 @@
                   <v-list-item-title>いいねした投稿</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
+              <v-list-item @click="currentComponent = 'UserTopics'">
+                <v-list-item-icon>
+                  <v-icon>mdi-chat</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>投稿したトピック</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
               <v-list-item @click="currentComponent = 'FollowingList'">
                 <v-list-item-icon>
                   <v-icon>mdi-account-multiple-plus</v-icon>
@@ -183,6 +191,7 @@ import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import UserItems from '~/components/user/UserItems.vue'
 import UserLikes from '~/components/user/UserLikes.vue'
+import UserTopics from '~/components/user/UserTopics.vue'
 import FollowingList from '~/components/user/FollowingList.vue'
 import FollowerList from '~/components/user/FollowerList.vue'
 import PleaseLoginDialog from '~/components/layout/PleaseLoginDialog.vue'
@@ -192,6 +201,7 @@ export default {
     PageHeader,
     UserItems,
     UserLikes,
+    UserTopics,
     FollowingList,
     FollowerList,
     PleaseLoginDialog
