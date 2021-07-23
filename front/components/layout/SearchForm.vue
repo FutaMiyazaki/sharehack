@@ -1,6 +1,6 @@
 <template>
   <ValidationObserver ref="observer" v-slot="{ invalid }">
-    <v-form @submit.prevent="search">
+    <v-form @submit.prevent="search" class="mr-3">
       <ValidationProvider rules="required|max:50" mode="aggressive">
         <v-text-field
           v-model.trim="keyword"

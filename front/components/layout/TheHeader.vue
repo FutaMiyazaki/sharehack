@@ -8,7 +8,6 @@
       </v-toolbar-title>
       <v-spacer />
       <SearchForm />
-      <v-spacer />
       <template v-if="isLoggedIn">
         <v-menu offset-y rounded="lg">
           <template v-slot:activator="{ on, attrs }">
@@ -55,9 +54,9 @@
               タイムライン
             </v-list-item>
             <v-list-item nuxt to="/tag/search">
-              タグから探す
+              タグを探す
             </v-list-item>
-            <v-list-item nuxt to="/topic/list?page=1">
+            <v-list-item nuxt to="/topic/search">
               トピックを探す
             </v-list-item>
             <v-list-item nuxt to="/users/setting">
