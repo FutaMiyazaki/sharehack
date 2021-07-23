@@ -5,12 +5,12 @@
       <v-form ref="form" lazy-validation class="mt-5">
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
-            <FormLabel label-title="タイトルを入力" />
+            <FormLabel label-title="タイトルを入力" label-text="30文字以内" />
           </v-col>
           <v-col cols="12" sm="8" class="pb-0">
             <TextField
               v-model="title"
-              rules="required|max:20"
+              rules="required|max:30"
               label="タイトル"
             />
           </v-col>
