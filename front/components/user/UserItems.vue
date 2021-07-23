@@ -35,7 +35,7 @@
         </v-hover>
       </v-col>
       <template v-if="!items.length">
-        <NoContentDisplay text="まだ投稿はありません" />
+        <NoContentDisplay text="投稿はありません" />
       </template>
     </template>
   </v-row>

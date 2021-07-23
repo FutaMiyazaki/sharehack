@@ -8,9 +8,9 @@
       <v-col v-for="itemLike in itemLikes" :key="itemLike.id" cols="12" sm="6">
         <ItemCard :item="itemLike.item" />
       </v-col>
-      <v-col v-if="!itemLikes.length" class="white">
-        <p class="text-center ma-0">まだ投稿はありません</p>
-      </v-col>
+      <template v-if="!itemLikes.length">
+        <NoContentDisplay text="いいねした投稿はありません" />
+      </template>
     </template>
   </v-row>
 </template>
@@ -18,11 +18,13 @@
 <script>
 import Loading from '~/components/layout/Loading.vue'
 import ItemCard from '~/components/item/ItemCard.vue'
+import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 
 export default {
   components: {
     Loading,
-    ItemCard
+    ItemCard,
+    NoContentDisplay
   },
   data() {
     return {

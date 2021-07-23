@@ -4,7 +4,7 @@
       <v-banner>フォロー</v-banner>
     </v-col>
     <v-col cols="12" class="pt-0">
-      <v-list>
+      <v-list v-if="followings.length">
         <UserInformation
           v-for="following in followings"
           :key="following.id"
@@ -14,15 +14,20 @@
         />
       </v-list>
     </v-col>
+    <template v-if="!followings.length">
+      <NoContentDisplay text="フォローしているユーザーはいません" />
+    </template>
   </v-row>
 </template>
 
 <script>
 import UserInformation from '~/components/user/UserInformation.vue'
+import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 
 export default {
   components: {
-    UserInformation
+    UserInformation,
+    NoContentDisplay
   },
   data() {
     return {

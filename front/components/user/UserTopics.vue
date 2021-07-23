@@ -32,7 +32,7 @@
         </v-card>
       </v-col>
       <template v-if="!topics.length">
-        <NoContentDisplay text="まだ投稿はありません" />
+        <NoContentDisplay text="トピックはありません" />
       </template>
     </template>
   </v-row>
