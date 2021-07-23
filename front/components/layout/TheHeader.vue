@@ -50,6 +50,7 @@
             <v-list-item nuxt :to="'/users/' + currentUser.id">
               マイページ
             </v-list-item>
+            <v-divider class="my-2" />
             <v-list-item nuxt to="/item/timeline?page=1">
               タイムライン
             </v-list-item>
@@ -59,9 +60,11 @@
             <v-list-item nuxt to="/topic/search">
               トピックを探す
             </v-list-item>
+            <v-divider class="my-2" />
             <v-list-item nuxt to="/users/setting">
               設定
             </v-list-item>
+            <v-divider class="my-2" />
             <v-list-item @click="logoutUser">
               ログアウト
             </v-list-item>
