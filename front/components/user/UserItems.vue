@@ -34,19 +34,21 @@
           </v-card>
         </v-hover>
       </v-col>
-      <v-col v-if="!items.length" class="white">
-        <p class="text-center">まだ投稿はありません</p>
-      </v-col>
+      <template v-if="!items.length">
+        <NoContentDisplay text="まだ投稿はありません" />
+      </template>
     </template>
   </v-row>
 </template>
 
 <script>
 import Loading from '~/components/layout/Loading.vue'
+import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 
 export default {
   components: {
-    Loading
+    Loading,
+    NoContentDisplay
   },
   data() {
     return {

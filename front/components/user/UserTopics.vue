@@ -6,7 +6,7 @@
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
       <v-col cols="12" class="pt-0">
-        <v-card flat>
+        <v-card v-if="topics.length" flat>
           <v-list three-line>
             <v-list-item
               v-for="topic in topics"
@@ -31,16 +31,21 @@
           </v-list>
         </v-card>
       </v-col>
+      <template v-if="!topics.length">
+        <NoContentDisplay text="まだ投稿はありません" />
+      </template>
     </template>
   </v-row>
 </template>
 
 <script>
 import Loading from '~/components/layout/Loading.vue'
+import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 
 export default {
   components: {
-    Loading
+    Loading,
+    NoContentDisplay
   },
   data() {
     return {
