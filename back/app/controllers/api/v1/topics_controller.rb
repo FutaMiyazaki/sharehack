@@ -53,6 +53,15 @@ class Api::V1::TopicsController < ApplicationController
     render json: topic.as_json(only: [:id, :title, :description])
   end
 
+  def search
+    if params[:keyword]
+      topics = Topic.search(params[:keyword])
+      render json: topics.as_json(include: [{user: {only: [:id, :name],
+                                                    methods: :avatar_url}},
+                                            {items: {only: :id}}])
+    end
+  end
+
   private
     def topic_params
       params.require(:topic).permit(:title, :description, :user_id, :uid)
