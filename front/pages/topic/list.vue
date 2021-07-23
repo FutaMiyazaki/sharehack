@@ -66,7 +66,7 @@ export default {
     return {
       loadShow: true,
       topicTitle: '',
-      items: [],
+      topics: [],
       showPages: 1,
       totalPages: 0,
       totalCount: ''
@@ -91,8 +91,6 @@ export default {
         }
       })
       .then((response) => {
-        console.log('取得成功')
-        console.log(response)
         this.loadShow = false
         this.topics = response.data
       })
