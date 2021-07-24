@@ -31,6 +31,17 @@
                 投稿する<v-icon>mdi-chevron-right</v-icon>
               </v-btn>
             </v-col>
+            <v-col
+              v-if="isLoggedIn && currentUser.id == user.id"
+              cols="12"
+              class="text-center"
+            >
+              <LinkButton
+                :link="'/topic/edit/' + topic.id"
+                text="トピックを編集する"
+                icon="chevron-right"
+              />
+            </v-col>
           </v-row>
         </div>
       </v-col>
@@ -64,6 +75,7 @@
 import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
 import Loading from '~/components/layout/Loading.vue'
+import LinkButton from '~/components/layout/LinkButton.vue'
 import ItemCard from '~/components/item/ItemCard.vue'
 import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 import UserInformation from '~/components/user/UserInformation.vue'
@@ -72,6 +84,7 @@ export default {
   components: {
     PageHeader,
     Loading,
+    LinkButton,
     ItemCard,
     NoContentDisplay,
     UserInformation
@@ -88,6 +101,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      isLoggedIn: 'authentication/isLoggedIn',
       currentUser: 'authentication/currentUser'
     })
   },

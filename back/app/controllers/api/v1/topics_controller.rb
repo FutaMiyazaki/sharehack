@@ -40,7 +40,6 @@ class Api::V1::TopicsController < ApplicationController
 
   def update
     topic = Topic.find(params[:id])
-    return if User.find(topic.user_id).email != topic_params[:uid]
     if topic.update(topic_params.except(:uid))
       render json: topic.as_json(only: :id)
     else
