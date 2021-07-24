@@ -95,12 +95,10 @@ export default {
     this.$axios
       .get(`api/v1/topics/${this.$route.params.id}`)
       .then((response) => {
-        console.log(response)
         this.loadShow = false
         this.afterSearch = true
         this.topic = response.data
         this.user = response.data.user
-        console.log(this.user)
         this.items = this.topic.items
         this.pageHeadertext = this.topic.title
       })
