@@ -92,8 +92,7 @@ export default {
         })
         .then((response) => {
           this.loadShow = false
-          // this.$router.push(`/topic/${response.data.id}`)
-          this.$router.push({ path: '/topic/list', query: { page: 1 } })
+          this.$router.push(`/topic/${response.data.id}`)
           this.showMessage({
             text: 'トピックの投稿に成功しました',
             status: true
