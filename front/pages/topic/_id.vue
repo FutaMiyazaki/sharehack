@@ -35,7 +35,7 @@
         </div>
       </v-col>
       <template v-if="!loadShow">
-        <v-col cols="12" md="8">
+        <v-col cols="12" md="8" class="mt-5">
           <v-row>
             <v-col
               v-for="item in items"
@@ -51,7 +51,7 @@
           <template v-if="!items.length && afterSearch">
             <NoContentDisplay
               icon="mdi-emoticon-sad-outline"
-              text="まだこのトピックに関する投稿がありません"
+              text="このトピックに関する投稿がありません"
             />
           </template>
         </v-col>
