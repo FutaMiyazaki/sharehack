@@ -48,7 +48,7 @@
     </template>
     <template v-if="topics.length && afterSearch">
       <v-row justify="center">
-        <v-col cols="12" md="7">
+        <v-col cols="12" md="8">
           <v-col cols="12" class="pa-0">
             <v-banner>トピック</v-banner>
           </v-col>
