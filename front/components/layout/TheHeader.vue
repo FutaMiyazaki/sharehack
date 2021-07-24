@@ -7,7 +7,7 @@
         </nuxt-link>
       </v-toolbar-title>
       <v-spacer />
-      <SearchForm />
+      <SearchItemForm />
       <template v-if="isLoggedIn">
         <v-menu offset-y rounded="lg">
           <template v-slot:activator="{ on, attrs }">
@@ -167,12 +167,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import NavigationItem from '~/components/layout/NavigationItem.vue'
-import SearchForm from '~/components/layout/SearchForm.vue'
+import SearchItemForm from '~/components/layout/SearchItemForm.vue'
 
 export default {
   components: {
     NavigationItem,
-    SearchForm
+    SearchItemForm
   },
   data() {
     return {
