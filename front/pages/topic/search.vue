@@ -121,7 +121,6 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response)
           this.afterSearch = true
           this.loadShow = false
           this.topics = response
@@ -151,7 +150,6 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response)
           this.afterSearch = true
           this.loadShow = false
           this.topics = response
