@@ -113,24 +113,26 @@ export default {
     }
   },
   created() {
-    this.$axios
-      .$get('/api/v1/topics/search', {
-        params: {
-          keyword: this.$route.query.keyword
-        }
-      })
-      .then((response) => {
-        console.log(response)
-        this.afterSearch = true
-        this.loadShow = false
-        this.topics = response
-        this.pageHeaderText = `${this.$route.query.keyword}の検索結果：${this.topics.length}件`
-      })
-      .catch((error) => {
-        this.afterSearch = true
-        this.loadShow = false
-        return error
-      })
+    if (this.$route.query.keyword) {
+      this.$axios
+        .$get('/api/v1/topics/search', {
+          params: {
+            keyword: this.$route.query.keyword
+          }
+        })
+        .then((response) => {
+          console.log(response)
+          this.afterSearch = true
+          this.loadShow = false
+          this.topics = response
+          this.pageHeaderText = `${this.$route.query.keyword}の検索結果：${this.topics.length}件`
+        })
+        .catch((error) => {
+          this.afterSearch = true
+          this.loadShow = false
+          return error
+        })
+    }
   },
   methods: {
     async searchTopic() {
