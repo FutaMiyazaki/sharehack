@@ -6,7 +6,7 @@
       <v-row justify="center">
         <v-col cols="12" md="8">
           <ValidationObserver v-slot="{ invalid }">
-            <v-form lazy-validation class="mb-5" @submit.prevent="searchTopic">
+            <v-form lazy-validation class="my-4" @submit.prevent="searchTopic">
               <ValidationProvider
                 v-slot="{ errors }"
                 rules="required|max:30"
@@ -20,7 +20,7 @@
                   outlined
                   hide-details
                   background-color="secondary"
-                  label="キーワード検索"
+                  label="トピックを検索"
                   :error-messages="errors"
                 >
                   <template v-slot:append-outer>
