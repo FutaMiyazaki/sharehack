@@ -16,7 +16,9 @@
               <nuxt-link :to="'/item/' + item.id">
                 <v-img aspect-ratio="1" :src="item.image_url" />
               </nuxt-link>
-              <v-card-title class="py-0">{{ item.name }}</v-card-title>
+              <v-card-title class="pt-1 pb-0 text-subtitle-1">
+                {{ item.name }}
+              </v-card-title>
               <v-card-actions>
                 <v-row class="px-1 py-2">
                   <v-chip
