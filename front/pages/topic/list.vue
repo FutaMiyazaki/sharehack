@@ -4,7 +4,43 @@
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
       <v-row justify="center">
-        <v-col cols="12" md="7">
+        <v-col cols="12" md="8">
+          <ValidationObserver v-slot="{ invalid }">
+            <v-form lazy-validation class="mb-5" @submit.prevent="searchTopic">
+              <ValidationProvider
+                v-slot="{ errors }"
+                rules="required|max:30"
+                mode="lazy"
+              >
+                <v-text-field
+                  v-model.trim="keyword"
+                  flat
+                  solo
+                  rounded
+                  outlined
+                  hide-details
+                  background-color="secondary"
+                  label="キーワード検索"
+                  :error-messages="errors"
+                >
+                  <template v-slot:append-outer>
+                    <v-btn
+                      v-if="!loadShow"
+                      icon
+                      large
+                      :disabled="invalid"
+                      @click="searchTopic"
+                    >
+                      <v-icon>mdi-magnify</v-icon>
+                    </v-btn>
+                    <Loading v-show="loadShow" />
+                  </template>
+                </v-text-field>
+              </ValidationProvider>
+            </v-form>
+          </ValidationObserver>
+        </v-col>
+        <v-col cols="12" md="8">
           <v-card flat>
             <v-list three-line class="py-0">
               <v-list-item
@@ -64,6 +100,7 @@ export default {
   },
   data() {
     return {
+      keyword: '',
       loadShow: true,
       topicTitle: '',
       topics: [],
@@ -121,6 +158,12 @@ export default {
           this.loadShow = false
           return error
         })
+    },
+    searchTopic() {
+      this.$router.push({
+        path: '/topic/search',
+        query: { keyword: this.keyword }
+      })
     }
   },
   head() {
