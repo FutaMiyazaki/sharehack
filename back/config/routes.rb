@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         member do
           get :like
           get :topic
+          get :show_items
           get :show_followings
           get :show_followers
           patch :update_avatar
