@@ -6,7 +6,7 @@
       <v-row justify="center">
         <v-col cols="12" md="7">
           <v-card flat>
-            <v-list three-line>
+            <v-list three-line class="py-0">
               <v-list-item
                 v-for="topic in topics"
                 :key="topic.id"
