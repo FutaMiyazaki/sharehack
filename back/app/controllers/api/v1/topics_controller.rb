@@ -49,7 +49,7 @@ class Api::V1::TopicsController < ApplicationController
 
   def fetch
     topic = Topic.find(params[:id])
-    render json: topic.as_json(only: [:id, :title, :description])
+    render json: topic.as_json(only: [:id, :title, :description, :updated_at])
   end
 
   def search

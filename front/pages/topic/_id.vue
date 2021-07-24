@@ -10,7 +10,7 @@
           :user-name="user.name"
         />
         <div style="position: sticky; top: 70px">
-          <v-card flat class="mb-5 rounded-lg" color="secondary">
+          <v-card flat class="mb-2 rounded-lg" color="secondary">
             <v-card-text class="text-caption black--text">
               <p
                 style="white-space:pre-wrap;"
@@ -19,6 +19,10 @@
               ></p>
             </v-card-text>
           </v-card>
+          <p class="mb-5 text-caption text-right">
+            <v-icon small>mdi-clock-outline</v-icon>
+            {{ $moment(topic.updated_at).format('YYYY/MM/DD HH:mm') }}
+          </p>
           <v-row justify="center">
             <v-col cols="12" class="text-center">
               <v-btn
