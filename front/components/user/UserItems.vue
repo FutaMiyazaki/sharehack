@@ -104,7 +104,6 @@ export default {
         }
       })
       .then((response) => {
-        console.log(response)
         this.loadShow = false
         this.items = response.data
       })
