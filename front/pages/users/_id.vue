@@ -125,9 +125,10 @@
                     outlined
                     color="primary"
                     to="/users/setting"
+                    class="text-caption"
                   >
-                    <v-icon class="mr-3">mdi-cog</v-icon>
-                    アカウントを編集する
+                    <v-icon left>mdi-cog</v-icon>
+                    アカウントを編集
                   </v-btn>
                 </div>
               </v-list-item-content>

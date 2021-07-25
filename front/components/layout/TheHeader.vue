@@ -101,12 +101,12 @@
       width="80%"
       class="hidden-md-and-up"
     >
-      <v-list nav class="py-0 text-center">
+      <v-list nav class="pa-0 text-center">
         <v-toolbar flat>
           <v-icon class="ml-auto" @click="drawer = false">mdi-close</v-icon>
         </v-toolbar>
         <ValidationObserver ref="observer" v-slot="{ invalid }">
-          <v-form class="mx-2 mb-2" @submit.prevent="search">
+          <v-form class="mx-1 mb-2" @submit.prevent="search">
             <ValidationProvider rules="required|max:50" mode="aggressive">
               <v-text-field
                 v-model.trim="keyword"
@@ -133,14 +133,45 @@
             </ValidationProvider>
           </v-form>
         </ValidationObserver>
-
-        <v-list-item-group>
+        <v-list-item-group class="px-2">
           <template v-if="!isLoggedIn">
-            <NavigationItem link="/users/login" text="ログイン" />
-            <NavigationItem link="/users/signup" text="新規登録" />
+            <v-list-item
+              nuxt
+              dense
+              color="white"
+              to="/users/login"
+              class="text-caption black--text text-center mb-0 px-0"
+            >
+              <v-btn
+                block
+                small
+                outlined
+                color="primary"
+                class="font-weight-bold text-caption"
+              >
+                ログイン
+              </v-btn>
+            </v-list-item>
+            <v-list-item
+              nuxt
+              dense
+              color="white"
+              to="/users/signup"
+              class="text-caption black--text text-center mb-0 px-0"
+            >
+              <v-btn
+                block
+                small
+                color="primary"
+                class="font-weight-bold text-caption white--text"
+              >
+                新規登録
+              </v-btn>
+            </v-list-item>
             <NavigationItem link="/" text="トップページ" />
             <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
             <NavigationItem link="/tag/search" text="タグから探す" />
+            <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
           </template>
           <template v-if="isLoggedIn">
             <NavigationItem link="/item/new" text="アイテムを投稿する" />
@@ -154,8 +185,19 @@
             <NavigationItem link="/tag/search" text="タグから探す" />
             <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
             <NavigationItem link="/users/setting" text="設定" />
-            <v-list-item class="text-subtitle-2" @click="logoutUser">
-              ログアウト
+            <v-list-item
+              nuxt
+              class="text-caption black--text text-center mb-0 px-0"
+            >
+              <v-btn
+                text
+                block
+                small
+                class="font-weight-bold text-caption"
+                @click="logoutUser"
+              >
+                ログアウト
+              </v-btn>
             </v-list-item>
           </template>
         </v-list-item-group>
