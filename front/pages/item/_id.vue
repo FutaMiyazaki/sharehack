@@ -163,7 +163,7 @@
                         <v-btn
                           rounded
                           depressed
-                          class="font-weight-bold"
+                          class="font-weight-bold text-caption"
                           width="45%"
                           @click="dialog = false"
                         >
@@ -172,7 +172,7 @@
                         <v-btn
                           rounded
                           color="warning"
-                          class="white--text font-weight-bold"
+                          class="white--text font-weight-bold text-caption"
                           width="45%"
                           @click="deleteComment(comment.id)"
                         >
