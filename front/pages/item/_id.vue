@@ -15,8 +15,12 @@
           <template v-if="isLoggedIn && currentUser.id == item.user.id">
             <v-col cols="5" align="right">
               <nuxt-link
-                :to="{ name: 'item-edit-id', params: { id: item.id } }"
+                :to="'/item/edit/' + item.id"
+                class="text-decoration-none"
               >
+                <v-icon small color="primary" class="mb-1">
+                  mdi-pencil-outline
+                </v-icon>
                 編集する
               </nuxt-link>
             </v-col>

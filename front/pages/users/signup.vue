@@ -58,17 +58,17 @@
                 block
                 rounded
                 color="accent"
-                class="white--text font-weight-bold"
+                class="white--text font-weight-bold text-caption"
                 @click="guestLogin"
               >
                 ゲストユーザーでログイン
               </v-btn>
             </v-card-actions>
-            <v-card-actions class="mt-2 py-0 justify-center">
+            <v-card-actions class="mt-2 py-0 justify-center text-caption">
               アカウントをお持ちの方はこちらから
             </v-card-actions>
             <v-card-actions class="pt-0 justify-center">
-              <nuxt-link to="/users/login">ログイン</nuxt-link>
+              <TextLink link="/users/login" text="ログイン" />
             </v-card-actions>
           </v-card-text>
         </v-card>
@@ -80,12 +80,14 @@
 <script>
 import { mapActions } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
+import TextLink from '~/components/layout/TextLink.vue'
 import TextField from '~/components/input/TextField.vue'
 import PasswordField from '~/components/input/PasswordField.vue'
 
 export default {
   components: {
     PageHeader,
+    TextLink,
     TextField,
     PasswordField
   },
