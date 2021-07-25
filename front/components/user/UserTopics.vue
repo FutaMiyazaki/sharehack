@@ -59,7 +59,6 @@ export default {
       .get(`api/v1/users/${this.$route.params.id}/topic`)
       .then((response) => {
         this.loadShow = false
-        console.log(response)
         this.user = response.data
         this.topics = this.user.topics
       })
