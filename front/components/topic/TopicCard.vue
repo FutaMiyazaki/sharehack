@@ -1,14 +1,14 @@
 <template>
-  <v-card flat nuxt :to="nuxtLink" class="mb-5 rounded-lg" color="secondary">
+  <v-card flat class="mb-5 rounded-lg" color="secondary">
     <v-card-subtitle class="pb-1 text-subtitle-2 black--text">
       所属トピック：
     </v-card-subtitle>
-    <v-card-title
-      class="text-subtitle-1 text-decoration-underline blue--text text--lighten-2 pt-0 pb-3"
-    >
-      {{ topic.title }}
-    </v-card-title>
-    <v-card-text class="text-caption">
+    <NuxtLink :to="nuxtLink">
+      <v-card-title class="text-subtitle-1 py-0">
+        {{ topic.title }}
+      </v-card-title>
+    </NuxtLink>
+    <v-card-text class="text-caption pt-3">
       <p
         style="white-space:pre-wrap;"
         class="mb-0"

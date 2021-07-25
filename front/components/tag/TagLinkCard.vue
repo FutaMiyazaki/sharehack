@@ -2,7 +2,7 @@
   <v-hover v-slot="{ hover }">
     <v-card
       outlined
-      :elevation="hover ? 16 : 0"
+      :elevation="hover ? 4 : 0"
       :class="{ 'on-hover': hover }"
       @click="toTagItems(tagId)"
     >

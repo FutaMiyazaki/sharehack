@@ -8,19 +8,15 @@
       <template v-if="items.length">
         <v-col v-for="item in items" :key="item.id" cols="12" md="6">
           <v-hover v-slot="{ hover }">
-            <v-card
-              outlined
-              :elevation="hover ? 16 : 0"
-              :class="{ 'on-hover': hover }"
-            >
-              <nuxt-link :to="'/item/' + item.id">
+            <v-card outlined :elevation="hover ? 8 : 0">
+              <nuxt-link :to="'/item/' + item.id" class="text-decoration-none">
                 <v-img aspect-ratio="1" :src="item.image_url" />
+                <v-card-title class="pt-1 pb-0 text-subtitle-1 primary--text">
+                  {{ item.name }}
+                </v-card-title>
               </nuxt-link>
-              <v-card-title class="pt-1 pb-0 text-subtitle-1">
-                {{ item.name }}
-              </v-card-title>
               <v-card-actions>
-                <v-row class="px-1 py-2">
+                <v-row class="pa-2">
                   <v-chip
                     v-for="tag in item.tags"
                     :key="`item-${item.id}-tag-${tag.id}`"
