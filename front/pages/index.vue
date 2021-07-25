@@ -2,12 +2,12 @@
   <v-container class="pt-0">
     <v-row class="mt-3">
       <v-col cols="12" md="4">
-        <v-banner>探す</v-banner>
-        <v-list nav dense rounded>
+        <v-banner>アイテムを探す</v-banner>
+        <v-list dense rounded>
           <v-list-item-group v-model="selectedItem" color="primary">
             <v-list-item @click="currentComponent = 'LatestItems'">
               <v-list-item-icon>
-                <v-icon>mdi-rss</v-icon>
+                <v-icon>mdi-image-plus</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>最新の投稿</v-list-item-title>
@@ -34,10 +34,31 @@
             </v-list-item>
           </v-list-item-group>
         </v-list>
+        <v-banner class="mt-7 hidden-sm-and-down">トピック</v-banner>
+        <v-list dense rounded class="hidden-sm-and-down">
+          <v-list-item-group v-model="selectedItem" color="primary">
+            <v-list-item nuxt to="/topic/list?page=1">
+              <v-list-item-icon>
+                <v-icon>mdi-shape-rectangle-plus</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>新着トピック</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item nuxt to="/topic/search">
+              <v-list-item-icon>
+                <v-icon>mdi-magnify</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>トピックを探す</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
         <v-row class="mt-4 hidden-sm-and-down">
           <v-col cols="12">
             <v-banner>タグ</v-banner>
-            <v-list dense>
+            <v-list dense rounded>
               <v-list-item-group color="primary">
                 <v-list-item
                   v-for="tag in tags"
@@ -66,10 +87,31 @@
         <component :is="currentComponent" />
       </v-col>
     </v-row>
+    <v-banner class="mt-7 hidden-md-and-up">トピック</v-banner>
+    <v-list dense rounded class="hidden-md-and-up">
+      <v-list-item-group v-model="selectedItem" color="primary">
+        <v-list-item nuxt to="/topic/list?page=1">
+          <v-list-item-icon>
+            <v-icon>mdi-shape-rectangle-plus</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>新着トピック</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item nuxt to="/topic/search">
+          <v-list-item-icon>
+            <v-icon>mdi-magnify</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>トピックを探す</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
     <v-row class="mt-4 hidden-md-and-up">
       <v-col cols="12">
         <v-banner>タグ</v-banner>
-        <v-list dense>
+        <v-list dense rounded>
           <v-list-item-group color="primary">
             <v-list-item
               v-for="tag in tags"

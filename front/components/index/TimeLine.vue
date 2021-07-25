@@ -5,23 +5,28 @@
     </v-col>
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
-      <v-col
-        v-for="item in items"
-        :key="item.id"
-        cols="12"
-        lg="4"
-        md="6"
-        sm="6"
-      >
-        <ItemCard :item="item" />
-      </v-col>
-      <v-col cols="12" sm="6" class="text-center">
-        <LinkButton
-          link="/item/timeline?page=1"
-          text="もっと見る"
-          icon="chevron-right"
-        />
-      </v-col>
+      <template v-if="!items.length">
+        <NoContentDisplay text="フォローしているユーザーがいません" />
+      </template>
+      <template v-else>
+        <v-col
+          v-for="item in items"
+          :key="item.id"
+          cols="12"
+          lg="4"
+          md="6"
+          sm="6"
+        >
+          <ItemCard :item="item" />
+        </v-col>
+        <v-col cols="12" sm="6" class="text-center">
+          <LinkButton
+            link="/item/timeline?page=1"
+            text="もっと見る"
+            icon="chevron-right"
+          />
+        </v-col>
+      </template>
     </template>
   </v-row>
 </template>
@@ -31,12 +36,14 @@ import { mapGetters } from 'vuex'
 import Loading from '~/components/layout/Loading.vue'
 import ItemCard from '~/components/item/ItemCard.vue'
 import LinkButton from '~/components/layout/LinkButton.vue'
+import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 
 export default {
   components: {
     Loading,
     ItemCard,
-    LinkButton
+    LinkButton,
+    NoContentDisplay
   },
   data() {
     return {

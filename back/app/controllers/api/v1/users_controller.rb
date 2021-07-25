@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :show_followings, :show_followers, :like, :update_avatar]
+  before_action :set_user, only: [:show, :show_items, :show_followings, :show_followers, :like, :topic, :update_avatar]
+
   def show
     render json: @user.as_json(include: [{items: {include: [:tags,
                                                            :item_likes,
@@ -10,6 +11,19 @@ class Api::V1::UsersController < ApplicationController
                                          {followers: {only: [:id, :name]}}],
                                methods: :avatar_url,
                                only: [:id, :name])
+  end
+
+  def show_items
+    if params[:page]
+      items = @user.items.page(params[:page]).per(12)
+      render json: items.as_json(include: [{tags: {only: [:id, :name, :created_at]}},
+                                           {item_likes: {only: :id}},
+                                           {item_comments: {only: :id}}],
+                                 methods: :image_url)
+    else
+      items = @user.items
+      render json: items.as_json(only: :id)
+    end
   end
 
   def show_followings
@@ -36,9 +50,12 @@ class Api::V1::UsersController < ApplicationController
                                only: [:id, :name])
   end
 
-  def update_avatar
-    # return if @user.email != params[:uid]
+  def topic
+    render json: @user.as_json(include: {topics: { include: {items: {only: :id} } } },
+                               only: [:id, :name])
+  end
 
+  def update_avatar
     if @user.update(user_params)
       render json: @user.as_json
     else

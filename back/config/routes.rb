@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       resources :users do
         member do
           get :like
+          get :topic
+          get :show_items
           get :show_followings
           get :show_followers
           patch :update_avatar
@@ -33,6 +35,15 @@ Rails.application.routes.draw do
         end
       end
       resources :relationships, only: [:create, :destroy]
+      namespace :topics do
+        get :ranking
+      end
+      resources :topics, only: %i[index show create destroy update] do
+        get :search, on: :collection
+        member do
+          get :fetch
+        end
+      end
     end
   end
 end

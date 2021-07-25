@@ -1,6 +1,6 @@
 <template>
   <v-hover v-slot="{ hover }">
-    <v-card outlined :elevation="hover ? 16 : 0" :class="{ 'on-hover': hover }">
+    <v-card outlined :elevation="hover ? 8 : 0">
       <v-card-actions class="pa-0">
         <v-list-item dense nuxt :to="'/users/' + item.user.id" class="px-2">
           <v-list-item-avatar>
@@ -18,12 +18,9 @@
           </v-list-item-content>
         </v-list-item>
       </v-card-actions>
-      <nuxt-link
-        :to="'/item/' + item.id"
-        class="text-decoration-none black--text"
-      >
+      <nuxt-link :to="'/item/' + item.id" class="text-decoration-none">
         <v-img aspect-ratio="1" :src="item.image_url" />
-        <v-card-title class="pt-1 pb-0">
+        <v-card-title class="pt-1 pb-0 text-subtitle-1 primary--text">
           {{ item.name }}
         </v-card-title>
       </nuxt-link>

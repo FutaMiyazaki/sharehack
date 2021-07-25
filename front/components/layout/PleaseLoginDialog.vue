@@ -36,7 +36,7 @@
           rounded
           outlined
           color="primary"
-          class="white--text font-weight-bold"
+          class="white--text font-weight-bold text-caption"
           to="/users/signup"
         >
           アカウント作成
@@ -47,7 +47,7 @@
           block
           rounded
           color="primary"
-          class="white--text font-weight-bold"
+          class="white--text font-weight-bold text-caption"
           to="/users/login"
         >
           ログイン

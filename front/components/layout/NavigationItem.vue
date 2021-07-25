@@ -1,13 +1,13 @@
 <template>
-  <v-list-item class="ma-auto" :to="link">
-    <v-list-item-icon>
-      <v-icon :color="iconColor">{{ icon }}</v-icon>
-    </v-list-item-icon>
-    <v-list-item-content>
-      <v-list-item-title :class="listItemTitleClass">{{
-        text
-      }}</v-list-item-title>
-    </v-list-item-content>
+  <v-list-item
+    dense
+    nuxt
+    :to="link"
+    class="text-caption black--text text-center mb-0 px-0"
+  >
+    <v-btn text block small class="font-weight-bold text-caption">
+      {{ text }}
+    </v-btn>
   </v-list-item>
 </template>
 
@@ -17,18 +17,6 @@ export default {
     link: {
       type: String,
       required: true
-    },
-    iconColor: {
-      type: String,
-      default: ''
-    },
-    icon: {
-      type: String,
-      required: true
-    },
-    listItemTitleClass: {
-      type: String,
-      default: ''
     },
     text: {
       type: String,

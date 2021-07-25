@@ -7,11 +7,29 @@
         </nuxt-link>
       </v-toolbar-title>
       <v-spacer />
-      <SearchForm />
-      <v-spacer />
+      <SearchItemForm />
       <template v-if="isLoggedIn">
-        <ToItemCreateButton />
-        <v-menu offset-y>
+        <v-menu offset-y rounded="lg">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              text
+              v-bind="attrs"
+              class="hidden-sm-and-down font-weight-bold"
+              color="primary"
+              v-on="on"
+            >
+              <v-icon small class="mr-2">
+                mdi-pencil-box-multiple
+              </v-icon>
+              投稿する
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item nuxt to="/item/new">アイテムを投稿する</v-list-item>
+            <v-list-item nuxt to="/topic/new">トピックを投稿する</v-list-item>
+          </v-list>
+        </v-menu>
+        <v-menu offset-y rounded="lg">
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" class="hidden-sm-and-down" v-on="on">
               <v-list-item dense>
@@ -29,36 +47,26 @@
             </v-btn>
           </template>
           <v-list>
-            <NavigationItem
-              link="/item/create"
-              icon="mdi-pencil"
-              text="投稿する"
-            />
-            <NavigationItem
-              :link="'/users/' + currentUser.id"
-              icon="mdi-account"
-              text="マイページ"
-            />
-            <NavigationItem
-              link="/item/timeline?page=1"
-              icon="mdi-clock-outline"
-              text="タイムライン"
-            />
-            <NavigationItem
-              link="/tag/search"
-              icon="mdi-magnify"
-              text="タグから探す"
-            />
-            <NavigationItem link="/users/setting" icon="mdi-cog" text="設定" />
+            <v-list-item nuxt :to="'/users/' + currentUser.id">
+              マイページ
+            </v-list-item>
+            <v-divider class="my-2" />
+            <v-list-item nuxt to="/item/timeline?page=1">
+              タイムライン
+            </v-list-item>
+            <v-list-item nuxt to="/tag/search">
+              タグを探す
+            </v-list-item>
+            <v-list-item nuxt to="/topic/search">
+              トピックを探す
+            </v-list-item>
+            <v-divider class="my-2" />
+            <v-list-item nuxt to="/users/setting">
+              設定
+            </v-list-item>
+            <v-divider class="my-2" />
             <v-list-item @click="logoutUser">
-              <v-list-item-icon>
-                <v-icon>mdi-logout</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>
-                  ログアウト
-                </v-list-item-title>
-              </v-list-item-content>
+              ログアウト
             </v-list-item>
           </v-list>
         </v-menu>
@@ -93,12 +101,12 @@
       width="80%"
       class="hidden-md-and-up"
     >
-      <v-list nav dense class="py-0">
+      <v-list nav class="pa-0 text-center">
         <v-toolbar flat>
           <v-icon class="ml-auto" @click="drawer = false">mdi-close</v-icon>
         </v-toolbar>
         <ValidationObserver ref="observer" v-slot="{ invalid }">
-          <v-form class="mx-2 mb-2" @submit.prevent="search">
+          <v-form class="mx-1 mb-2" @submit.prevent="search">
             <ValidationProvider rules="required|max:50" mode="aggressive">
               <v-text-field
                 v-model.trim="keyword"
@@ -125,86 +133,71 @@
             </ValidationProvider>
           </v-form>
         </ValidationObserver>
-
-        <v-list-item-group>
+        <v-list-item-group class="px-2">
           <template v-if="!isLoggedIn">
-            <NavigationItem
-              link="/users/login"
-              icon="mdi-login"
-              list-item-title-class="font-weight-bold"
-              text="ログイン"
-            />
-            <NavigationItem
-              link="/users/signup"
-              icon="mdi-account-plus-outline"
-              list-item-title-class="font-weight-bold"
-              text="新規登録"
-            />
-            <NavigationItem
-              link="/"
-              icon="mdi-home"
-              list-item-title-class="font-weight-bold"
-              text="トップページ"
-            />
-            <NavigationItem
-              link="/item/ranking?page=1"
-              icon="mdi-trending-up"
-              list-item-title-class="font-weight-bold"
-              text="人気の投稿"
-            />
-            <NavigationItem
-              link="/tag/search"
-              icon="mdi-magnify"
-              list-item-title-class="font-weight-bold"
-              text="タグから探す"
-            />
+            <v-list-item
+              nuxt
+              dense
+              color="white"
+              to="/users/login"
+              class="text-caption black--text text-center mb-0 px-0"
+            >
+              <v-btn
+                block
+                small
+                outlined
+                color="primary"
+                class="font-weight-bold text-caption"
+              >
+                ログイン
+              </v-btn>
+            </v-list-item>
+            <v-list-item
+              nuxt
+              dense
+              color="white"
+              to="/users/signup"
+              class="text-caption black--text text-center mb-0 px-0"
+            >
+              <v-btn
+                block
+                small
+                color="primary"
+                class="font-weight-bold text-caption white--text"
+              >
+                新規登録
+              </v-btn>
+            </v-list-item>
+            <NavigationItem link="/" text="トップページ" />
+            <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
+            <NavigationItem link="/tag/search" text="タグから探す" />
+            <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
           </template>
           <template v-if="isLoggedIn">
-            <NavigationItem
-              link="/item/create"
-              icon="mdi-pencil-outline"
-              list-item-title-class="font-weight-bold"
-              text="投稿する"
-            />
+            <NavigationItem link="/item/new" text="アイテムを投稿する" />
+            <NavigationItem link="/topic/new" text="トピックを投稿する" />
             <NavigationItem
               :link="'/users/' + currentUser.id"
-              icon="mdi-account-outline"
-              list-item-title-class="font-weight-bold"
               text="マイページ"
             />
-            <NavigationItem
-              link="/item/timeline?page=1"
-              icon="mdi-clock-outline"
-              list-item-title-class="font-weight-bold"
-              text="タイムライン"
-            />
-            <NavigationItem
-              link="/item/ranking?page=1"
-              icon="mdi-trending-up"
-              list-item-title-class="font-weight-bold"
-              text="人気の投稿"
-            />
-            <NavigationItem
-              link="/tag/search"
-              icon="mdi-magnify"
-              list-item-title-class="font-weight-bold"
-              text="タグから探す"
-            />
-            <NavigationItem
-              link="/users/setting"
-              icon="mdi-cog-outline"
-              list-item-title-class="font-weight-bold"
-              text="設定"
-            />
-            <v-list-item @click="logoutUser">
-              <v-list-item-icon>
-                <v-icon>mdi-logout</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title class="font-weight-bold">
-                  ログアウト
-                </v-list-item-title>
-              </v-list-item-content>
+            <NavigationItem link="/item/timeline?page=1" text="タイムライン" />
+            <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
+            <NavigationItem link="/tag/search" text="タグから探す" />
+            <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
+            <NavigationItem link="/users/setting" text="設定" />
+            <v-list-item
+              nuxt
+              class="text-caption black--text text-center mb-0 px-0"
+            >
+              <v-btn
+                text
+                block
+                small
+                class="font-weight-bold text-caption"
+                @click="logoutUser"
+              >
+                ログアウト
+              </v-btn>
             </v-list-item>
           </template>
         </v-list-item-group>
@@ -216,14 +209,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import NavigationItem from '~/components/layout/NavigationItem.vue'
-import SearchForm from '~/components/layout/SearchForm.vue'
-import ToItemCreateButton from '~/components/layout/ToItemCreateButton.vue'
+import SearchItemForm from '~/components/layout/SearchItemForm.vue'
 
 export default {
   components: {
     NavigationItem,
-    SearchForm,
-    ToItemCreateButton
+    SearchItemForm
   },
   data() {
     return {

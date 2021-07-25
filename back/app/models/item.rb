@@ -3,6 +3,7 @@ class Item < ApplicationRecord
 
   START_HTTPS_LINK = /\Ahttps:\/\/[^\n]+\Z/
   belongs_to :user
+  belongs_to :topic, optional: true
   has_one_attached :image
   has_many :item_likes, dependent: :destroy
   has_many :item_comments, dependent: :destroy
@@ -11,7 +12,7 @@ class Item < ApplicationRecord
 
   default_scope -> { order(created_at: :desc) }
   validates :name, presence: true, length: { maximum: 20 }
-  validates :description, presence: true, length: { maximum: 255 }
+  validates :description, presence: true, length: { maximum: 300 }
   validates :link, format: { with: START_HTTPS_LINK, allow_blank: true }
 
   def image_url
