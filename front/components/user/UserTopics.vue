@@ -7,7 +7,7 @@
     <template v-if="!loadShow">
       <v-col cols="12" class="pt-0">
         <v-card v-if="topics.length" flat>
-          <v-list three-line>
+          <v-list three-line class="py-0">
             <v-list-item
               v-for="topic in topics"
               :key="topic.id"
