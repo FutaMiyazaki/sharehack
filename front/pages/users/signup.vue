@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="pt-0">
     <PageHeader text="新規登録" />
     <v-row justify="center" class="mt-5">
       <v-col cols="12" md="5">
