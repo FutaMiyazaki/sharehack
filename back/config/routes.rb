@@ -35,6 +35,9 @@ Rails.application.routes.draw do
         end
       end
       resources :relationships, only: [:create, :destroy]
+      namespace :topics do
+        get :ranking
+      end
       resources :topics, only: %i[index show create destroy update] do
         get :search, on: :collection
         member do

@@ -52,6 +52,16 @@ class Api::V1::TopicsController < ApplicationController
     render json: topic.as_json(only: [:id, :title, :description, :updated_at])
   end
 
+  def ranking
+    if params[:page]
+      topics = Topic.includes(:items).sort {|a,b| b.items.size <=> a.items.size}
+      @topics = Kaminari.paginate_array(topics).page(params[:page]).per(12)
+      render json: @topics.as_json(include: [{user: {only: [:id, :name],
+                                                    methods: :avatar_url}},
+                                            {items: {only: :id}}])
+    end
+  end
+
   def search
     if params[:keyword]
       topics = Topic.search(params[:keyword])
