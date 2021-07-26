@@ -1,13 +1,13 @@
 <template>
   <v-container class="pt-0">
     <PageHeader text="アイテムを投稿する" />
-    <v-row>
+    <v-row class="mt-3">
       <v-col cols="12">
         <TopicCard :topic="topic" :link="false" />
       </v-col>
     </v-row>
     <validation-observer v-slot="{ invalid }">
-      <v-form ref="form" lazy-validation class="mt-5">
+      <v-form ref="form" lazy-validation class="mt-2">
         <v-row>
           <v-col cols="12" sm="4" class="pb-0">
             <FormLabel label-title="アイテム名を入力" />
@@ -228,7 +228,6 @@ export default {
     this.$axios
       .get(`api/v1/topics/${this.$route.params.id}/fetch`)
       .then((response) => {
-        console.log(response)
         this.topic = response.data
       })
       .catch((error) => {

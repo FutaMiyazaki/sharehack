@@ -1,13 +1,20 @@
 <template>
-  <v-card flat class="mb-5 rounded-lg" color="secondary">
+  <v-card flat class="mb-7 rounded-lg" color="secondary">
     <v-card-subtitle class="pb-1 text-subtitle-2 black--text">
       所属トピック：
     </v-card-subtitle>
-    <NuxtLink :to="nuxtLink">
-      <v-card-title class="text-subtitle-1 py-0">
+    <template v-if="link">
+      <NuxtLink :to="nuxtLink">
+        <v-card-title class="text-subtitle-1 py-0">
+          {{ topic.title }}
+        </v-card-title>
+      </NuxtLink>
+    </template>
+    <template v-else>
+      <v-card-title class="text-subtitle-1 primary--text py-0">
         {{ topic.title }}
       </v-card-title>
-    </NuxtLink>
+    </template>
     <v-card-text class="text-caption pt-3">
       <p
         style="white-space:pre-wrap;"

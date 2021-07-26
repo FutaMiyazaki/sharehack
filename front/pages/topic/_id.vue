@@ -66,7 +66,7 @@
           <template v-if="!items.length && afterSearch">
             <NoContentDisplay
               icon="mdi-emoticon-sad-outline"
-              text="このトピックに関する投稿がありません"
+              text="このトピックに関する投稿はありません"
             />
           </template>
         </v-col>
