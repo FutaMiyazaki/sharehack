@@ -137,14 +137,12 @@
           <template v-if="!isLoggedIn">
             <v-list-item
               nuxt
-              dense
               color="white"
               to="/users/login"
               class="text-caption black--text text-center mb-0 px-0"
             >
               <v-btn
                 block
-                small
                 outlined
                 color="primary"
                 class="font-weight-bold text-caption"
@@ -154,20 +152,19 @@
             </v-list-item>
             <v-list-item
               nuxt
-              dense
               color="white"
               to="/users/signup"
               class="text-caption black--text text-center mb-0 px-0"
             >
               <v-btn
                 block
-                small
                 color="primary"
                 class="font-weight-bold text-caption white--text"
               >
                 新規登録
               </v-btn>
             </v-list-item>
+            <v-divider class="my-3" />
             <NavigationItem link="/" text="トップページ" />
             <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
             <NavigationItem link="/tag/search" text="タグから探す" />
