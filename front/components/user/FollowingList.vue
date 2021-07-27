@@ -1,7 +1,8 @@
 <template>
   <v-row>
     <v-col cols="12" class="pb-0">
-      <v-banner>フォロー</v-banner>
+      <v-subheader class="black--text">フォロー</v-subheader>
+      <v-divider />
     </v-col>
     <v-col cols="12" class="pt-0">
       <v-list v-if="followings.length">

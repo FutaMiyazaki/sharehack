@@ -1,7 +1,8 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-banner>いいねした投稿</v-banner>
+      <v-subheader class="black--text">いいね! した投稿</v-subheader>
+      <v-divider />
     </v-col>
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">

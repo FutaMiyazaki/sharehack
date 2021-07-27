@@ -1,7 +1,8 @@
 <template>
   <v-row justify="center">
     <v-col cols="12">
-      <v-banner>タイムライン</v-banner>
+      <v-subheader class="black--text">タイムライン</v-subheader>
+      <v-divider />
     </v-col>
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
