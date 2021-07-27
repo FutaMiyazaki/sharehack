@@ -90,6 +90,7 @@
           新規登録
         </v-btn>
       </template>
+
       <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = true" />
     </v-app-bar>
 
@@ -107,7 +108,7 @@
             mdi-close
           </v-icon>
         </v-toolbar>
-        <!-- <ValidationObserver ref="observer" v-slot="{ invalid }">
+        <ValidationObserver ref="observer" v-slot="{ invalid }">
           <v-form class="mx-2 mb-2" @submit.prevent="search">
             <ValidationProvider rules="required|max:50" mode="aggressive">
               <v-text-field
@@ -119,6 +120,7 @@
                 outlined
                 hide-details
                 label="キーワード検索"
+                background-color="white"
               >
                 <template v-slot:append>
                   <v-btn
@@ -134,14 +136,14 @@
               </v-text-field>
             </ValidationProvider>
           </v-form>
-        </ValidationObserver> -->
+        </ValidationObserver>
         <v-list-item-group class="px-2">
           <template v-if="!isLoggedIn">
             <v-list-item
               nuxt
               color="white"
               to="/users/login"
-              class="text-caption black--text text-center mb-0 px-0"
+              class="text-center mb-0 px-0"
             >
               <v-btn
                 block
@@ -166,7 +168,7 @@
                 新規登録
               </v-btn>
             </v-list-item>
-            <v-divider class="my-3" />
+            <v-divider class="my-3" color="white" />
             <NavigationItem link="/" text="トップページ" />
             <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
             <NavigationItem link="/tag/search" text="タグから探す" />
@@ -184,15 +186,12 @@
             <NavigationItem link="/tag/search" text="タグから探す" />
             <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
             <NavigationItem link="/users/setting" text="設定" />
-            <v-list-item
-              nuxt
-              class="text-caption black--text text-center mb-0 px-0"
-            >
+            <v-list-item nuxt class="text-center mb-0 px-0">
               <v-btn
                 text
                 block
                 small
-                class="font-weight-bold text-caption"
+                class="font-weight-bold white--text text-caption"
                 @click="logoutUser"
               >
                 ログアウト
