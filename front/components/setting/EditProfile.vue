@@ -1,7 +1,10 @@
 <template>
   <v-row>
     <v-col cols="12" class="pb-0">
-      <v-banner>プロフィール名</v-banner>
+      <v-subheader class="black--text">
+        プロフィール名
+      </v-subheader>
+      <v-divider />
     </v-col>
     <v-col cols="12" class="pt-0">
       <v-card flat>

@@ -1,8 +1,8 @@
 <template>
   <header>
-    <v-app-bar color="#ffffff" app flat fixed>
+    <v-app-bar color="#383838" app flat fixed>
       <v-toolbar-title class="mr-2 header-title">
-        <nuxt-link to="/" class="black--text font-weight-bold">
+        <nuxt-link to="/" class="white--text font-weight-bold">
           Sharehack
         </nuxt-link>
       </v-toolbar-title>
@@ -14,8 +14,8 @@
             <v-btn
               text
               v-bind="attrs"
-              class="hidden-sm-and-down font-weight-bold"
-              color="primary"
+              class="hidden-sm-and-down font-weight-bold mr-2"
+              color="white"
               v-on="on"
             >
               <v-icon small class="mr-2">
@@ -34,7 +34,7 @@
             <v-btn icon v-bind="attrs" class="hidden-sm-and-down" v-on="on">
               <v-list-item dense>
                 <v-list-item-avatar class="mx-auto">
-                  <v-icon v-if="!currentUserAvatar" large color="primary">
+                  <v-icon v-if="!currentUserAvatar" large color="white">
                     mdi-account-circle
                   </v-icon>
                   <v-img
@@ -90,7 +90,12 @@
           新規登録
         </v-btn>
       </template>
-      <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = true" />
+
+      <v-app-bar-nav-icon
+        class="hidden-md-and-up"
+        color="white"
+        @click="drawer = true"
+      />
     </v-app-bar>
 
     <v-navigation-drawer
@@ -98,15 +103,17 @@
       right
       fixed
       temporary
-      width="80%"
-      class="hidden-md-and-up"
+      width="100%"
+      class="hidden-md-and-up drawer-background-color"
     >
       <v-list nav class="pa-0 text-center">
-        <v-toolbar flat>
-          <v-icon class="ml-auto" @click="drawer = false">mdi-close</v-icon>
+        <v-toolbar flat color="black" class="drawer-background-color">
+          <v-icon class="ml-auto white--text" @click="drawer = false">
+            mdi-close
+          </v-icon>
         </v-toolbar>
         <ValidationObserver ref="observer" v-slot="{ invalid }">
-          <v-form class="mx-1 mb-2" @submit.prevent="search">
+          <v-form class="mx-2 mb-2" @submit.prevent="search">
             <ValidationProvider rules="required|max:50" mode="aggressive">
               <v-text-field
                 v-model.trim="keyword"
@@ -117,6 +124,7 @@
                 outlined
                 hide-details
                 label="キーワード検索"
+                background-color="white"
               >
                 <template v-slot:append>
                   <v-btn
@@ -137,14 +145,12 @@
           <template v-if="!isLoggedIn">
             <v-list-item
               nuxt
-              dense
               color="white"
               to="/users/login"
-              class="text-caption black--text text-center mb-0 px-0"
+              class="text-center mb-0 px-0"
             >
               <v-btn
                 block
-                small
                 outlined
                 color="primary"
                 class="font-weight-bold text-caption"
@@ -154,20 +160,19 @@
             </v-list-item>
             <v-list-item
               nuxt
-              dense
               color="white"
               to="/users/signup"
               class="text-caption black--text text-center mb-0 px-0"
             >
               <v-btn
                 block
-                small
                 color="primary"
                 class="font-weight-bold text-caption white--text"
               >
                 新規登録
               </v-btn>
             </v-list-item>
+            <v-divider class="my-3" color="white" />
             <NavigationItem link="/" text="トップページ" />
             <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
             <NavigationItem link="/tag/search" text="タグから探す" />
@@ -185,15 +190,12 @@
             <NavigationItem link="/tag/search" text="タグから探す" />
             <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
             <NavigationItem link="/users/setting" text="設定" />
-            <v-list-item
-              nuxt
-              class="text-caption black--text text-center mb-0 px-0"
-            >
+            <v-list-item nuxt class="text-center mb-0 px-0">
               <v-btn
                 text
                 block
                 small
-                class="font-weight-bold text-caption"
+                class="font-weight-bold white--text text-caption"
                 @click="logoutUser"
               >
                 ログアウト
@@ -252,6 +254,11 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+}
+
+.drawer-background-color {
+  opacity: 0.8;
+  background-color: black;
 }
 
 .menu-item {

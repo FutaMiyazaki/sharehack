@@ -1,7 +1,8 @@
 <template>
   <v-row>
     <v-col cols="12" class="pb-0">
-      <v-banner>フォロワー</v-banner>
+      <v-subheader class="black--text">フォロワー</v-subheader>
+      <v-divider />
     </v-col>
     <v-col cols="12" class="pt-0">
       <v-list v-if="followers.length">
@@ -15,7 +16,9 @@
       </v-list>
     </v-col>
     <template v-if="!followers.length">
-      <NoContentDisplay text="フォローされているユーザーはいません" />
+      <v-col cols="12">
+        <NoContentDisplay text="フォローされているユーザーはいません" />
+      </v-col>
     </template>
   </v-row>
 </template>

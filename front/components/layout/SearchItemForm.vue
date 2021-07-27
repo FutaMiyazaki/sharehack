@@ -11,8 +11,8 @@
           outlined
           hide-details
           full-width
-          background-color="secondary"
           label="キーワード検索"
+          background-color="white"
           class="hidden-sm-and-down"
         >
           <template v-slot:append>

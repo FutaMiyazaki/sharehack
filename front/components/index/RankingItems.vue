@@ -1,7 +1,8 @@
 <template>
   <v-row justify="center">
     <v-col cols="12">
-      <v-banner>人気の投稿</v-banner>
+      <v-subheader class="black--text">人気の投稿</v-subheader>
+      <v-divider />
     </v-col>
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">

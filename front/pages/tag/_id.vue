@@ -37,10 +37,12 @@
         />
       </template>
       <template v-if="!items.length">
-        <NoContentDisplay
-          icon="mdi-emoticon-sad-outline"
-          text="表示する投稿がありません"
-        />
+        <v-col cols="12">
+          <NoContentDisplay
+            icon="mdi-emoticon-sad-outline"
+            text="表示する投稿がありません"
+          />
+        </v-col>
       </template>
     </template>
   </v-container>

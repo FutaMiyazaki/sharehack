@@ -1,7 +1,8 @@
 <template>
   <v-row>
     <v-col cols="12" class="pb-0">
-      <v-banner>投稿したトピック</v-banner>
+      <v-subheader class="black--text">投稿したトピック</v-subheader>
+      <v-divider />
     </v-col>
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
@@ -32,7 +33,9 @@
         </v-card>
       </v-col>
       <template v-if="!topics.length">
-        <NoContentDisplay text="トピックはありません" />
+        <v-col cols="12">
+          <NoContentDisplay text="トピックはありません" />
+        </v-col>
       </template>
     </template>
   </v-row>

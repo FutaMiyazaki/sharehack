@@ -1,6 +1,6 @@
 <template>
   <nuxt-link :to="'/users/' + userId" class="text-decoration-none">
-    <v-list-item dense>
+    <v-list-item dense class="px-0">
       <v-list-item-avatar>
         <v-icon v-if="!userAvatarUrl" large color="primary">
           mdi-account-circle
