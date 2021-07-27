@@ -62,7 +62,9 @@
         />
       </template>
       <template v-if="!items.length">
-        <NoContentDisplay text="投稿はありません" />
+        <v-col cols="12">
+          <NoContentDisplay text="投稿はありません" />
+        </v-col>
       </template>
     </template>
   </v-row>

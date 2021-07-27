@@ -36,10 +36,12 @@
         />
       </template>
       <template v-else>
-        <NoContentDisplay
-          icon="mdi-emoticon-sad-outline"
-          text="一致する検索結果はありませんでした。キーワードを変えて検索してみてください。"
-        />
+        <v-col cols="12">
+          <NoContentDisplay
+            icon="mdi-emoticon-sad-outline"
+            text="一致する検索結果はありませんでした。キーワードを変えて検索してみてください。"
+          />
+        </v-col>
       </template>
     </template>
   </v-container>

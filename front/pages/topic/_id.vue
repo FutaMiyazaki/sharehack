@@ -64,10 +64,12 @@
             </v-col>
           </v-row>
           <template v-if="!items.length && afterSearch">
-            <NoContentDisplay
-              icon="mdi-emoticon-sad-outline"
-              text="このトピックに関する投稿はありません"
-            />
+            <v-col cols="12">
+              <NoContentDisplay
+                icon="mdi-emoticon-sad-outline"
+                text="このトピックに関する投稿はありません"
+              />
+            </v-col>
           </template>
         </v-col>
       </template>

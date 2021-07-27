@@ -9,7 +9,9 @@
         <ItemCard :item="itemLike.item" />
       </v-col>
       <template v-if="!itemLikes.length">
-        <NoContentDisplay text="いいねした投稿はありません" />
+        <v-col cols="12">
+          <NoContentDisplay text="いいねした投稿はありません" />
+        </v-col>
       </template>
     </template>
   </v-row>

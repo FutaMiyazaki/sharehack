@@ -15,7 +15,9 @@
       </v-list>
     </v-col>
     <template v-if="!followers.length">
-      <NoContentDisplay text="フォローされているユーザーはいません" />
+      <v-col cols="12">
+        <NoContentDisplay text="フォローされているユーザーはいません" />
+      </v-col>
     </template>
   </v-row>
 </template>
