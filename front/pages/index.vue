@@ -66,7 +66,7 @@
                   @click="toTagItems(tag.id)"
                 >
                   <v-list-item-content>
-                    <v-list-item-title v-text="tag.name"></v-list-item-title>
+                    <v-list-item-title># {{ tag.name }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>

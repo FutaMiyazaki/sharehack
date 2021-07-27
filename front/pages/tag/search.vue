@@ -14,6 +14,7 @@
                 v-model.trim="keyword"
                 flat
                 solo
+                dense
                 rounded
                 outlined
                 autofocus
@@ -26,7 +27,6 @@
                   <v-btn
                     v-if="!loadShow"
                     icon
-                    large
                     :disabled="invalid"
                     @click="searchTag"
                   >

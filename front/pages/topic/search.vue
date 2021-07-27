@@ -14,9 +14,9 @@
                 v-model.trim="keyword"
                 flat
                 solo
+                dense
                 rounded
                 outlined
-                autofocus
                 hide-details
                 background-color="secondary"
                 label="キーワード検索"
@@ -26,7 +26,6 @@
                   <v-btn
                     v-if="!loadShow"
                     icon
-                    large
                     :disabled="invalid"
                     @click="searchTopic"
                   >
@@ -41,10 +40,12 @@
       </v-col>
     </v-row>
     <template v-if="!topics.length && afterSearch">
-      <NoContentDisplay
-        icon="mdi-emoticon-sad-outline"
-        text="一致する検索結果はありませんでした。キーワードを変えて検索してみてください。"
-      />
+      <v-col cols="12">
+        <NoContentDisplay
+          icon="mdi-emoticon-sad-outline"
+          text="一致する検索結果はありませんでした。キーワードを変えて検索してみてください。"
+        />
+      </v-col>
     </template>
     <template v-if="topics.length && afterSearch">
       <v-row justify="center">

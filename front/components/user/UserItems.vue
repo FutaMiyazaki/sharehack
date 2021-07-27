@@ -1,7 +1,8 @@
 <template>
   <v-row justify="center">
     <v-col cols="12">
-      <v-banner>すべての投稿</v-banner>
+      <v-subheader class="black--text">すべての投稿</v-subheader>
+      <v-divider />
     </v-col>
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
@@ -26,7 +27,7 @@
                     class="ma-1"
                     @click="toTagItems(tag.id)"
                   >
-                    <v-icon small class="mr-1">mdi-tag</v-icon>{{ tag.name }}
+                    {{ tag.name }}
                   </v-chip>
                 </v-row>
               </v-card-actions>
