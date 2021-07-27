@@ -1,8 +1,8 @@
 <template>
   <header>
-    <v-app-bar color="#ffffff" app flat fixed>
+    <v-app-bar color="#1b263b" app flat fixed>
       <v-toolbar-title class="mr-2 header-title">
-        <nuxt-link to="/" class="black--text font-weight-bold">
+        <nuxt-link to="/" class="white--text font-weight-bold">
           Sharehack
         </nuxt-link>
       </v-toolbar-title>
@@ -15,7 +15,7 @@
               text
               v-bind="attrs"
               class="hidden-sm-and-down font-weight-bold mr-2"
-              color="primary"
+              color="white"
               v-on="on"
             >
               <v-icon small class="mr-2">
@@ -34,7 +34,7 @@
             <v-btn icon v-bind="attrs" class="hidden-sm-and-down" v-on="on">
               <v-list-item dense>
                 <v-list-item-avatar class="mx-auto">
-                  <v-icon v-if="!currentUserAvatar" large color="primary">
+                  <v-icon v-if="!currentUserAvatar" large color="white">
                     mdi-account-circle
                   </v-icon>
                   <v-img
@@ -91,7 +91,7 @@
         </v-btn>
       </template>
 
-      <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = true" />
+      <v-app-bar-nav-icon class="hidden-md-and-up" color="white" @click="drawer = true" />
     </v-app-bar>
 
     <v-navigation-drawer

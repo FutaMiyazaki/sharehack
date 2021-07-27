@@ -24,6 +24,17 @@
             {{ $moment(topic.updated_at).format('YYYY/MM/DD HH:mm') }}
           </p>
           <v-row justify="center">
+            <v-col
+              v-if="isLoggedIn && currentUser.id == user.id"
+              cols="12"
+              class="text-center pt-0"
+            >
+              <LinkButton
+                :link="'/topic/edit/' + topic.id"
+                text="トピックを編集する"
+                icon="chevron-right"
+              />
+            </v-col>
             <v-col cols="12" class="text-center">
               <v-btn
                 block
@@ -34,17 +45,6 @@
               >
                 投稿する<v-icon>mdi-chevron-right</v-icon>
               </v-btn>
-            </v-col>
-            <v-col
-              v-if="isLoggedIn && currentUser.id == user.id"
-              cols="12"
-              class="text-center"
-            >
-              <LinkButton
-                :link="'/topic/edit/' + topic.id"
-                text="トピックを編集する"
-                icon="chevron-right"
-              />
             </v-col>
           </v-row>
         </div>
