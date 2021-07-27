@@ -36,3 +36,10 @@ AAA = Item.find_by(name: 'famas')
 AAA.destroy
 topics = Topic.all
 topics = Topic.first
+items = Item.all
+items = Item.find_by(user_id: 19)
+items.delete
+Item.all.delete
+Item.all.length
+items = Item.find_by(user_id: 19)
+items.delete
