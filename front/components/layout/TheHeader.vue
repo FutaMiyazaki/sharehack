@@ -98,14 +98,16 @@
       right
       fixed
       temporary
-      width="80%"
-      class="hidden-md-and-up"
+      width="100%"
+      class="hidden-md-and-up drawer-background-color"
     >
       <v-list nav class="pa-0 text-center">
-        <v-toolbar flat>
-          <v-icon class="ml-auto" @click="drawer = false">mdi-close</v-icon>
+        <v-toolbar flat color="black" class="drawer-background-color">
+          <v-icon class="ml-auto white--text" @click="drawer = false">
+            mdi-close
+          </v-icon>
         </v-toolbar>
-        <ValidationObserver ref="observer" v-slot="{ invalid }">
+        <!-- <ValidationObserver ref="observer" v-slot="{ invalid }">
           <v-form class="mx-2 mb-2" @submit.prevent="search">
             <ValidationProvider rules="required|max:50" mode="aggressive">
               <v-text-field
@@ -132,7 +134,7 @@
               </v-text-field>
             </ValidationProvider>
           </v-form>
-        </ValidationObserver>
+        </ValidationObserver> -->
         <v-list-item-group class="px-2">
           <template v-if="!isLoggedIn">
             <v-list-item
@@ -249,6 +251,11 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+}
+
+.drawer-background-color {
+  opacity: 0.8;
+  background-color: black;
 }
 
 .menu-item {
