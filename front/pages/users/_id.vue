@@ -43,9 +43,13 @@
                   </v-col>
                 </v-row>
                 <div>
+                  <Loading v-show="loadShow" />
                   <template
                     v-if="
-                      isLoggedIn && currentUser && currentUser.id !== user.id
+                      !loadShow &&
+                        isLoggedIn &&
+                        currentUser &&
+                        currentUser.id !== user.id
                     "
                   >
                     <v-divider class="mb-3" />
@@ -190,6 +194,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import PageHeader from '~/components/layout/PageHeader.vue'
+import Loading from '~/components/layout/Loading.vue'
 import UserItems from '~/components/user/UserItems.vue'
 import UserLikes from '~/components/user/UserLikes.vue'
 import UserTopics from '~/components/user/UserTopics.vue'
@@ -200,6 +205,7 @@ import PleaseLoginDialog from '~/components/layout/PleaseLoginDialog.vue'
 export default {
   components: {
     PageHeader,
+    Loading,
     UserItems,
     UserLikes,
     UserTopics,
@@ -209,6 +215,7 @@ export default {
   },
   data() {
     return {
+      loadShow: true,
       selectedItem: 0,
       text: '',
       user: {},
@@ -248,6 +255,7 @@ export default {
     this.$axios
       .get(`api/v1/users/${this.$route.params.id}`)
       .then((response) => {
+        this.loadShow = false
         this.user = response.data
         this.items = this.user.items
         this.likes = this.user.item_likes
