@@ -5,7 +5,7 @@
       <v-col cols="12" md="7">
         <v-img aspect-ratio="1" :src="item.image_url" />
         <v-row class="my-1">
-          <v-col cols="7" align="left">
+          <v-col cols="12" md="7" align="left">
             <p class="my-auto text-subtitle-2">
               <span class="text-caption">
                 {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
@@ -13,7 +13,7 @@
             </p>
           </v-col>
           <template v-if="isLoggedIn && currentUser.id == item.user.id">
-            <v-col cols="5" align="right">
+            <v-col cols="12" md="5" align="right">
               <nuxt-link
                 :to="'/item/edit/' + item.id"
                 class="text-decoration-none"
@@ -113,7 +113,10 @@
       <v-col cols="12" md="7">
         <v-row>
           <v-col cols="12">
-            <v-banner icon="mdi-comment-multiple-outline">コメント</v-banner>
+            <v-subheader class="black--text">
+              <v-icon left>mdi-comment-multiple-outline</v-icon>コメント
+            </v-subheader>
+            <v-divider />
           </v-col>
           <template v-if="!comments.length">
             <v-col cols="12">

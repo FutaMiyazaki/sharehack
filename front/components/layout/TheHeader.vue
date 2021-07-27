@@ -14,7 +14,7 @@
             <v-btn
               text
               v-bind="attrs"
-              class="hidden-sm-and-down font-weight-bold"
+              class="hidden-sm-and-down font-weight-bold mr-2"
               color="primary"
               v-on="on"
             >
@@ -106,7 +106,7 @@
           <v-icon class="ml-auto" @click="drawer = false">mdi-close</v-icon>
         </v-toolbar>
         <ValidationObserver ref="observer" v-slot="{ invalid }">
-          <v-form class="mx-1 mb-2" @submit.prevent="search">
+          <v-form class="mx-2 mb-2" @submit.prevent="search">
             <ValidationProvider rules="required|max:50" mode="aggressive">
               <v-text-field
                 v-model.trim="keyword"
