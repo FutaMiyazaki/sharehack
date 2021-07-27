@@ -1,6 +1,6 @@
 <template>
   <header>
-    <v-app-bar color="#1b263b" app flat fixed>
+    <v-app-bar color="#383838" app flat fixed>
       <v-toolbar-title class="mr-2 header-title">
         <nuxt-link to="/" class="white--text font-weight-bold">
           Sharehack
@@ -91,7 +91,11 @@
         </v-btn>
       </template>
 
-      <v-app-bar-nav-icon class="hidden-md-and-up" color="white" @click="drawer = true" />
+      <v-app-bar-nav-icon
+        class="hidden-md-and-up"
+        color="white"
+        @click="drawer = true"
+      />
     </v-app-bar>
 
     <v-navigation-drawer
