@@ -1,35 +1,23 @@
 User.create!(
-  name: 'ゲストユーザー'
+  name: 'ゲストユーザー',
   email: 'guest@sharehack.com',
-  password: 'pwkkf3ST9uWW5XFe',
+  password: 'pwkkf3ST9uWW5XFe'
 )
 
 User.create!(
-  name: ENV['RAILS_ADMIN_USERNAME'],
-  email: ENV['RAILS_ADMIN_EMAIL'],
-  password: ENV['RAILS_ADMIN_PASSWORD'],
+  name: '管理者',
+  email: 'sharehack-admin@sharehack.com',
+  password: 'qavd7gnvdvx9',
   admin: true
 )
 
-[
-  ['ライフハック'],
-  ['買ってよかったもの'],
-  ['ガジェット'],
-  ['スマホ'],
-  ['パソコン・周辺機器'],
-  ['服・ファッション小物'],
-  ['スマート家電'],
-  ['お得情報'],
-  ['美容・健康'],
-  ['オーディオ'],
-  ['カメラ'],
-  ['自転車・バイク'],
-  ['レビュー'],
-  ['DIY'],
-  ['格安SIM'],
-  ['腕時計・スマートウォッチ'],
-  ['本・コミック・雑誌'],
-  ['ゲーム'],
-  ['シューズ'],
-  ['バッグ・財布']
-].each do |name| Tag.create!({ name: name })
+Tag.create!(name: 'ライフハック')
+Tag.create!(name: 'ガジェット')
+Tag.create!(name: '買ってよかったもの')
+Tag.create!(name: '買うべきもの')
+Tag.create!(name: 'スマホ')
+Tag.create!(name: 'パソコン・周辺機器')
+Tag.create!(name: 'イヤホン')
+Tag.create!(name: '家電')
+Tag.create!(name: 'お得情報')
+Tag.create!(name: '美容・健康')
