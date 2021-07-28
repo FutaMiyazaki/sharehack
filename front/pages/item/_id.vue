@@ -270,6 +270,9 @@ export default {
     PleaseLoginDialog,
     TopicCard
   },
+  validate({ params }) {
+    return !isNaN(+params.id)
+  },
   data() {
     return {
       dialog: false,

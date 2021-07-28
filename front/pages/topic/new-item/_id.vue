@@ -180,6 +180,9 @@ export default {
     TopicCard
   },
   middleware: 'unAuthenticated',
+  validate({ params }) {
+    return !isNaN(+params.id)
+  },
   data() {
     return {
       name: '',
