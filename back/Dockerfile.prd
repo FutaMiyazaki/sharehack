@@ -32,8 +32,6 @@ RUN apk update && \
   /usr/lib/mysqld* \
   /usr/bin/mysql*
 
-RUN apk add vim
-
 ADD . ${HOME}
 
 EXPOSE 3000
