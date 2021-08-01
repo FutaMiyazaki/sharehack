@@ -107,8 +107,13 @@
       class="hidden-md-and-up drawer-background-color"
     >
       <v-list nav class="pa-0 text-center">
-        <v-toolbar flat color="black" class="drawer-background-color">
-          <v-icon class="ml-auto white--text" @click="drawer = false">
+        <v-toolbar flat class="drawer-background-color">
+          <v-toolbar-title>
+            <nuxt-link to="/" class="black--text font-weight-bold">
+              Sharehack
+            </nuxt-link>
+          </v-toolbar-title>
+          <v-icon class="ml-auto black--text" @click="drawer = false">
             mdi-close
           </v-icon>
         </v-toolbar>
@@ -124,7 +129,7 @@
                 outlined
                 hide-details
                 label="キーワード検索"
-                background-color="white"
+                background-color="secondary"
               >
                 <template v-slot:append>
                   <v-btn
@@ -195,7 +200,7 @@
                 text
                 block
                 small
-                class="font-weight-bold white--text text-caption"
+                class="font-weight-bold black--text text-caption"
                 @click="logoutUser"
               >
                 ログアウト
@@ -254,11 +259,6 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
-}
-
-.drawer-background-color {
-  opacity: 0.8;
-  background-color: black;
 }
 
 .menu-item {
