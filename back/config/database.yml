@@ -52,7 +52,8 @@ test:
 #
 production:
   <<: *default
-  host: <%= ENV['DATABASE_HOST'] %>
+  host: db
+  url: <%= ENV['DATABASE_URL'] %>
   database: sharehack_production
-  username: <%= ENV['DATABASE_USERNAME'] %>
+  username: root
   password: <%= ENV['DATABASE_PASSWORD'] %>

@@ -1,18 +1,17 @@
 FROM ruby:2.7.2-alpine3.12
 
-ARG DATABASE_USERNAME
 ARG DATABASE_PASSWORD
-ARG DATABASE_HOST
+ARG DATABASE_URL
 ARG WORKDIR
+ARG CONTAINER_PORT
 
 ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev nodejs tzdata mysql-dev mysql-client yarn" \
   DEV_PACKAGES="build-base curl-dev" \
-  HOME=/${WORKDIR}} \
+  HOME=/${WORKDIR} \
   LANG=C.UTF-8 \
   TZ=Asia/Tokyo \
-  DATABASE_USERNAME=${DATABASE_USERNAME} \
   DATABASE_PASSWORD=${DATABASE_PASSWORD} \
-  DATABASE_HOST=${DATABASE_HOST}}
+  DATABASE_URL=${DATABASE_URL}
 
 WORKDIR ${HOME}
 
@@ -34,6 +33,6 @@ RUN apk update && \
 
 ADD . ${HOME}
 
-EXPOSE 3000
+EXPOSE ${CONTAINER_PORT}
 
 CMD ["bundle", "exec", "rails", "s", "puma", "-b", "0.0.0.0", "-p", "3000", "-e", "production"]
