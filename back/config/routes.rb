@@ -44,6 +44,7 @@ Rails.application.routes.draw do
           get :fetch
         end
       end
+      get 'health_check', to: 'health_check#index'
     end
   end
 end
