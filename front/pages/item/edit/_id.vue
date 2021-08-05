@@ -240,6 +240,9 @@ export default {
     LinkButton
   },
   middleware: 'unAuthenticated',
+  validate({ params }) {
+    return !isNaN(+params.id)
+  },
   data() {
     return {
       text: 'アイテム編集',

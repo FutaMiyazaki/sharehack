@@ -61,6 +61,9 @@ export default {
     ItemCard,
     NoContentDisplay
   },
+  validate({ params }) {
+    return !isNaN(+params.id)
+  },
   data() {
     return {
       loadShow: true,

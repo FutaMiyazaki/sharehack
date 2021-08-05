@@ -55,8 +55,11 @@ class Api::V1::ItemsController < ApplicationController
 
   def destroy
     item = Item.find(params[:id])
-    return if User.find(item.user_id).email != params[:uid]
-    item.destroy
+    if User.find(item.user_id).email == params[:uid]
+      item.destroy
+    elsif User.find_by(email: params[:uid]).admin
+      item.destroy
+    end
   end
 
   def top

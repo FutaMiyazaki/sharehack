@@ -227,6 +227,9 @@ export default {
       dialog: false
     }
   },
+  validate({ params }) {
+    return !isNaN(+params.id)
+  },
   computed: {
     ...mapGetters({
       isLoggedIn: 'authentication/isLoggedIn',

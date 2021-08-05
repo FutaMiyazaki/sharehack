@@ -12,7 +12,12 @@
               </span>
             </p>
           </v-col>
-          <template v-if="isLoggedIn && currentUser.id == item.user.id">
+          <template
+            v-if="
+              isLoggedIn &&
+                (currentUser.id == item.user.id || currentUser.admin)
+            "
+          >
             <v-col cols="12" md="5" align="right">
               <nuxt-link
                 :to="'/item/edit/' + item.id"
@@ -264,6 +269,9 @@ export default {
     ItemLinkButton,
     PleaseLoginDialog,
     TopicCard
+  },
+  validate({ params }) {
+    return !isNaN(+params.id)
   },
   data() {
     return {

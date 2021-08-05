@@ -135,6 +135,9 @@ export default {
     LinkButton
   },
   middleware: 'unAuthenticated',
+  validate({ params }) {
+    return !isNaN(+params.id)
+  },
   data() {
     return {
       dialog: false,

@@ -95,6 +95,9 @@ export default {
     NoContentDisplay,
     UserInformation
   },
+  validate({ params }) {
+    return !isNaN(+params.id)
+  },
   data() {
     return {
       pageHeadertext: '',

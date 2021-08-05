@@ -1,6 +1,6 @@
 <template>
   <v-list-item dense nuxt :to="link" class="text-center mb-0 px-0">
-    <v-btn text block small class="font-weight-black white--text text-caption">
+    <v-btn text block small class="font-weight-black black--text text-caption">
       {{ text }}
     </v-btn>
   </v-list-item>
