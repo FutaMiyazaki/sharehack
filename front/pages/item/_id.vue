@@ -3,7 +3,7 @@
     <PageHeader :text="text" />
     <v-row>
       <v-col cols="12" md="7">
-        <v-img aspect-ratio="1" :src="item.image_url" />
+        <v-img v-if="item.picture" aspect-ratio="1" :src="item.picture.url" />
         <v-row class="my-1">
           <v-col cols="12" md="7" align="left">
             <p class="my-auto text-subtitle-2">
@@ -323,6 +323,7 @@ export default {
     this.$axios
       .get(`api/v1/items/${this.$route.params.id}`)
       .then((response) => {
+        console.log(response)
         this.item = response.data
         this.tags = this.item.tags
         this.likeList = this.item.item_likes

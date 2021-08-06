@@ -17,14 +17,11 @@ class Api::V1::ItemsController < ApplicationController
   def show
     item = Item.find(params[:id])
     render json: item.as_json(include: [{user: {include: {followers: {only: [:id, :name]}},
-                                                only: [:id, :name],
-                                                methods: :avatar_url}},
+                                                only: [:id, :name, :picture]}},
                                         {tags: {only: [:id, :name]}},
                                         {topic: {only: [:id, :title, :description]}},
                                         {item_likes: {except: [:created_at, :updated_at]}},
-                                        item_comments: {include: {user: {only: [:id, :name],
-                                                                         methods: :avatar_url}}}],
-                              methods: :image_url)
+                                        item_comments: {include: {user: {only: [:id, :name, :picture]}}}])
   end
 
   def create
