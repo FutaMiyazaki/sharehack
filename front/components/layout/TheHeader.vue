@@ -184,8 +184,36 @@
             <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
           </template>
           <template v-if="isLoggedIn">
-            <NavigationItem link="/item/new" text="アイテムを投稿する" />
-            <NavigationItem link="/topic/new" text="トピックを投稿する" />
+            <v-list-item
+              nuxt
+              color="white"
+              to="/item/new"
+              class="text-center mb-0 px-0"
+            >
+              <v-btn
+                block
+                outlined
+                color="primary"
+                class="font-weight-bold text-caption"
+              >
+                アイテムを投稿する
+              </v-btn>
+            </v-list-item>
+            <v-list-item
+              nuxt
+              color="white"
+              to="/topic/new"
+              class="text-center mb-0 px-0"
+            >
+              <v-btn
+                block
+                outlined
+                color="black"
+                class="font-weight-bold text-caption"
+              >
+                トピックを投稿する
+              </v-btn>
+            </v-list-item>
             <NavigationItem
               :link="'/users/' + currentUser.id"
               text="マイページ"
