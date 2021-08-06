@@ -98,7 +98,7 @@ export const actions = {
     await this.$axios
       .$get(`api/v1/users/${userId}`)
       .then((response) => {
-        commit('setCurrentUserAvatar', response.avatar_url)
+        commit('setCurrentUserAvatar', response.picture.url)
         return response
       })
       .catch((error) => {

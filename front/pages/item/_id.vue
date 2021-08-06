@@ -35,11 +35,7 @@
       <v-col cols="12" md="5">
         <v-row>
           <v-col cols="12" sm="7" align="left">
-            <UserInformation
-              :user-id="item.user.id"
-              :user-avatar-url="item.user.avatar_url"
-              :user-name="item.user.name"
-            />
+            <UserInformation :user="item.user" />
           </v-col>
           <v-col cols="12" sm="5" align="right">
             <template v-if="isLoggedIn && currentUser.id !== item.user.id">
@@ -132,11 +128,7 @@
             <div v-for="comment in comments" :key="comment.id" class="mb-5">
               <v-row>
                 <v-col cols="12" class="px-0 pb-0">
-                  <UserInformation
-                    :user-id="comment.user.id"
-                    :user-avatar-url="comment.user.avatar_url"
-                    :user-name="comment.user.name"
-                  />
+                  <UserInformation :user="comment.user" />
                 </v-col>
                 <v-col cols="6" align="left" class="pt-0">
                   <span class="text-caption">
@@ -278,7 +270,9 @@ export default {
       dialog: false,
       text: '',
       item: {
-        user: {}
+        user: {
+          picture: {}
+        }
       },
       userEmail: '',
       tags: [],

@@ -1,40 +1,40 @@
 <template>
-  <nuxt-link :to="'/users/' + userId" class="text-decoration-none">
+  <NuxtLink :to="'/users/' + user.id" class="text-decoration-none">
     <v-list-item dense class="px-0">
       <v-list-item-avatar>
-        <v-icon v-if="!userAvatarUrl" large color="primary">
-          mdi-account-circle
-        </v-icon>
-        <v-img v-else alt="ユーザーのプロフィール画像" :src="userAvatarUrl" />
+        <template v-if="user.picture.url">
+          <v-img alt="ユーザーのプロフィール画像" :src="user.picture.url" />
+        </template>
+        <template v-else>
+          <v-icon large color="primary">
+            mdi-account-circle
+          </v-icon>
+        </template>
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title>
           <span class="d-inline-block text-truncate">
-            {{ userName }}
+            {{ user.name }}
           </span>
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
-  </nuxt-link>
+  </NuxtLink>
 </template>
 
 <script>
 export default {
   props: {
-    userId: {
-      type: Number,
+    user: {
+      type: Object,
       required: true,
-      default: 0
-    },
-    userAvatarUrl: {
-      type: String,
-      required: false,
-      default: ''
-    },
-    userName: {
-      type: String,
-      required: true,
-      default: ''
+      default: () => ({
+        id: '',
+        picture: {
+          url: ''
+        },
+        name: ''
+      })
     }
   }
 }
