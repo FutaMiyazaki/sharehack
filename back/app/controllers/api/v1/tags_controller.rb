@@ -8,12 +8,10 @@ class Api::V1::TagsController < ApplicationController
     tag = Tag.find(params[:id])
     if params[:page]
       items = tag.items.page(params[:page]).per(12)
-      render json: items.as_json(include: [{user: {only: [:id, :name],
-                                                   methods: :avatar_url}},
+      render json: items.as_json(include: [{user: {only: [:id, :name, :picture]}},
                                            {tags: {only: [:id, :name]}},
                                            {item_likes: {only: :id}},
-                                           {item_comments: {only: :id}}],
-                                 methods: :image_url)
+                                           {item_comments: {only: :id}}])
     else
       render json: tag.as_json(include: {items: {only: :id}},
                                only: [:id, :name])
@@ -36,11 +34,9 @@ class Api::V1::TagsController < ApplicationController
     tag = Tag.find(params[:id])
     items = tag.items.includes(:item_likes).sort {|a,b| b.item_likes.size <=> a.item_likes.size}
     @items = Kaminari.paginate_array(items).page(params[:page]).per(12)
-    render json: @items.as_json(include: [{user: {only: [:id, :name],
-                                                  methods: :avatar_url}},
+    render json: @items.as_json(include: [{user: {only: [:id, :name, :picture]}},
                                           {tags: {only: [:id, :name]}},
                                           {item_likes: {only: :id}},
-                                          {item_comments: {only: :id}}],
-                                methods: :image_url)
+                                          {item_comments: {only: :id}}])
   end
 end

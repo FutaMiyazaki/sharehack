@@ -1,21 +1,17 @@
 class Api::V1::TopicsController < ApplicationController
   def show
     topic = Topic.find(params[:id])
-    render json: topic.as_json(include: [{items: {include: [{user: {only: [:id, :name],
-                                                                    methods: :avatar_url}},
+    render json: topic.as_json(include: [{items: {include: [{user: {only: [:id, :name, :picture]}},
                                                             {tags: {only: [:id, :name]}},
                                                             {item_likes: {only: :id}},
-                                                            {item_comments: {only: :id}}],
-                                                  methods: :image_url}},
-                                         {user: {only: [:id, :name],
-                                                 methods: :avatar_url}}])
+                                                            {item_comments: {only: :id}}]}},
+                                         {user: {only: [:id, :name, :picture]}}])
   end
 
   def index
     if params[:page]
       topics = Topic.all.page(params[:page]).per(12)
-      render json: topics.as_json(include: [{user: {only: [:id, :name],
-                                                    methods: :avatar_url}},
+      render json: topics.as_json(include: [{user: {only: [:id, :name, :picture]}},
                                             {items: {only: :id}}])
     else
       topics = Topic.all
@@ -56,8 +52,7 @@ class Api::V1::TopicsController < ApplicationController
     if params[:page]
       topics = Topic.includes(:items).sort {|a,b| b.items.size <=> a.items.size}
       @topics = Kaminari.paginate_array(topics).page(params[:page]).per(12)
-      render json: @topics.as_json(include: [{user: {only: [:id, :name],
-                                                    methods: :avatar_url}},
+      render json: @topics.as_json(include: [{user: {only: [:id, :name, :picture]}},
                                             {items: {only: :id}}])
     end
   end
@@ -65,8 +60,7 @@ class Api::V1::TopicsController < ApplicationController
   def search
     if params[:keyword]
       topics = Topic.search(params[:keyword])
-      render json: topics.as_json(include: [{user: {only: [:id, :name],
-                                                    methods: :avatar_url}},
+      render json: topics.as_json(include: [{user: {only: [:id, :name, :picture]}},
                                             {items: {only: :id}}])
     end
   end
