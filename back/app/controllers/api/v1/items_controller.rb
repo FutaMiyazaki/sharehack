@@ -140,7 +140,7 @@ class Api::V1::ItemsController < ApplicationController
 
   private
     def item_params
-      params.require(:item).permit(:name, :description, :link, :price, :user_id, :image, :uid, :topic_id)
+      params.require(:item).permit(:name, :description, :link, :price, :user_id, :picture, :uid, :topic_id)
     end
 
     def item_tags_params
