@@ -1,7 +1,7 @@
 <template>
   <vue-loading
     type="spiningDubbles"
-    color="blue"
+    color="#4169e1"
     :size="{ width: '30px', height: '30px' }"
   />
 </template>
