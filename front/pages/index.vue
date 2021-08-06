@@ -8,7 +8,7 @@
           <v-list-item-group v-model="selectedItem" color="primary">
             <v-list-item @click="currentComponent = 'LatestItems'">
               <v-list-item-icon>
-                <v-icon>mdi-image-plus</v-icon>
+                <v-icon>mdi-bell-alert-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>最新の投稿</v-list-item-title>
@@ -45,7 +45,7 @@
               <v-list-item-group color="primary">
                 <v-list-item nuxt to="/topic/list?page=1">
                   <v-list-item-icon>
-                    <v-icon>mdi-shape-rectangle-plus</v-icon>
+                    <v-icon>mdi-bell-alert-outline</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>新着トピック</v-list-item-title>
