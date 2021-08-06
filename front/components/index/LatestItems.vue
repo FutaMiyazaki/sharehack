@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <v-row>
     <v-col cols="12">
       <v-subheader class="black--text"> 最新の投稿</v-subheader>
       <v-divider />
@@ -16,12 +16,16 @@
       >
         <ItemCard :item="item" />
       </v-col>
-      <v-col cols="12" sm="6" class="text-center">
-        <LinkButton
-          link="/item/latest?page=1"
-          text="もっと見る"
-          icon="chevron-right"
-        />
+      <v-col cols="12">
+        <v-row justify="center">
+          <v-col cols="12" sm="6" class="text-center">
+            <LinkButton
+              link="/item/latest?page=1"
+              text="もっと見る"
+              icon="chevron-right"
+            />
+          </v-col>
+        </v-row>
       </v-col>
     </template>
   </v-row>
