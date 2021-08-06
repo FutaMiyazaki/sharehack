@@ -328,7 +328,7 @@ export default {
       data.append('item[user_id]', this.currentUser.id)
       data.append('item[uid]', localStorage.getItem('uid'))
       if (this.item.image) {
-        data.append('item[image]', this.item.image)
+        data.append('item[picture]', this.item.image)
       }
       await this.$axios
         .patch(`api/v1/items/${this.$route.params.id}`, data, config)

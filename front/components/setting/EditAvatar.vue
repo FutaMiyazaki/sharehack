@@ -106,7 +106,7 @@ export default {
           'content-type': 'multipart/form-data'
         }
       }
-      data.append('user[avatar]', this.image)
+      data.append('user[picture]', this.image)
       data.append('user[uid]', localStorage.getItem('uid'))
       await this.$axios
         .patch(

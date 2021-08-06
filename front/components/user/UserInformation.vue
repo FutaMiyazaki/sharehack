@@ -1,6 +1,6 @@
 <template>
   <NuxtLink :to="'/users/' + user.id" class="text-decoration-none">
-    <v-list-item dense class="px-0">
+    <v-list-item dense class="pl-2">
       <v-list-item-avatar>
         <template v-if="user.picture.url">
           <v-img alt="ユーザーのプロフィール画像" :src="user.picture.url" />

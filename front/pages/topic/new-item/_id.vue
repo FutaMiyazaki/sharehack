@@ -253,7 +253,7 @@ export default {
         }
       }
       data.append('item[name]', this.name)
-      data.append('item[image]', this.image)
+      data.append('item[picture]', this.image)
       data.append('item[description]', this.description)
       data.append('item[link]', this.link)
       data.append('item[tags]', this.tags)
