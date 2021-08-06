@@ -7,7 +7,9 @@
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
       <template v-if="!items.length">
-        <NoContentDisplay text="フォローしているユーザーがいません" />
+        <v-col cols="12">
+          <NoContentDisplay text="フォローしているユーザーがいません" />
+        </v-col>
       </template>
       <template v-else>
         <v-col

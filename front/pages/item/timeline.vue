@@ -26,12 +26,10 @@
         />
       </template>
       <template v-if="!items.length && afterSearch">
-        <v-col cols="12">
-          <NoContentDisplay
-            icon="mdi-emoticon-sad-outline"
-            text="表示する投稿がありません"
-          />
-        </v-col>
+        <NoContentDisplay
+          icon="mdi-emoticon-sad-outline"
+          text="表示する投稿がありません"
+        />
       </template>
     </template>
   </v-container>
