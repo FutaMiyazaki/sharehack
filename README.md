@@ -1,6 +1,6 @@
 # Sharehack
 
-## URL：[Sharehack](https://share-hack.com)
+## URL：<a href="https://share-hack.com" target="_blank">Sharehack</a>
 
 ゲストユーザーとしてログインが可能です。アカウント情報の変更や削除、投稿削除以外の機能は利用可能となっています。
 
