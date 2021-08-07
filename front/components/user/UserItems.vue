@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <v-row>
     <v-col cols="12">
       <v-subheader class="black--text">すべての投稿</v-subheader>
       <v-divider />
