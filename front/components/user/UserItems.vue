@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <v-row>
     <v-col cols="12">
       <v-subheader class="black--text">すべての投稿</v-subheader>
       <v-divider />
@@ -11,7 +11,11 @@
           <v-hover v-slot="{ hover }">
             <v-card outlined :elevation="hover ? 8 : 0">
               <nuxt-link :to="'/item/' + item.id" class="text-decoration-none">
-                <v-img aspect-ratio="1" :src="item.image_url" />
+                <v-img
+                  v-if="item.picture"
+                  aspect-ratio="1"
+                  :src="item.picture.url"
+                />
                 <v-card-title class="pt-1 pb-0 text-subtitle-1 primary--text">
                   {{ item.name }}
                 </v-card-title>

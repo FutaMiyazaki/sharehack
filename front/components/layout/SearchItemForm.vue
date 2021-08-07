@@ -9,8 +9,8 @@
           dense
           rounded
           outlined
-          hide-details
           full-width
+          hide-details
           label="キーワード検索"
           background-color="white"
           class="hidden-sm-and-down"
@@ -35,6 +35,9 @@ export default {
   },
   methods: {
     search() {
+      if (!this.keyword) {
+        return false
+      }
       this.$router.push({
         path: '/item/search',
         query: { keyword: this.keyword, page: 1 }

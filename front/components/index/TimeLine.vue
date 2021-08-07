@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <v-row>
     <v-col cols="12">
       <v-subheader class="black--text">タイムライン</v-subheader>
       <v-divider />
@@ -7,7 +7,9 @@
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
       <template v-if="!items.length">
-        <NoContentDisplay text="フォローしているユーザーがいません" />
+        <v-col cols="12">
+          <NoContentDisplay text="フォローしているユーザーがいません" />
+        </v-col>
       </template>
       <template v-else>
         <v-col
@@ -20,12 +22,16 @@
         >
           <ItemCard :item="item" />
         </v-col>
-        <v-col cols="12" sm="6" class="text-center">
-          <LinkButton
-            link="/item/timeline?page=1"
-            text="もっと見る"
-            icon="chevron-right"
-          />
+        <v-col cols="12">
+          <v-row justify="center">
+            <v-col cols="12" sm="6" class="text-center">
+              <LinkButton
+                link="/item/timeline?page=1"
+                text="もっと見る"
+                icon="chevron-right"
+              />
+            </v-col>
+          </v-row>
         </v-col>
       </template>
     </template>

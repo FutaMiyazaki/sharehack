@@ -7,7 +7,7 @@
           <v-list>
             <v-list-item>
               <v-list-item-avatar class="mx-auto">
-                <v-icon v-if="!user.avatar_url" large color="primary">
+                <v-icon v-if="!user.picture.url" large color="primary">
                   mdi-account-circle
                 </v-icon>
                 <v-img
@@ -15,7 +15,7 @@
                   alt="ユーザーのプロフィール画像"
                   max-height="auto"
                   max-width="100%"
-                  :src="user.avatar_url"
+                  :src="user.picture.url"
                 />
               </v-list-item-avatar>
             </v-list-item>
@@ -218,7 +218,9 @@ export default {
       loadShow: true,
       selectedItem: 0,
       text: '',
-      user: {},
+      user: {
+        picture: {}
+      },
       items: [],
       likes: [],
       followings: [],

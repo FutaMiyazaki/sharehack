@@ -19,7 +19,7 @@
           <v-col cols="12" sm="4" class="pb-0">
             <FormLabel
               label-title="画像をアップロード"
-              label-text="画像形式：JPEG/PNG"
+              label-text="画像形式：JPG/JPEG/PNG"
               label-sub-text="容量：5MB以内"
             />
           </v-col>
@@ -235,7 +235,7 @@ export default {
         }
       }
       data.append('item[name]', this.name)
-      data.append('item[image]', this.image)
+      data.append('item[picture]', this.image)
       data.append('item[description]', this.description)
       data.append('item[link]', this.link)
       data.append('item[tags]', this.tags)

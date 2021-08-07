@@ -9,9 +9,7 @@
         <UserInformation
           v-for="follower in followers"
           :key="follower.id"
-          :user-id="follower.id"
-          :user-avatar-url="follower.avatar_url"
-          :user-name="follower.name"
+          :user="follower"
         />
       </v-list>
     </v-col>

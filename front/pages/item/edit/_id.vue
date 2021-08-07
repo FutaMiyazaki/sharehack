@@ -176,25 +176,26 @@
         </v-card-text>
         <v-card-actions class="justify-center pb-5">
           <template v-if="currentUser && currentUser.email != guestUserEmail">
-            <v-btn
-              rounded
-              depressed
-              class="font-weight-bold"
-              width="100px"
-              @click="dialog = false"
-            >
-              キャンセル
-            </v-btn>
-            <v-btn
-              v-if="!loadShow"
-              rounded
-              color="red"
-              class="white--text font-weight-bold"
-              width="100px"
-              @click="deleteItem"
-            >
-              削除する
-            </v-btn>
+            <template v-if="!loadShow">
+              <v-btn
+                rounded
+                depressed
+                class="font-weight-bold"
+                width="100px"
+                @click="dialog = false"
+              >
+                キャンセル
+              </v-btn>
+              <v-btn
+                rounded
+                color="red"
+                class="white--text font-weight-bold"
+                width="100px"
+                @click="deleteItem"
+              >
+                削除する
+              </v-btn>
+            </template>
             <Loading v-show="loadShow" />
           </template>
           <template v-else>
@@ -328,7 +329,7 @@ export default {
       data.append('item[user_id]', this.currentUser.id)
       data.append('item[uid]', localStorage.getItem('uid'))
       if (this.item.image) {
-        data.append('item[image]', this.item.image)
+        data.append('item[picture]', this.item.image)
       }
       await this.$axios
         .patch(`api/v1/items/${this.$route.params.id}`, data, config)

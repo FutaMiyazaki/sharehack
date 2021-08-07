@@ -4,6 +4,8 @@ ARG DATABASE_PASSWORD
 ARG DATABASE_URL
 ARG WORKDIR
 ARG CONTAINER_PORT
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
 
 ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev nodejs tzdata mysql-dev mysql-client yarn" \
   DEV_PACKAGES="build-base curl-dev" \
@@ -11,7 +13,9 @@ ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev nodejs tzdata 
   LANG=C.UTF-8 \
   TZ=Asia/Tokyo \
   DATABASE_PASSWORD=${DATABASE_PASSWORD} \
-  DATABASE_URL=${DATABASE_URL}
+  DATABASE_URL=${DATABASE_URL} \
+  AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
+  AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 
 WORKDIR ${HOME}
 

@@ -3,7 +3,7 @@
     <template v-if="!isLoggedIn">
       <PageHeader text="ログイン" />
       <v-row justify="center" class="mt-5">
-        <v-col cols="12" md="5">
+        <v-col cols="12" md="6" lg="5" xl="4">
           <v-card flat class="mx-auto">
             <v-card-text>
               <validation-observer v-slot="{ invalid }">

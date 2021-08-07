@@ -4,11 +4,7 @@
     <Loading v-show="loadShow" />
     <v-row justify="center">
       <v-col cols="12" md="4">
-        <UserInformation
-          :user-id="user.id"
-          :user-avatar-url="user.avatar_url"
-          :user-name="user.name"
-        />
+        <UserInformation :user="user" />
         <div style="position: sticky; top: 70px">
           <v-card flat class="mb-2 rounded-lg" color="secondary">
             <v-card-text class="text-caption black--text">
@@ -104,7 +100,9 @@ export default {
       loadShow: true,
       afterSearch: false,
       topic: {},
-      user: {},
+      user: {
+        picture: {}
+      },
       items: []
     }
   },

@@ -2,12 +2,10 @@ class Api::V1::ItemsController < ApplicationController
   def index
     if params[:page]
       items = Item.all.page(params[:page]).per(12)
-      render json: items.as_json(include: [{user: {only: [:id, :name],
-                                                   methods: :avatar_url}},
+      render json: items.as_json(include: [{user: {only: [:id, :name, :picture]}},
                                            {tags: {only: [:id, :name]}},
                                            {item_likes: {only: :id}},
-                                           {item_comments: {only: :id}}],
-                                 methods: :image_url)
+                                           {item_comments: {only: :id}}])
     else
       items = Item.all
       render json: items.as_json(only: :id)
@@ -17,14 +15,11 @@ class Api::V1::ItemsController < ApplicationController
   def show
     item = Item.find(params[:id])
     render json: item.as_json(include: [{user: {include: {followers: {only: [:id, :name]}},
-                                                only: [:id, :name],
-                                                methods: :avatar_url}},
+                                                only: [:id, :name, :picture]}},
                                         {tags: {only: [:id, :name]}},
                                         {topic: {only: [:id, :title, :description]}},
                                         {item_likes: {except: [:created_at, :updated_at]}},
-                                        item_comments: {include: {user: {only: [:id, :name],
-                                                                         methods: :avatar_url}}}],
-                              methods: :image_url)
+                                        {item_comments: {include: {user: {only: [:id, :name, :picture]}}}}])
   end
 
   def create
@@ -64,12 +59,10 @@ class Api::V1::ItemsController < ApplicationController
 
   def top
     items = Item.all.limit(8)
-    render json: items.as_json(include: [{user: {only: [:id, :name],
-                                                 methods: :avatar_url}},
+    render json: items.as_json(include: [{user: {only: [:id, :name, :picture]}},
                                          {tags: {only: [:id, :name]}},
                                          {item_likes: {only: :id}},
-                                         {item_comments: {only: :id}}],
-                               methods: :image_url)
+                                         {item_comments: {only: :id}}])
   end
 
   def timeline
@@ -88,12 +81,10 @@ class Api::V1::ItemsController < ApplicationController
 
     if params[:page]
       @items = Kaminari.paginate_array(items).page(params[:page]).per(12)
-      render json: @items.as_json(include: [{user: {only: [:id, :name],
-                                                    methods: :avatar_url}},
+      render json: @items.as_json(include: [{user: {only: [:id, :name, :picture]}},
                                             {tags: {only: [:id, :name]}},
                                             {item_likes: {only: :id}},
-                                            {item_comments: {only: :id}}],
-                                  methods: :image_url)
+                                            {item_comments: {only: :id}}])
     else
       render json: items.as_json(only: :id)
     end
@@ -102,11 +93,10 @@ class Api::V1::ItemsController < ApplicationController
   def search
     if params[:keyword] && params[:page]
       items = Item.search(params[:keyword]).page(params[:page]).per(12)
-      render json: items.as_json(include: [{user: {only: [:id, :name]}},
+      render json: items.as_json(include: [{user: {only: [:id, :name, :picture]}},
                                            {tags: {only: [:id, :name]}},
                                            {item_likes: {only: :id}},
-                                           {item_comments: {only: :id}}],
-                                 methods: :image_url)
+                                           {item_comments: {only: :id}}])
     elsif params[:keyword] && !params[:page]
       items = Item.search(params[:keyword])
       render json: items.as_json(only: :id)
@@ -117,11 +107,10 @@ class Api::V1::ItemsController < ApplicationController
     if params[:keyword] && params[:page]
       items = Item.search(params[:keyword]).includes(:item_likes).sort {|a,b| b.item_likes.size <=> a.item_likes.size}
       @items = Kaminari.paginate_array(items).page(params[:page]).per(12)
-      render json: @items.as_json(include: [{user: {only: [:id, :name]}},
+      render json: @items.as_json(include: [{user: {only: [:id, :name, :picture]}},
                                            {tags: {only: [:id, :name]}},
                                            {item_likes: {only: :id}},
-                                           {item_comments: {only: :id}}],
-                                 methods: :image_url)
+                                           {item_comments: {only: :id}}])
     end
   end
 
@@ -129,18 +118,16 @@ class Api::V1::ItemsController < ApplicationController
     if params[:page]
       items = Item.includes(:item_likes).sort {|a,b| b.item_likes.size <=> a.item_likes.size}
       @items = Kaminari.paginate_array(items).page(params[:page]).per(12)
-      render json: @items.as_json(include: [{user: {only: [:id, :name],
-                                                    methods: :avatar_url}},
+      render json: @items.as_json(include: [{user: {only: [:id, :name, :picture]}},
                                             {tags: {only: [:id, :name]}},
                                             {item_likes: {only: :id}},
-                                            {item_comments: {only: :id}}],
-                                  methods: :image_url)
+                                            {item_comments: {only: :id}}])
     end
   end
 
   private
     def item_params
-      params.require(:item).permit(:name, :description, :link, :price, :user_id, :image, :uid, :topic_id)
+      params.require(:item).permit(:name, :description, :link, :price, :user_id, :picture, :uid, :topic_id)
     end
 
     def item_tags_params

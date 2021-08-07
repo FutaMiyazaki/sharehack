@@ -4,13 +4,13 @@
       <v-card-actions class="pa-0">
         <v-list-item dense nuxt :to="'/users/' + item.user.id" class="px-2">
           <v-list-item-avatar>
-            <v-icon v-if="!item.user.avatar_url" large color="primary">
+            <v-icon v-if="!item.user.picture.url" large color="primary">
               mdi-account-circle
             </v-icon>
             <v-img
               v-else
               alt="ユーザーのプロフィール画像"
-              :src="item.user.avatar_url"
+              :src="item.user.picture.url"
             />
           </v-list-item-avatar>
           <v-list-item-content>
@@ -19,7 +19,7 @@
         </v-list-item>
       </v-card-actions>
       <nuxt-link :to="'/item/' + item.id" class="text-decoration-none">
-        <v-img aspect-ratio="1" :src="item.image_url" />
+        <v-img aspect-ratio="1" :src="item.picture.url" />
         <v-card-title class="pt-1 pb-0 text-subtitle-1 primary--text">
           {{ item.name }}
         </v-card-title>
@@ -67,7 +67,7 @@ export default {
       default: () => ({
         id: '',
         name: '',
-        image_url: '',
+        picture: {},
         user: {},
         item_likes: {},
         item_comments: {},

@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   include Rails.application.routes.url_helpers
 
+  mount_uploader :picture, PictureUploader
+
   has_one_attached :avatar
   has_many :items, dependent: :destroy
   has_many :item_likes, dependent: :destroy

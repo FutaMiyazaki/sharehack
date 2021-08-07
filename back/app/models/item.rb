@@ -1,6 +1,8 @@
 class Item < ApplicationRecord
   include Rails.application.routes.url_helpers
 
+  mount_uploader :picture, PictureUploader
+
   START_HTTPS_LINK = /\Ahttps:\/\/[^\n]+\Z/
   belongs_to :user
   belongs_to :topic, optional: true
