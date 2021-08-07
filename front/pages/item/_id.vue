@@ -317,7 +317,6 @@ export default {
     this.$axios
       .get(`api/v1/items/${this.$route.params.id}`)
       .then((response) => {
-        console.log(response)
         this.item = response.data
         this.tags = this.item.tags
         this.likeList = this.item.item_likes
