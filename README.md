@@ -12,8 +12,6 @@
 
 ## レスポンシブ対応
 
-スマホでの利用も想定し、
-
 ![スクリーンショット 2021-08-08 20 02 43](https://user-images.githubusercontent.com/74496398/128629822-d8b28ddf-b48e-491d-b855-fa2048d1eda1.png)
 
 <br>
