@@ -4,7 +4,7 @@
       <PageHeader text="新規登録" />
       <v-row justify="center" class="mt-5">
         <v-col cols="12" md="5">
-          <v-card flat class="mx-auto">
+          <v-card flat color="#f8f9fa" class="mx-auto">
             <v-card-text>
               <validation-observer v-slot="{ invalid }">
                 <v-form ref="form" lazy-validation>

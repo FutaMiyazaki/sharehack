@@ -11,7 +11,7 @@
           outlined
           full-width
           hide-details
-          label="キーワード検索"
+          label="アイテムを検索"
           background-color="white"
           class="hidden-sm-and-down"
         >

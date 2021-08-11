@@ -1,6 +1,6 @@
 <template>
   <v-container class="pt-0">
-    <PageHeader :text="pageHeaderText" icon="mdi-clock-outline" />
+    <PageHeader text="タイムライン" />
     <Loading v-show="loadShow" />
     <template v-if="!loadShow">
       <template v-if="items.length">
@@ -28,7 +28,7 @@
       <template v-if="!items.length && afterSearch">
         <NoContentDisplay
           icon="mdi-emoticon-sad-outline"
-          text="表示する投稿がありません"
+          text="フォローしているユーザーがいません"
         />
       </template>
     </template>
@@ -51,7 +51,6 @@ export default {
   },
   data() {
     return {
-      pageHeaderText: 'タイムライン',
       loadShow: true,
       afterSearch: false,
       items: [],

@@ -103,16 +103,11 @@
       right
       fixed
       temporary
-      width="100%"
+      width="80%"
       class="hidden-md-and-up drawer-background-color"
     >
       <v-list nav class="pa-0 text-center">
         <v-toolbar flat class="drawer-background-color">
-          <v-toolbar-title>
-            <nuxt-link to="/" class="black--text font-weight-bold">
-              Sharehack
-            </nuxt-link>
-          </v-toolbar-title>
           <v-icon class="ml-auto black--text" @click="drawer = false">
             mdi-close
           </v-icon>
@@ -128,7 +123,7 @@
                 rounded
                 outlined
                 hide-details
-                label="キーワード検索"
+                label="アイテムを検索"
                 background-color="secondary"
               >
                 <template v-slot:append>
@@ -157,7 +152,7 @@
               <v-btn
                 block
                 outlined
-                color="primary"
+                color="black"
                 class="font-weight-bold text-caption"
               >
                 ログイン
@@ -171,7 +166,7 @@
             >
               <v-btn
                 block
-                color="primary"
+                color="black"
                 class="font-weight-bold text-caption white--text"
               >
                 新規登録
@@ -180,7 +175,7 @@
             <v-divider class="my-3" color="white" />
             <NavigationItem link="/" text="トップページ" />
             <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
-            <NavigationItem link="/tag/search" text="タグから探す" />
+            <NavigationItem link="/tag/search" text="タグを探す" />
             <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
           </template>
           <template v-if="isLoggedIn">
@@ -193,7 +188,7 @@
               <v-btn
                 block
                 outlined
-                color="primary"
+                color="black"
                 class="font-weight-bold text-caption"
               >
                 アイテムを投稿する
@@ -207,9 +202,8 @@
             >
               <v-btn
                 block
-                outlined
                 color="black"
-                class="font-weight-bold text-caption"
+                class="font-weight-bold text-caption white--text"
               >
                 トピックを投稿する
               </v-btn>
@@ -220,7 +214,7 @@
             />
             <NavigationItem link="/item/timeline?page=1" text="タイムライン" />
             <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
-            <NavigationItem link="/tag/search" text="タグから探す" />
+            <NavigationItem link="/tag/search" text="タグを探す" />
             <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
             <NavigationItem link="/users/setting" text="設定" />
             <v-list-item nuxt class="text-center mb-0 px-0">
