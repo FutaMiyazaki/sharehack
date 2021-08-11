@@ -19,7 +19,7 @@ class Api::V1::TagsController < ApplicationController
   end
 
   def top
-    tags = Tag.all.limit(12)
+    tags = Tag.all.limit(10)
     render json: tags.as_json(only: [:id, :name])
   end
 
