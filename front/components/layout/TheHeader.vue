@@ -123,7 +123,7 @@
                 rounded
                 outlined
                 hide-details
-                label="キーワード検索"
+                label="アイテムを検索"
                 background-color="secondary"
               >
                 <template v-slot:append>
@@ -188,7 +188,7 @@
               <v-btn
                 block
                 outlined
-                color="primary"
+                color="black"
                 class="font-weight-bold text-caption"
               >
                 アイテムを投稿する
@@ -202,9 +202,8 @@
             >
               <v-btn
                 block
-                outlined
                 color="black"
-                class="font-weight-bold text-caption"
+                class="font-weight-bold text-caption white--text"
               >
                 トピックを投稿する
               </v-btn>
@@ -215,7 +214,7 @@
             />
             <NavigationItem link="/item/timeline?page=1" text="タイムライン" />
             <NavigationItem link="/item/ranking?page=1" text="人気の投稿" />
-            <NavigationItem link="/tag/search" text="タグから探す" />
+            <NavigationItem link="/tag/search" text="タグを探す" />
             <NavigationItem link="/topic/list?page=1" text="トピックを探す" />
             <NavigationItem link="/users/setting" text="設定" />
             <v-list-item nuxt class="text-center mb-0 px-0">
