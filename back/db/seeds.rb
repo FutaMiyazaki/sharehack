@@ -1,13 +1,13 @@
 User.create!(
-  name: ENV['GUEST_NAME'],
-  email: ENV['GUEST_EMAIL'],
-  password: ENV['GUEST_PASSWORD']
+  name: 'ゲストユーザー',
+  email: 'guest@sharehack.com',
+  password: 'pwkkf3ST9uWW5XFe'
 )
 
 User.create!(
-  name: ENV['ADMIN_NAME'],
-  email: ENV['ADMIN_EMAIL'],
-  password: ENV['ADMIN_PASSWORD'],
+  name: '管理者',
+  email: 'sharehack-admin@sharehack.com',
+  password: 'qavd7gnvdvx9',
   admin: true
 )
 
