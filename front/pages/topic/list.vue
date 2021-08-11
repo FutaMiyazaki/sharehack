@@ -59,13 +59,13 @@
                 nuxt
               >
                 <v-list-item-avatar>
-                  <v-icon v-if="!topic.user.avatar_url" large color="primary">
+                  <v-icon v-if="!topic.user.picture.url" large color="primary">
                     mdi-account-circle
                   </v-icon>
                   <v-img
                     v-else
                     alt="ユーザーのプロフィール画像"
-                    :src="topic.user.avatar_url"
+                    :src="topic.user.picture.url"
                   />
                 </v-list-item-avatar>
                 <v-list-item-content>
