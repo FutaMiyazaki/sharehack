@@ -19,7 +19,7 @@ RSpec.describe 'Api::V1::Items', type: :request do
         expect(response).to have_http_status 200
         expect(json['item']).to eq(item.id)
       end
-      # end.to change{ Item.count }.by(1)
+      end.to change{ Item.count }.by(1)
     end
   end
 
@@ -60,18 +60,18 @@ RSpec.describe 'Api::V1::Items', type: :request do
     end
   end
 
-  # describe 'PATCH/PUT /api/v1/items/:id' do
-  #   let(:item) { create(:item) }
-  #   let(:params) do {
-  #     description: 'QOLが上がること間違いなしです！',
-  #     price: 150000
-  #   }
-  #   end
-  #   it 'アイテムの編集ができる' do
-  #     patch api_v1_item_path(item.id), params: { item: item_params }
-  #     expect(response).to have_http_status 200
-  #   end
-  # end
+  describe 'PATCH/PUT /api/v1/items/:id' do
+    let(:item) { create(:item) }
+    let(:params) do {
+      description: 'QOLが上がること間違いなしです！',
+      price: 150000
+    }
+    end
+    it 'アイテムの編集ができる' do
+      patch api_v1_item_path(item.id), params: { item: item_params }
+      expect(response).to have_http_status 200
+    end
+  end
 
   describe 'DELETE /api/v1/item' do
     let!(:item) { create(:item) }
