@@ -19,7 +19,7 @@
             "
           >
             <v-col cols="12" md="5" align="right">
-              <nuxt-link
+              <NuxtLink
                 :to="'/item/edit/' + item.id"
                 class="text-decoration-none"
               >
@@ -27,7 +27,7 @@
                   mdi-pencil-outline
                 </v-icon>
                 編集する
-              </nuxt-link>
+              </NuxtLink>
             </v-col>
           </template>
         </v-row>
@@ -92,7 +92,11 @@
           </v-col>
         </v-row>
         <div class="my-5 pa-3 rounded-lg secondary">
-          <p style="white-space:pre-wrap;" v-text="item.description"></p>
+          <p
+            class="mb-0"
+            style="white-space:pre-wrap;"
+            v-text="item.description"
+          ></p>
         </div>
         <template v-if="item.topic">
           <TopicCard :topic="item.topic" />
