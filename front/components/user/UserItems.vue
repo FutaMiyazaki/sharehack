@@ -40,15 +40,11 @@
                   <v-list-item-content class="text-caption text-no-wrap">
                     {{ $moment(item.created_at).format('YYYY/MM/DD HH:mm') }}
                   </v-list-item-content>
-                  <v-icon color="red darken-3" class="mr-1">
-                    mdi-heart
-                  </v-icon>
+                  <v-icon color="red darken-3" class="mr-1"> mdi-heart </v-icon>
                   <span class="subheading mr-2">{{
                     item.item_likes.length
                   }}</span>
-                  <v-icon class="mr-1">
-                    mdi-comment-outline
-                  </v-icon>
+                  <v-icon class="mr-1"> mdi-comment-outline </v-icon>
                   <span class="subheading">{{
                     item.item_comments.length
                   }}</span>
@@ -82,7 +78,7 @@ import NoContentDisplay from '~/components/item/NoContentDisplay.vue'
 export default {
   components: {
     Loading,
-    NoContentDisplay
+    NoContentDisplay,
   },
   data() {
     return {
@@ -90,7 +86,7 @@ export default {
       showPages: 1,
       totalPages: 0,
       totalCount: '',
-      loadShow: true
+      loadShow: true,
     }
   },
   created() {
@@ -107,8 +103,8 @@ export default {
     this.$axios
       .get(`api/v1/users/${this.$route.params.id}/show_items`, {
         params: {
-          page: 1
-        }
+          page: 1,
+        },
       })
       .then((response) => {
         this.loadShow = false
@@ -123,18 +119,18 @@ export default {
     async pageChange(number) {
       this.$router.push({
         path: `/users/${this.$route.params.id}`,
-        query: { page: number }
+        query: { page: number },
       })
       window.scrollTo({
         top: 0,
-        behavior: 'instant'
+        behavior: 'instant',
       })
       this.loadShow = true
       await this.$axios
         .get('/api/v1/items', {
           params: {
-            page: number
-          }
+            page: number,
+          },
         })
         .then((response) => {
           this.loadShow = false
@@ -144,7 +140,13 @@ export default {
           this.loadShow = false
           return error
         })
-    }
-  }
+    },
+    toTagItems(tagId) {
+      this.$router.push({
+        path: `/tag/${tagId}`,
+        query: { keyword: this.keyword, page: 1 },
+      })
+    },
+  },
 }
 </script>
