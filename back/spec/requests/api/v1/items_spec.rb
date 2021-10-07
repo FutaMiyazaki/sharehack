@@ -34,7 +34,7 @@ RSpec.describe 'Api::V1::Items', type: :request do
         expect(response).to have_http_status 200
       end
 
-      it 'itemが6件取得できていること' do
+      it 'アイテムが6件取得できていること' do
         get api_v1_items_path
         expect(json.length).to eq(6)
       end
@@ -50,7 +50,7 @@ RSpec.describe 'Api::V1::Items', type: :request do
         expect(response).to have_http_status 200
       end
 
-      it 'itemが取得できていること' do
+      it 'アイテムが取得できていること' do
         get api_v1_items_path(item.id)
         expect do
           expect(json.length).to eq(1)
